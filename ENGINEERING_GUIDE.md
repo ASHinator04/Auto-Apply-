@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide defines how software will be built in the Job Agent repository. During Phase 0A, it governs documentation, structure, and future implementation standards only.
+This guide defines how software will be built in the Job Agent repository. Phase 0B.1 selects the intended engineering stack, but implementation still requires explicit approval for Phase 0B.2.
 
 ## Development Workflow
 
@@ -29,6 +29,8 @@ Use Git for every phase. Each phase should end with at least one clear commit an
 
 Use descriptive, domain-oriented names. Prefer kebab-case for directories such as `job-search` and `application-tracking`. Use singular names for core concepts where practical, for example `resume`, `job`, `application`, and `answer`.
 
+TypeScript files should use descriptive names such as `job-card.tsx`, `provider-contract.ts`, or `application-status.ts`. Python modules should use snake_case such as `config_loader.py` or `health_check.py`. Types, classes, and interfaces should use PascalCase. Functions and variables should use camelCase in TypeScript and snake_case in Python.
+
 ## Folder Conventions
 
 Top-level directories represent ownership boundaries. Place shared domain logic in `packages/`, applications in `apps/`, background or integration processes in `services/`, contracts in `contracts/`, experiments in `experiments/`, and cross-cutting tests in `tests/`. Each major directory must include an `AGENTS.md` before substantive files are added.
@@ -36,6 +38,8 @@ Top-level directories represent ownership boundaries. Place shared domain logic 
 ## Dependency Rules
 
 Choose low-cost, open-source, actively maintained dependencies. Avoid adding dependencies before documenting why they are needed. Keep external platform integrations behind adapters so providers can be replaced.
+
+Allowed dependency direction is documented in `docs/PHASE_0B_1_TECHNICAL_DESIGN.md`. Circular dependencies are forbidden. Contracts must not depend on implementation modules.
 
 ## Layering Rules
 
@@ -49,9 +53,38 @@ Future code should make failure states explicit, preserve enough context for deb
 
 Never commit secrets. Use documented environment variables and local templates. Prefer configuration that can run locally at low cost.
 
+Use `.env.example` for documented variables. Use `.env.local` or `.env` for local secrets and keep them untracked. Backend configuration should be validated on startup with Pydantic Settings once the backend exists.
+
 ## Testing Strategy
 
-No test framework is selected yet. Future phases must define unit, integration, and end-to-end test responsibilities before implementation. Tests should cover domain rules, adapter contracts, and high-risk workflows.
+Use Vitest for TypeScript tests and pytest for Python tests once Phase 0B.2 configures tooling. Use `*.test.ts` for TypeScript and `test_*.py` for Python. Tests should cover domain rules, adapter contracts, configuration validation, and high-risk workflows.
+
+## Coding Limits
+
+Prefer files under 300 lines and functions under 50 lines. Larger units require a clear reason and should usually be split by responsibility. Avoid generic utility modules unless at least two real call sites need the shared behavior.
+
+## Imports and Interfaces
+
+Prefer explicit imports. Do not import across ownership boundaries when a contract should exist instead. Interfaces should describe stable boundaries, not implementation details.
+
+## Dependency Injection
+
+Inject infrastructure dependencies at service boundaries. Domain code should receive inputs and contracts, not construct clients for databases, providers, LLMs, or browsers.
+
+## Expected Development Commands
+
+These commands are design targets for Phase 0B.2 and must not be assumed available until tooling is implemented:
+
+```powershell
+pnpm install
+pnpm dev
+pnpm test
+pnpm lint
+pnpm format
+uv sync
+uv run pytest
+docker compose up --build
+```
 
 ## Documentation Expectations
 

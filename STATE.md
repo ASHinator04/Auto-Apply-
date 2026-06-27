@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-0A: Repository Constitution and Engineering Foundation.
+0B.1: Technical Architecture and Infrastructure Design.
 
 ## Completed
 
@@ -11,14 +11,15 @@
 - Root and child `AGENTS.md` hierarchy.
 - Planned `specs/`, `contracts/`, `experiments/`, and `playbooks/` structure.
 - Initial ADR log and roadmap.
+- Phase 0B.1 recommended stack and infrastructure design.
 
 ## Current Stack
 
-None selected. No runtime, package manager, test framework, database, UI framework, or automation framework is configured.
+Recommended but not implemented: Next.js, TypeScript, Tailwind CSS, shadcn/ui, FastAPI, uv, Ruff, Pyright, SQLite, Playwright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, Docker Compose, Markdown documentation, and GitHub Actions.
 
 ## Current Branch
 
-`main` is intended as the default branch after Git initialization.
+`main`.
 
 ## Known Decisions
 
@@ -30,11 +31,14 @@ None selected. No runtime, package manager, test framework, database, UI framewo
 - Hierarchical `AGENTS.md` documentation.
 - Incremental phased development.
 - Git commit and push required for every phase.
+- `PROJECT_PLAN.md` is the governing phase plan.
+- SQLite is the initial database recommendation.
+- Contracts are the cross-layer dependency boundary.
 
 ## Next Phase
 
-0B: Technical Design and Stack Selection.
+0B.2: Engineering Infrastructure Implementation.
 
 ## Blocked By
 
-Remote Git repository configuration is required before pushing commits.
+User approval is required before Phase 0B.2 begins. Remote Git repository configuration is required before pushing commits.

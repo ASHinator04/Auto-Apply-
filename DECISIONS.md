@@ -65,3 +65,35 @@ Status: Accepted
 Decision: Every phase must end with scoped Git commits and a push to the configured remote.
 
 Rationale: Phase history should be durable, reviewable, and recoverable before subsequent work begins.
+
+## ADR-0009: Phase 0B.1 Recommended Engineering Stack
+
+Status: Accepted for Phase 0B.1 design
+
+Decision: Use Next.js with TypeScript, Tailwind CSS, shadcn/ui, FastAPI, uv, Ruff, Pyright, SQLite, Playwright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, Docker Compose, Markdown documentation, and GitHub Actions.
+
+Rationale: This stack matches the approved project plan, keeps local development low-cost, uses common tools, and remains understandable for junior engineers.
+
+## ADR-0010: SQLite as Initial Database
+
+Status: Accepted for Phase 0B.1 design
+
+Decision: Use SQLite as the initial MVP database, accessed through a persistence boundary.
+
+Rationale: SQLite is free, local-first, simple to operate, and adequate for early single-user MVP workflows. A persistence boundary preserves a future migration path to Postgres.
+
+## ADR-0011: pnpm and uv for Package Management
+
+Status: Accepted for Phase 0B.1 design
+
+Decision: Use pnpm for JavaScript and TypeScript workspace management, and uv for Python service dependency management.
+
+Rationale: pnpm provides fast monorepo installs and deterministic lockfiles. uv provides fast, modern Python dependency management without heavy project setup.
+
+## ADR-0012: Contracts as Cross-Layer Dependency Boundary
+
+Status: Accepted for Phase 0B.1 design
+
+Decision: Applications, services, packages, providers, automation, and persistence must communicate through documented contracts where cross-layer shapes are shared.
+
+Rationale: Stable contracts prevent frontend, backend, search, automation, and persistence modules from depending directly on each other.

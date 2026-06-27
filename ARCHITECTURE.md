@@ -32,3 +32,15 @@ The domain layer owns business rules. The UI owns presentation. Adapters own ext
 ## Future Extensibility
 
 The architecture should make it possible to add job platforms, resume formats, answer sources, automation strategies, and storage backends without rewriting the core workflow. New capabilities should enter through documented module boundaries and adapter contracts.
+
+## Phase 0B.1 Infrastructure Architecture
+
+The implementation stack is designed around a low-cost monorepo:
+
+- `apps/web`: Next.js with TypeScript, Tailwind CSS, and shadcn/ui.
+- `services/api`: FastAPI backend managed with uv.
+- `contracts/`: shared API, domain, event, and adapter contracts.
+- `packages/`: domain, provider, automation, persistence, and shared libraries.
+- `tests/`: contract, integration, and end-to-end tests.
+
+The initial database recommendation is SQLite behind a persistence boundary. Browser automation is reserved for a future Playwright-based automation layer and must not enter domain logic. See `docs/PHASE_0B_1_TECHNICAL_DESIGN.md` for the full dependency graph, infrastructure strategy, and risk assessment.

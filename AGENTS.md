@@ -4,7 +4,7 @@
 
 Job Agent is an AI-powered job application engine. The future product will ingest resumes, discover software engineering jobs, normalize listings, support bulk approval, automate applications, reuse application answers, and track application status.
 
-This repository is currently in Phase 0A: repository constitution and engineering foundation. Do not implement product functionality in this phase.
+This repository is currently in Phase 0B.1: technical architecture and infrastructure design. Do not implement product functionality, scaffold application code, install packages, create APIs, create UI, create database models, or create browser automation in this phase.
 
 ## Engineering Philosophy
 
@@ -35,7 +35,7 @@ Optimize for maintainability, simplicity, readability, modularity, testability, 
 
 ## Coding Standards
 
-No runtime stack is selected yet. Do not add one without documenting the decision in `DECISIONS.md` and updating `ENGINEERING_GUIDE.md`. Future code should use descriptive domain names, small modules, explicit dependencies, and tests close to the behavior they protect.
+The recommended stack is documented in `docs/PHASE_0B_1_TECHNICAL_DESIGN.md` and `DECISIONS.md`. Do not implement it until Phase 0B.2 is approved. Future code should use descriptive domain names, small modules, explicit dependencies, and tests close to the behavior they protect.
 
 ## Architectural Principles
 
@@ -43,7 +43,7 @@ Use modular architecture, adapter-based external integrations, local-first stora
 
 ## AI Agent Rules
 
-Before changing files, read this file plus the nearest child `AGENTS.md`. Follow the lifecycle: understand requirements, review context, design, plan, implement incrementally, test, verify, update docs, commit the completed phase with a clear message, push to the configured remote, summarize, then stop. Never create product functionality during Phase 0A.
+Before changing files, read this file plus the nearest child `AGENTS.md`. Follow the lifecycle: understand requirements, review context, design, plan, implement incrementally, test, verify, update docs, commit the completed phase with a clear message, push to the configured remote, summarize, then stop. Never advance into the next phase without explicit user approval.
 
 ## Documentation Map
 

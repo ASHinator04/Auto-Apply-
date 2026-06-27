@@ -1,61 +1,52 @@
 # Roadmap
 
-## Phase 0A: Repository Constitution and Engineering Foundation
+`PROJECT_PLAN.md` is the governing phase plan. This file is a quick navigation summary and must not override the project plan.
 
-Goal: establish documentation, repository structure, engineering standards, and AI-agent context.
+## Phase 0A: Repository Constitution
 
-Deliverables: root documents, placeholder directory hierarchy, child `AGENTS.md` files, ADR log, and backlog.
+Goal: create the engineering foundation.
 
-Exit criteria: contributors can understand the planned product, architecture, workflow, and next work without reading implementation code; Phase 0A changes are committed and pushed.
+Deliverables: repository structure, documentation hierarchy, AGENTS hierarchy, engineering guide, architecture, PRD, roadmap, and ADR log.
 
-Dependencies: none.
+Exit criteria: repository can be understood without reading implementation code.
 
-## Phase 0B: Technical Design and Stack Selection
+Status: complete.
 
-Goal: select runtime, language, application framework, test strategy, and storage approach.
+## Phase 0B.1: Technical Architecture and Infrastructure Design
 
-Deliverables: stack ADRs, updated engineering guide, initial project configuration plan, and risk assessment.
+Goal: select and document the technical architecture, infrastructure strategy, dependency graph, risks, and Phase 0B.2 implementation plan.
 
-Exit criteria: implementation can begin with documented commands and tooling; Phase 0B changes are committed and pushed.
+Deliverables: technical design document, stack ADRs, updated engineering guide, architecture updates, risk assessment, and state update.
 
-Dependencies: Phase 0A.
+Exit criteria: implementation can begin with minimal ambiguity after user approval; Phase 0B.1 changes are committed and pushed when a remote is configured.
 
-## Phase 1: Domain Model and Local Data Foundation
+Status: current.
 
-Goal: define core domain concepts and local persistence boundaries.
+## Phase 0B.2: Engineering Infrastructure Implementation
 
-Deliverables: domain types, storage abstractions, tests, and documentation updates.
+Goal: create the development environment approved by Phase 0B.1.
 
-Exit criteria: core concepts can be tested without UI or external providers; Phase 1 changes are committed and pushed.
+Deliverables: monorepo configuration, frontend/backend shells allowed by `PROJECT_PLAN.md`, tooling, Docker Compose, CI skeleton, and documentation updates.
 
-Dependencies: Phase 0B.
+Exit criteria: frontend launches, backend launches, Docker works, tests pass, lint passes, documentation is updated, and changes are committed and pushed.
 
-## Phase 2: Resume and Knowledge Base Foundation
+## Phase 0C: Shared Contracts
 
-Goal: support resume/profile ingestion and reusable answer storage.
+Goal: define the shared language of the system.
 
-Deliverables: ingestion workflow, answer model, tests, and verification docs.
+Deliverables: domain models, shared interfaces, DTOs, enums, and errors without implementation behavior.
 
-Exit criteria: candidate context can be stored and retrieved reliably; Phase 2 changes are committed and pushed.
+Exit criteria: the system can be discussed using shared contracts.
 
-Dependencies: Phase 1.
+## Product Phases
 
-## Phase 3: Job Discovery and Normalization
-
-Goal: add provider adapters and normalized job records.
-
-Deliverables: adapter contracts, first provider integration, normalization tests, and sample workflows.
-
-Exit criteria: jobs can be discovered and compared in a consistent shape; Phase 3 changes are committed and pushed.
-
-Dependencies: Phase 1.
-
-## Phase 4: Approval, Automation, and Tracking
-
-Goal: support approval-controlled applications and lifecycle tracking.
-
-Deliverables: approval workflow, automation boundary, tracking records, tests, and safety checks.
-
-Exit criteria: approved applications can be submitted and audited within defined constraints; Phase 4 changes are committed and pushed.
-
-Dependencies: Phases 2 and 3.
+- Phase 1: Resume Management.
+- Phase 2: User Knowledge Base.
+- Phase 3: Job Search Engine.
+- Phase 4: Search Dashboard.
+- Phase 5: Approval Pipeline.
+- Phase 6: Application Engine.
+- Phase 7: Application Tracking.
+- Phase 8: Adaptive Learning.
+- Phase 9: Hardening.
+- Phase 10: MVP Release.

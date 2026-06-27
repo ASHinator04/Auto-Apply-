@@ -2,24 +2,24 @@
 
 ## Immediate
 
-- Review Phase 0A documents for completeness and consistency.
-- Configure a Git remote for pushing Phase 0A and future phase commits.
-- Decide whether to keep all planned empty directories before Phase 0B.
-- Prepare Phase 0B stack evaluation criteria.
+- Configure a Git remote for pushing phase commits.
+- Review Phase 0B.1 technical design and approve or revise open questions.
+- Confirm whether Phase 0B.2 should add `services/api` only or also preserve empty worker service folders.
+- Confirm whether future deployment should remain local-only until Phase 10.
 
 ## Next
 
-- Select application runtime, language, package manager, and test framework.
-- Define formatting, linting, and build commands.
-- Add project configuration only after stack ADRs are accepted.
-- Draft initial domain model design.
+- Implement Phase 0B.2 engineering infrastructure after approval.
+- Add monorepo configuration, tooling, Docker Compose, and CI skeleton.
+- Add documented local development commands.
+- Prepare Phase 0C shared contract design.
 
 ## Later
 
-- Implement core domain types and tests.
-- Define storage abstractions.
-- Add resume ingestion foundation.
-- Add first job provider adapter contract.
+- Define shared contracts for `Job`, `Resume`, `KnowledgeEntry`, `Application`, and `Provider`.
+- Implement resume management in Phase 1.
+- Implement knowledge base CRUD in Phase 2.
+- Implement job provider adapters in Phase 3.
 
 ## Future Ideas
 
