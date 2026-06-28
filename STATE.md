@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-0C: Shared Contracts and Core Domain Definitions.
+0D: Developer Experience and Engineering Quality.
 
 ## Completed
 
@@ -15,6 +15,8 @@
 - Phase 0B.2 monorepo, frontend shell, backend shell, shared package, tooling, Docker/CI
   configuration, and developer experience files.
 - Phase 0C canonical TypeScript contract package in `contracts/domain`.
+- Phase 0D onboarding docs, command wrappers, VS Code tasks/debug profiles, Makefile aliases, and
+  repository health documentation.
 
 ## Current Stack
 
@@ -46,9 +48,8 @@ Playwright automation.
 
 ## Next Phase
 
-0D: Developer Experience.
+Phase 1: Resume Management.
 
 ## Blocked By
 
-User approval is required before Phase 0D begins. Docker build verification requires Docker Desktop
-or an equivalent Docker daemon to be running.
+User approval is required before Phase 1 begins.

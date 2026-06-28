@@ -1,7 +1,7 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.workingDirectories": ["apps/web", "packages/shared"],
+  "eslint.workingDirectories": ["apps/web", "contracts/domain", "packages/shared"],
   "python.analysis.typeCheckingMode": "strict",
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
   "ruff.nativeServer": "on"

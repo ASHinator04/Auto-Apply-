@@ -49,6 +49,18 @@ behavior.
 
 Exit criteria: the system can be discussed using shared contracts.
 
+Status: complete.
+
+## Phase 0D: Developer Experience
+
+Goal: optimize future development.
+
+Deliverables: developer scripts, debug configuration, VS Code configuration, EditorConfig, Makefile,
+repository tooling, documentation automation, and onboarding documentation.
+
+Exit criteria: a new developer can clone, install, run, test, debug, lint, and contribute with
+documented commands.
+
 Status: current.
 
 ## Product Phases

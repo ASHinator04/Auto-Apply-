@@ -2,12 +2,13 @@
 
 ## Purpose
 
-`scripts/` will contain repository automation for development, verification, maintenance, and
+`scripts/` contains repository automation for development, verification, maintenance, and
 documentation tasks.
 
 ## Responsibilities
 
-Scripts should make repeated repository tasks consistent and easy to run locally.
+Scripts should make repeated repository tasks consistent and easy to run locally. Current scripts
+support bootstrap, verification, and cleanup.
 
 ## Constraints
 

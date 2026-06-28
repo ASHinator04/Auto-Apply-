@@ -2,8 +2,8 @@
 
 ## Purpose
 
-This guide defines how software is built in the Job Agent repository. Phase 0B.2 implements the
-approved engineering infrastructure without product functionality.
+This guide defines how software is built in the Job Agent repository. Phase 0D standardizes the
+developer workflow without adding product functionality.
 
 ## Development Workflow
 
@@ -107,9 +107,15 @@ contracts, not construct clients for databases, providers, LLMs, or browsers.
 Use these commands for local development:
 
 ```powershell
-pnpm install
-uv sync
+pnpm bootstrap
 pnpm dev
+pnpm verify
+pnpm clean
+```
+
+Use these lower-level commands when investigating a specific failure:
+
+```powershell
 pnpm test
 pnpm lint
 pnpm format
@@ -119,6 +125,9 @@ docker compose up --build
 ```
 
 Use `pnpm dev:web` or `pnpm dev:api` to run one surface at a time.
+
+`pnpm verify` is the required repository health check before committing. It runs format checks,
+linting, type checking, tests, and build.
 
 ## Documentation Expectations
 

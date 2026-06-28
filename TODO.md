@@ -2,16 +2,14 @@
 
 ## Immediate
 
-- Review Phase 0C shared contracts.
-- Run Docker verification after Docker Desktop is running.
-- Approve or revise the Phase 0D developer experience plan.
+- Review Phase 0D developer experience changes.
+- Approve or revise the Phase 1 resume management plan.
 
 ## Next
 
-- Prepare Phase 0D developer experience improvements.
+- Prepare Phase 1 resume management implementation plan.
 - Decide whether Python runtime models should be generated from or manually mirrored from
   `@job-agent/contracts`.
-- Add Docker build verification once Docker Desktop is running.
 
 ## Later
 
