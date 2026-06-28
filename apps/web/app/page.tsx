@@ -7,8 +7,8 @@ export default function Home() {
         <p className="text-sm font-medium uppercase tracking-wide text-sky-700">{APP_PHASE}</p>
         <h1 className="mt-3 text-4xl font-semibold">{APP_NAME}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-700">
-          This project is in development. Phase 0B.2 establishes the engineering infrastructure
-          only; product workflows will be added in later approved phases.
+          This project is in development. Phase 0 established the repository foundation only;
+          product workflows will be added in later approved phases.
         </p>
       </section>
     </main>

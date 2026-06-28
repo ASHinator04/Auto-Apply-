@@ -8,7 +8,8 @@ resumes, jobs, approvals, applications, and settings.
 ## Responsibilities
 
 Own presentation, routing, UI state, and user interactions. Compose domain and service interfaces
-exposed by `packages/`. During Phase 0B.2 it contains only an in-development placeholder page.
+exposed by `packages/`. As of Phase 0 completion it contains only an in-development placeholder
+page.
 
 ## Constraints
 

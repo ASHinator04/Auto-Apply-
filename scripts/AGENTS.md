@@ -7,8 +7,8 @@ documentation tasks.
 
 ## Responsibilities
 
-Scripts should make repeated repository tasks consistent and easy to run locally. Current scripts
-support bootstrap, verification, and cleanup.
+Scripts should make repeated repository tasks consistent and easy to run locally. Current package
+commands support bootstrap and verification; `scripts/clean.mjs` handles generated-file cleanup.
 
 ## Constraints
 

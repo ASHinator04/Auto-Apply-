@@ -2,7 +2,7 @@
 
 ## Immediate
 
-- Review Phase 0D developer experience changes.
+- Review the Phase 0 verification audit report.
 - Approve or revise the Phase 1 resume management plan.
 
 ## Next

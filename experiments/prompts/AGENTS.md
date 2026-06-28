@@ -2,13 +2,14 @@
 
 ## Purpose
 
-`experiments/prompts/` will contain future prompt prototypes and prompt evaluation notes.
+`experiments/prompts/` will contain future prompt experiments, prompt fixtures, and evaluation notes.
 
 ## Responsibilities
 
-Version prompt intent, expected inputs, expected outputs, and evaluation criteria.
+Document the prompt question, inputs, outputs, scoring criteria, and recommendation before any
+prompt pattern informs production behavior.
 
 ## Constraints
 
-Avoid embedding sensitive personal data in committed examples.
-
+Do not commit secrets, private user data, production credentials, or provider-specific keys. Promote
+durable prompt decisions through specs and ADRs before implementation.

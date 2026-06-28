@@ -9,7 +9,7 @@ debug profiles, improved onboarding documentation, and a repository health summa
 ## Repository Improvements
 
 - Added `pnpm bootstrap`, `pnpm verify`, `pnpm clean`, and `pnpm check`.
-- Added PowerShell scripts for bootstrap, verification, and cleanup.
+- Added package command wrappers for bootstrap, verification, and cleanup.
 - Added a `Makefile` with command aliases for contributors who prefer Make.
 - Added `scripts/README.md`.
 - Added repository health documentation.

@@ -1,6 +1,6 @@
 # Repository Health
 
-## Phase 0D Review
+## Phase 0 Review
 
 The repository was reviewed for developer experience, command consistency, documentation clarity,
 local automation, and AI readiness.
@@ -26,5 +26,5 @@ local automation, and AI readiness.
 - `prompts/` is ignored by Git and treated as local/private prompt material.
 - Generated folders such as `.venv`, `.next`, `dist`, caches, and `node_modules` are ignored.
 - Every tracked major directory has an `AGENTS.md`.
-- No product functionality exists as of Phase 0D.
-- `pnpm verify` and `docker compose build` pass as of Phase 0D.
+- No product functionality exists as of the Phase 0 audit.
+- `pnpm verify` and `docker compose build` pass as of the Phase 0 audit.

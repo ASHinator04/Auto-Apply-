@@ -2,8 +2,9 @@
 
 ## Purpose
 
-This guide defines how software is built in the Job Agent repository. Phase 0D standardizes the
-developer workflow without adding product functionality.
+This guide defines how software is built in the Job Agent repository. Phase 0 established the
+developer workflow, repository boundaries, and verification commands without adding product
+functionality.
 
 ## Development Workflow
 
@@ -78,9 +79,9 @@ backend exists.
 
 ## Testing Strategy
 
-Use Vitest for TypeScript tests and pytest for Python tests once Phase 0B.2 configures tooling. Use
-`*.test.ts` for TypeScript and `test_*.py` for Python. Tests should cover domain rules, adapter
-contracts, configuration validation, and high-risk workflows.
+Use Vitest for TypeScript tests and pytest for Python tests. Use `*.test.ts` for TypeScript and
+`test_*.py` for Python. Tests should cover domain rules, adapter contracts, configuration
+validation, and high-risk workflows.
 
 ## Coding Limits
 

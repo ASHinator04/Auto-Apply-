@@ -52,7 +52,8 @@ pnpm test
 pnpm build
 ```
 
-Docker verification remains dependent on Docker Desktop being available locally.
+Docker verification was deferred in Phase 0C because Docker Desktop was unavailable locally. It was
+later verified during Phase 0D.
 
 ## Documentation Updated
 

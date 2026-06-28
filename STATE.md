@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-0D: Developer Experience and Engineering Quality.
+Phase 0 verification audit complete. Phase 1 has not started.
 
 ## Completed
 
@@ -17,6 +17,8 @@
 - Phase 0C canonical TypeScript contract package in `contracts/domain`.
 - Phase 0D onboarding docs, command wrappers, VS Code tasks/debug profiles, Makefile aliases, and
   repository health documentation.
+- Phase 0 verification audit, documentation synchronization, repository cleanup, and readiness
+  report.
 
 ## Current Stack
 
@@ -48,7 +50,7 @@ Playwright automation.
 
 ## Next Phase
 
-Phase 1: Resume Management.
+Phase 1: Resume Management, after explicit user approval.
 
 ## Blocked By
 

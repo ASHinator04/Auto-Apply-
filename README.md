@@ -6,7 +6,7 @@ application answers, and track application status.
 
 ## Current Status
 
-Current phase: Phase 0D, developer experience and engineering quality.
+Current status: Phase 0 complete. Phase 1 resume management is pending explicit approval.
 
 Implemented so far:
 
