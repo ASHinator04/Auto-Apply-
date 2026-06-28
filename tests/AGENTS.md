@@ -6,11 +6,13 @@
 
 ## Responsibilities
 
-Use this directory for integration tests, contract tests, fixture data, and end-to-end tests when a framework is selected.
+Use this directory for integration tests, contract tests, fixture data, and end-to-end tests when a
+framework is selected.
 
 ## Constraints
 
-Do not add a testing framework before Phase 0B stack decisions are documented. Keep tests deterministic and avoid live external platforms unless explicitly marked and isolated.
+Do not add a testing framework before Phase 0B stack decisions are documented. Keep tests
+deterministic and avoid live external platforms unless explicitly marked and isolated.
 
 ## Extension Guidelines
 

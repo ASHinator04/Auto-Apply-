@@ -10,7 +10,8 @@ Applications should own presentation, routing, user interaction, and composition
 
 ## Constraints
 
-Do not place domain rules, provider integrations, browser automation, or persistence details directly in application code. Applications should depend on stable package interfaces.
+Do not place domain rules, provider integrations, browser automation, or persistence details
+directly in application code. Applications should depend on stable package interfaces.
 
 ## Extension Guidelines
 

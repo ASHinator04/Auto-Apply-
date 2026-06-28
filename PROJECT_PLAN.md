@@ -6,7 +6,8 @@
 >
 > Once approved, these phases become the source of truth for all contributors (human and AI).
 >
-> No AI agent may skip phases, merge phases, introduce new phases, or substantially change a phase without explicit user approval.
+> No AI agent may skip phases, merge phases, introduce new phases, or substantially change a phase
+> without explicit user approval.
 >
 > Suggested improvements are welcome but must remain proposals until approved.
 
@@ -63,14 +64,14 @@ Create the engineering foundation.
 
 ### Deliverables
 
-* Repository structure
-* Documentation hierarchy
-* AGENTS hierarchy
-* Engineering Guide
-* Architecture
-* PRD
-* Roadmap
-* ADR log
+- Repository structure
+- Documentation hierarchy
+- AGENTS hierarchy
+- Engineering Guide
+- Architecture
+- PRD
+- Roadmap
+- ADR log
 
 ### Exit Criteria
 
@@ -90,46 +91,46 @@ Create the engineering environment required for development.
 
 ### Repository
 
-* Monorepo configuration
-* Workspace management
+- Monorepo configuration
+- Workspace management
 
 ### Frontend
 
-* Next.js
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
+- Next.js
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
 
 (No product pages.)
 
 ### Backend
 
-* FastAPI
-* uv
-* Ruff
-* Pyright
-* Configuration
-* Logging
-* Health endpoint
+- FastAPI
+- uv
+- Ruff
+- Pyright
+- Configuration
+- Logging
+- Health endpoint
 
 (No business logic.)
 
 ### Shared
 
-* Shared package
-* Common interfaces
-* Constants
-* Utilities
+- Shared package
+- Common interfaces
+- Constants
+- Utilities
 
 ### Tooling
 
-* Docker
-* Docker Compose
-* Git hooks
-* Formatting
-* Linting
-* Testing
-* CI skeleton
+- Docker
+- Docker Compose
+- Git hooks
+- Formatting
+- Linting
+- Testing
+- CI skeleton
 
 ### Documentation
 
@@ -137,21 +138,21 @@ Update all affected documentation.
 
 ### Out of Scope
 
-* Resume handling
-* Job search
-* Database models
-* Playwright
-* AI functionality
-* Business logic
+- Resume handling
+- Job search
+- Database models
+- Playwright
+- AI functionality
+- Business logic
 
 ### Exit Criteria
 
-* Frontend launches
-* Backend launches
-* Docker works
-* Tests pass
-* Lint passes
-* Documentation updated
+- Frontend launches
+- Backend launches
+- Docker works
+- Tests pass
+- Lint passes
+- Documentation updated
 
 ---
 
@@ -167,12 +168,12 @@ Domain models only.
 
 Examples:
 
-* Job
-* Resume
-* User
-* KnowledgeEntry
-* Application
-* Provider
+- Job
+- Resume
+- User
+- KnowledgeEntry
+- Application
+- Provider
 
 Shared interfaces.
 
@@ -198,13 +199,13 @@ Optimize future development.
 
 ### Deliverables
 
-* Developer scripts
-* Debug configuration
-* VS Code configuration
-* EditorConfig
-* Makefile
-* Repository tooling
-* Documentation automation
+- Developer scripts
+- Debug configuration
+- VS Code configuration
+- EditorConfig
+- Makefile
+- Repository tooling
+- Documentation automation
 
 ### Exit Criteria
 
@@ -220,18 +221,18 @@ Manage resumes.
 
 ### Deliverables
 
-* Upload
-* Storage
-* List
-* Delete
-* Metadata
-* Validation
+- Upload
+- Storage
+- List
+- Delete
+- Metadata
+- Validation
 
 ### Out of Scope
 
-* Parsing
-* AI
-* Resume optimization
+- Parsing
+- AI
+- Resume optimization
 
 ### Exit Criteria
 
@@ -249,15 +250,15 @@ Store reusable user information.
 
 Editable sections including:
 
-* Personal
-* Contact
-* Education
-* Experience
-* Salary
-* Notice Period
-* Links
-* Behavioral Answers
-* Company Specific Answers
+- Personal
+- Contact
+- Education
+- Experience
+- Salary
+- Notice Period
+- Links
+- Behavioral Answers
+- Company Specific Answers
 
 CRUD only.
 
@@ -277,12 +278,12 @@ Discover jobs.
 
 ### Deliverables
 
-* Greenhouse adapter
-* Lever adapter
-* Ashby adapter
-* Job normalization
-* Deduplication
-* Local storage
+- Greenhouse adapter
+- Lever adapter
+- Ashby adapter
+- Job normalization
+- Deduplication
+- Local storage
 
 ### Exit Criteria
 
@@ -298,11 +299,11 @@ Display discovered jobs.
 
 ### Deliverables
 
-* Filtering
-* Sorting
-* Pagination
-* Bulk selection
-* Match score
+- Filtering
+- Sorting
+- Pagination
+- Bulk selection
+- Match score
 
 ### Exit Criteria
 
@@ -318,10 +319,10 @@ Approve jobs before application.
 
 ### Deliverables
 
-* Approve
-* Reject
-* Bulk approval
-* Application queue
+- Approve
+- Reject
+- Bulk approval
+- Application queue
 
 ### Exit Criteria
 
@@ -337,13 +338,13 @@ Automatically apply to approved jobs.
 
 ### Deliverables
 
-* Playwright automation
-* Resume upload
-* Form filling
-* Question answering
-* Submission
-* Retry logic
-* Logging
+- Playwright automation
+- Resume upload
+- Form filling
+- Question answering
+- Submission
+- Retry logic
+- Logging
 
 ### Exit Criteria
 
@@ -359,12 +360,12 @@ Track applications.
 
 ### Deliverables
 
-* Timeline
-* Status
-* History
-* Applied date
-* Failures
-* Success
+- Timeline
+- Status
+- History
+- Applied date
+- Failures
+- Success
 
 ### Exit Criteria
 
@@ -380,10 +381,10 @@ Continuously improve the Knowledge Base.
 
 ### Deliverables
 
-* Detect unseen questions
-* Suggest reusable answers
-* Semantic retrieval
-* User approval before saving
+- Detect unseen questions
+- Suggest reusable answers
+- Semantic retrieval
+- User approval before saving
 
 ### Exit Criteria
 
@@ -399,12 +400,12 @@ Production readiness.
 
 ### Deliverables
 
-* Performance optimization
-* Error handling
-* Accessibility
-* Security
-* Test coverage
-* Reliability improvements
+- Performance optimization
+- Error handling
+- Accessibility
+- Security
+- Test coverage
+- Reliability improvements
 
 ### Exit Criteria
 
@@ -420,11 +421,11 @@ Ship Version 1.
 
 ### Deliverables
 
-* Deployment
-* Documentation
-* Release notes
-* Known limitations
-* Final validation
+- Deployment
+- Documentation
+- Release notes
+- Known limitations
+- Final validation
 
 ### Exit Criteria
 
@@ -436,12 +437,12 @@ Public MVP release.
 
 Every completed phase must include:
 
-* Requirements Review
-* Architecture Review
-* Implementation Review
-* Testing Review
-* Documentation Review
-* Phase Report
+- Requirements Review
+- Architecture Review
+- Implementation Review
+- Testing Review
+- Documentation Review
+- Phase Report
 
 Only after explicit user approval may work begin on the next phase.
 
@@ -451,13 +452,13 @@ Only after explicit user approval may work begin on the next phase.
 
 All AI assistants working on this repository must:
 
-* Read `AGENTS.md`
-* Read this document
-* Read the local `AGENTS.md`
-* Understand the current phase
-* Work only within the approved phase
-* Keep documentation synchronized
-* Stop after completing the current phase
+- Read `AGENTS.md`
+- Read this document
+- Read the local `AGENTS.md`
+- Understand the current phase
+- Work only within the approved phase
+- Keep documentation synchronized
+- Stop after completing the current phase
 
 No AI may continue into the next phase automatically.
 

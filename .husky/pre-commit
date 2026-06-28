@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+set -e
+
+if command -v cmd.exe >/dev/null 2>&1; then
+  cmd.exe /d /c pnpm lint
+  cmd.exe /d /c pnpm typecheck
+  cmd.exe /d /c pnpm test
+else
+  pnpm lint
+  pnpm typecheck
+  pnpm test
+fi

@@ -10,8 +10,10 @@ Use this directory for non-secret templates, examples, and shared configuration 
 
 ## Constraints
 
-Never commit real secrets, tokens, credentials, or personal data. Configuration should support local development and low-cost operation by default.
+Never commit real secrets, tokens, credentials, or personal data. Configuration should support local
+development and low-cost operation by default.
 
 ## Extension Guidelines
 
-Prefer example files with explicit placeholders, such as `.env.example`, once a runtime stack is selected.
+Prefer example files with explicit placeholders, such as `.env.example`, once a runtime stack is
+selected.

@@ -11,4 +11,3 @@ Track embedding models, datasets, scoring approaches, and evaluation notes.
 ## Constraints
 
 Do not promote embedding choices into production without an ADR.
-

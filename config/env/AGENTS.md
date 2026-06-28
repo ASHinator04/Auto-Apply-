@@ -6,9 +6,9 @@
 
 ## Responsibilities
 
-Document required variables, defaults, local development settings, and deployment-related configuration when those exist.
+Document required variables, defaults, local development settings, and deployment-related
+configuration when those exist.
 
 ## Constraints
 
 Never commit real secrets or personal user data. Use placeholders only.
-

@@ -10,5 +10,5 @@ Explore feasibility, reliability, safety constraints, and provider-specific risk
 
 ## Constraints
 
-Do not create production browser automation here. Promote safe patterns through specs, contracts, and ADRs first.
-
+Do not create production browser automation here. Promote safe patterns through specs, contracts,
+and ADRs first.

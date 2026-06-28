@@ -11,4 +11,3 @@ Record experiment goals, inputs, outputs, evaluation criteria, and cost or priva
 ## Constraints
 
 Do not commit secrets, personal data, or production credentials.
-

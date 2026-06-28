@@ -2,7 +2,8 @@
 
 ## Vision
 
-Job Agent helps software engineers find, approve, apply to, and track job opportunities with less repetitive manual work while preserving user control.
+Job Agent helps software engineers find, approve, apply to, and track job opportunities with less
+repetitive manual work while preserving user control.
 
 ## Goals
 
@@ -38,11 +39,13 @@ Job Agent helps software engineers find, approve, apply to, and track job opport
 
 ## Functional Requirements
 
-The product should manage resumes, job discovery, job normalization, approval, application answer reuse, automation, and lifecycle tracking.
+The product should manage resumes, job discovery, job normalization, approval, application answer
+reuse, automation, and lifecycle tracking.
 
 ## Non-Functional Requirements
 
-The system must be maintainable, testable, modular, low-cost to operate, secure with user data, and clear enough for AI-assisted development.
+The system must be maintainable, testable, modular, low-cost to operate, secure with user data, and
+clear enough for AI-assisted development.
 
 ## Future Roadmap
 

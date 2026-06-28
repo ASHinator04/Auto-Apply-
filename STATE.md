@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-0B.1: Technical Architecture and Infrastructure Design.
+0B.2: Engineering Infrastructure Implementation.
 
 ## Completed
 
@@ -12,10 +12,17 @@
 - Planned `specs/`, `contracts/`, `experiments/`, and `playbooks/` structure.
 - Initial ADR log and roadmap.
 - Phase 0B.1 recommended stack and infrastructure design.
+- Phase 0B.2 monorepo, frontend shell, backend shell, shared package, tooling, Docker/CI
+  configuration, and developer experience files.
 
 ## Current Stack
 
-Recommended but not implemented: Next.js, TypeScript, Tailwind CSS, shadcn/ui, FastAPI, uv, Ruff, Pyright, SQLite, Playwright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, Docker Compose, Markdown documentation, and GitHub Actions.
+Implemented infrastructure: Next.js, TypeScript, Tailwind CSS, shadcn/ui configuration, FastAPI, uv,
+Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, Docker Compose configuration,
+Markdown documentation, and GitHub Actions.
+
+Recommended but not yet implemented as product capability: SQLite persistence boundary and future
+Playwright automation.
 
 ## Current Branch
 
@@ -37,8 +44,10 @@ Recommended but not implemented: Next.js, TypeScript, Tailwind CSS, shadcn/ui, F
 
 ## Next Phase
 
-0B.2: Engineering Infrastructure Implementation.
+0C: Shared Contracts.
 
 ## Blocked By
 
-User approval is required before Phase 0B.2 begins. Remote Git repository configuration is required before pushing commits.
+User approval is required before Phase 0C begins. Docker build verification requires Docker Desktop
+or an equivalent Docker daemon to be running. Git commit and push are user-managed from this phase
+onward.

@@ -2,7 +2,9 @@
 
 ## Purpose
 
-Job Agent will be organized as a modular system for discovering jobs, preparing application data, automating submission where appropriate, and tracking outcomes. This document describes planned boundaries, not implementation details.
+Job Agent will be organized as a modular system for discovering jobs, preparing application data,
+automating submission where appropriate, and tracking outcomes. This document describes planned
+boundaries, not implementation details.
 
 ## Major Systems
 
@@ -17,21 +19,31 @@ Job Agent will be organized as a modular system for discovering jobs, preparing 
 
 ## Planned Modules
 
-Future modules should be separated into applications, shared packages, services, and adapters. Domain modules should own concepts such as jobs, resumes, applications, answers, and providers. Adapters should isolate external websites, APIs, browser automation, and storage.
+Future modules should be separated into applications, shared packages, services, and adapters.
+Domain modules should own concepts such as jobs, resumes, applications, answers, and providers.
+Adapters should isolate external websites, APIs, browser automation, and storage.
 
-Contracts should live under `contracts/` so applications, services, providers, and automation depend on stable interfaces rather than depending directly on each other. Research belongs under `experiments/` until a decision promotes it into production architecture.
+Contracts should live under `contracts/` so applications, services, providers, and automation depend
+on stable interfaces rather than depending directly on each other. Research belongs under
+`experiments/` until a decision promotes it into production architecture.
 
 ## Data Flow
 
-Resumes and user profile data feed the knowledge base. Provider adapters discover job listings. Normalization converts listings into comparable records. Users approve jobs. Approved jobs are passed to application automation. Results and status changes return to application tracking.
+Resumes and user profile data feed the knowledge base. Provider adapters discover job listings.
+Normalization converts listings into comparable records. Users approve jobs. Approved jobs are
+passed to application automation. Results and status changes return to application tracking.
 
 ## System Boundaries
 
-The domain layer owns business rules. The UI owns presentation. Adapters own external platforms. Automation owns browser interaction. Persistence owns storage details. No external platform should become a required dependency of core domain logic.
+The domain layer owns business rules. The UI owns presentation. Adapters own external platforms.
+Automation owns browser interaction. Persistence owns storage details. No external platform should
+become a required dependency of core domain logic.
 
 ## Future Extensibility
 
-The architecture should make it possible to add job platforms, resume formats, answer sources, automation strategies, and storage backends without rewriting the core workflow. New capabilities should enter through documented module boundaries and adapter contracts.
+The architecture should make it possible to add job platforms, resume formats, answer sources,
+automation strategies, and storage backends without rewriting the core workflow. New capabilities
+should enter through documented module boundaries and adapter contracts.
 
 ## Phase 0B.1 Infrastructure Architecture
 
@@ -43,4 +55,20 @@ The implementation stack is designed around a low-cost monorepo:
 - `packages/`: domain, provider, automation, persistence, and shared libraries.
 - `tests/`: contract, integration, and end-to-end tests.
 
-The initial database recommendation is SQLite behind a persistence boundary. Browser automation is reserved for a future Playwright-based automation layer and must not enter domain logic. See `docs/PHASE_0B_1_TECHNICAL_DESIGN.md` for the full dependency graph, infrastructure strategy, and risk assessment.
+The initial database recommendation is SQLite behind a persistence boundary. Browser automation is
+reserved for a future Playwright-based automation layer and must not enter domain logic. See
+`docs/PHASE_0B_1_TECHNICAL_DESIGN.md` for the full dependency graph, infrastructure strategy, and
+risk assessment.
+
+## Phase 0B.2 Implemented Infrastructure
+
+Phase 0B.2 implements the approved infrastructure shell:
+
+- Next.js frontend in `apps/web` with a placeholder in-development page.
+- FastAPI backend in `services/api` with `/health` and `/version` only.
+- Shared TypeScript package in `packages/shared`.
+- pnpm workspace, uv environment, linting, formatting, type checking, tests, Docker Compose, CI, VS
+  Code recommendations, EditorConfig, and environment templates.
+
+No product features, domain entities, database schemas, provider adapters, AI providers, or browser
+automation are implemented.

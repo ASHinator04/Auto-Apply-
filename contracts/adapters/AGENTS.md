@@ -11,4 +11,3 @@ Define boundaries for providers, persistence, browser automation, LLMs, and othe
 ## Constraints
 
 Adapters must hide vendor details from the rest of the system.
-

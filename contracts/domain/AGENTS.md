@@ -11,4 +11,3 @@ Define durable concepts such as `Job`, `Resume`, `KnowledgeEntry`, `Application`
 ## Constraints
 
 Do not bind domain contracts to UI, storage, automation, or vendor-specific data shapes.
-

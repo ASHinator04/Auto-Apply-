@@ -11,4 +11,3 @@ Define state-change events for discovery, approval, submission, tracking, and fo
 ## Constraints
 
 Events should describe business facts, not implementation details.
-

@@ -2,17 +2,16 @@
 
 ## Immediate
 
-- Configure a Git remote for pushing phase commits.
-- Review Phase 0B.1 technical design and approve or revise open questions.
-- Confirm whether Phase 0B.2 should add `services/api` only or also preserve empty worker service folders.
-- Confirm whether future deployment should remain local-only until Phase 10.
+- Review Phase 0B.2 infrastructure worktree.
+- Run Docker verification after Docker Desktop is running.
+- Commit and push Phase 0B.2 changes from the local workstation.
+- Approve or revise the Phase 0C shared contracts plan.
 
 ## Next
 
-- Implement Phase 0B.2 engineering infrastructure after approval.
-- Add monorepo configuration, tooling, Docker Compose, and CI skeleton.
-- Add documented local development commands.
 - Prepare Phase 0C shared contract design.
+- Decide whether shared contracts start as TypeScript, Python, or language-neutral schema.
+- Define initial contracts for `Job`, `Resume`, `KnowledgeEntry`, `Application`, and `Provider`.
 
 ## Later
 

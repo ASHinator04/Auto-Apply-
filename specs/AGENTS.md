@@ -6,13 +6,15 @@
 
 ## Responsibilities
 
-Specs should define user value, requirements, non-goals, boundaries, data expectations, and verification criteria.
+Specs should define user value, requirements, non-goals, boundaries, data expectations, and
+verification criteria.
 
 ## Constraints
 
-Do not include implementation code here. Keep specs aligned with `PRD.md`, `ARCHITECTURE.md`, and `ROADMAP.md`.
+Do not include implementation code here. Keep specs aligned with `PRD.md`, `ARCHITECTURE.md`, and
+`ROADMAP.md`.
 
 ## Extension Guidelines
 
-Each spec area should keep a local `SPEC.md` and may add supporting files when the feature becomes complex.
-
+Each spec area should keep a local `SPEC.md` and may add supporting files when the feature becomes
+complex.

@@ -6,9 +6,9 @@
 
 ## Responsibilities
 
-Verify workflows such as discovery-to-normalization, approval-to-application, and status updates once implementation exists.
+Verify workflows such as discovery-to-normalization, approval-to-application, and status updates
+once implementation exists.
 
 ## Constraints
 
 Keep integration tests deterministic and avoid relying on real job platforms by default.
-

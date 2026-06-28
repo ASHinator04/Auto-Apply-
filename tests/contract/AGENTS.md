@@ -11,4 +11,3 @@ Protect provider, persistence, and automation contracts from breaking core workf
 ## Constraints
 
 Avoid live external dependencies unless the tests are explicitly marked and isolated.
-

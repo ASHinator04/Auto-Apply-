@@ -11,4 +11,3 @@ Measure cost, latency, quality, reliability, and workflow performance.
 ## Constraints
 
 Benchmarks must document assumptions and should be reproducible before informing decisions.
-
