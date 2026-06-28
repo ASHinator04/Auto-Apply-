@@ -128,3 +128,14 @@ Rationale: The frontend and shared workspace are TypeScript-based, TypeScript in
 without runtime framework dependencies, and the package can later be mirrored into Python or schema
 formats if backend runtime validation requires it. Contracts remain framework-independent and do not
 depend on implementation modules.
+
+## ADR-0014: Metadata-Only Resume Storage for Phase 1
+
+Status: Accepted
+
+Decision: Phase 1 validates uploaded PDF files but persists only resume metadata in a local SQLite
+database. Resume file bytes are not stored.
+
+Rationale: The Phase 1 requirement is resume management metadata without parsing, AI, OCR, or cloud
+storage. SQLite keeps the workflow local and durable while preserving a clear repository boundary
+for future storage changes.

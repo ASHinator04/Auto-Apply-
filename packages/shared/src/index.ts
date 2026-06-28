@@ -1,5 +1,5 @@
 export const APP_NAME = "Job Agent";
-export const APP_PHASE = "Phase 0 Complete";
+export const APP_PHASE = "Phase 1";
 
 export type ServiceStatus = "ok";
 

@@ -74,8 +74,8 @@ Status: complete; see `docs/PHASE_0_AUDIT_REPORT.md`.
 
 ## Product Phases
 
-- Phase 1: Resume Management.
-- Phase 2: User Knowledge Base.
+- Phase 1: Resume Management. Status: complete.
+- Phase 2: User Knowledge Base. Status: next, pending approval.
 - Phase 3: Job Search Engine.
 - Phase 4: Search Dashboard.
 - Phase 5: Approval Pipeline.

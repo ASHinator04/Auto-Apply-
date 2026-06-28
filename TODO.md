@@ -2,18 +2,17 @@
 
 ## Immediate
 
-- Review the Phase 0 verification audit report.
-- Approve or revise the Phase 1 resume management plan.
+- Review Phase 1 resume management changes.
+- Approve or revise the Phase 2 knowledge base plan.
 
 ## Next
 
-- Prepare Phase 1 resume management implementation plan.
 - Decide whether Python runtime models should be generated from or manually mirrored from
   `@job-agent/contracts`.
+- Prepare Phase 2 user knowledge base implementation plan.
 
 ## Later
 
-- Implement resume management in Phase 1.
 - Implement knowledge base CRUD in Phase 2.
 - Implement job provider adapters in Phase 3.
 

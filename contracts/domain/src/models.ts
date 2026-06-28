@@ -28,6 +28,8 @@ export interface Resume {
   fileName: string;
   mimeType: string;
   sizeBytes: number;
+  version: number;
+  isPrimary: boolean;
   checksum?: string;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;

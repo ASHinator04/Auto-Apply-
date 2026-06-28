@@ -12,6 +12,11 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    include: ["app/**/*.test.ts", "components/**/*.test.ts"],
+    include: [
+      "app/**/*.test.ts",
+      "app/**/*.test.tsx",
+      "components/**/*.test.ts",
+      "components/**/*.test.tsx",
+    ],
   },
 });

@@ -19,6 +19,7 @@ htmlcov/
 *.tsbuildinfo
 
 # Environment and local state
+.job-agent/
 .env
 .env.*
 !.env.example

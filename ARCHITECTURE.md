@@ -83,3 +83,15 @@ search results, and future provider/storage/tracking boundaries.
 Contracts must not import FastAPI, Next.js, React, Playwright, SQLite, SQLAlchemy, browser APIs, or
 implementation packages. Future modules should depend on contracts rather than depending directly on
 each other.
+
+## Phase 1 Resume Management
+
+Phase 1 implements the first product vertical slice:
+
+- `apps/web`: resume dashboard for PDF upload, list, rename, replace, delete, and primary selection.
+- `services/api`: FastAPI resume endpoints and request/response schemas.
+- `services/api`: local SQLite resume metadata repository behind a small service layer.
+
+Uploaded files are validated for PDF extension, MIME type, size, and PDF signature. Phase 1 stores
+metadata only; it does not persist resume file contents, parse resumes, perform OCR, use AI, search
+jobs, or automate applications.

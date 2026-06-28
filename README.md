@@ -6,17 +6,18 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 0 complete. Phase 1 resume management is pending explicit approval.
+Current status: Phase 1 resume management is complete. Phase 2 knowledge base work requires explicit
+approval before it begins.
 
 Implemented so far:
 
-- Next.js frontend shell in `apps/web`.
-- FastAPI backend shell in `services/api`.
+- Resume dashboard in `apps/web`.
+- FastAPI resume management API in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
-Product features are intentionally not implemented yet.
+Implemented product scope is intentionally limited to resume management.
 
 ## Quick Start
 
@@ -69,8 +70,8 @@ docker compose up --build
 
 ## Repository Structure
 
-- `apps/web`: Next.js frontend shell.
-- `services/api`: FastAPI backend shell.
+- `apps/web`: Next.js resume dashboard.
+- `services/api`: FastAPI backend with health, version, and resume endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/shared`: small shared TypeScript package.
 - `docs`: supporting docs and phase reports.
@@ -80,6 +81,7 @@ docker compose up --build
 
 ## More Docs
 
+- [API Reference](docs/API.md)
 - [Getting Started](docs/GETTING_STARTED.md)
 - [Contributing](docs/CONTRIBUTING.md)
 - [Engineering Guide](ENGINEERING_GUIDE.md)

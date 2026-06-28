@@ -71,10 +71,13 @@ describe("domain contracts", () => {
       fileName: "resume.pdf",
       mimeType: "application/pdf",
       sizeBytes: 1024,
+      version: 1,
+      isPrimary: true,
       createdAt: "2026-06-28T00:00:00.000Z",
       updatedAt: "2026-06-28T00:00:00.000Z",
     };
 
     expect(resume).not.toHaveProperty("parsedText");
+    expect(resume.isPrimary).toBe(true);
   });
 });

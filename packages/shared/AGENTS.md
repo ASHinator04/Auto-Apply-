@@ -7,8 +7,8 @@ domain module.
 
 ## Responsibilities
 
-Own cross-cutting helpers, common types, and constants only when reuse is real. As of Phase 0
-completion it exposes infrastructure placeholder metadata and health payload typing.
+Own cross-cutting helpers, common types, and constants only when reuse is real. It currently exposes
+small app metadata and health payload typing.
 
 ## Constraints
 

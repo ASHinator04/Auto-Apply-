@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 0 verification audit complete. Phase 1 has not started.
+Phase 1 resume management complete. Phase 2 has not started.
 
 ## Completed
 
@@ -19,15 +19,18 @@ Phase 0 verification audit complete. Phase 1 has not started.
   repository health documentation.
 - Phase 0 verification audit, documentation synchronization, repository cleanup, and readiness
   report.
+- Phase 1 resume management dashboard, local SQLite metadata persistence, resume APIs, validation,
+  tests, and documentation.
 
 ## Current Stack
 
 Implemented infrastructure: Next.js, TypeScript, Tailwind CSS, shadcn/ui configuration, FastAPI, uv,
-Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, Docker Compose configuration,
-Markdown documentation, and GitHub Actions.
+Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadata storage, Docker
+Compose configuration, Markdown documentation, and GitHub Actions.
 
-Recommended but not yet implemented as product capability: SQLite persistence boundary and future
-Playwright automation.
+Implemented product capability: resume metadata management only.
+
+Recommended but not yet implemented as product capability: future Playwright automation.
 
 ## Current Branch
 
@@ -47,11 +50,12 @@ Playwright automation.
 - SQLite is the initial database recommendation.
 - Contracts are the cross-layer dependency boundary.
 - `@job-agent/contracts` is the canonical Phase 0C contract surface.
+- Resume files are validated during upload but only metadata is stored in Phase 1.
 
 ## Next Phase
 
-Phase 1: Resume Management, after explicit user approval.
+Phase 2: User Knowledge Base, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 1 begins.
+User approval is required before Phase 2 begins.

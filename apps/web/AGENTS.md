@@ -2,14 +2,13 @@
 
 ## Purpose
 
-`apps/web/` contains the Next.js frontend shell. It will later contain the user-facing dashboard for
-resumes, jobs, approvals, applications, and settings.
+`apps/web/` contains the Next.js frontend. It currently owns the Phase 1 resume management dashboard
+and will later expand into jobs, approvals, applications, and settings.
 
 ## Responsibilities
 
-Own presentation, routing, UI state, and user interactions. Compose domain and service interfaces
-exposed by `packages/`. As of Phase 0 completion it contains only an in-development placeholder
-page.
+Own presentation, routing, UI state, and user interactions. Compose API clients and stable shared
+interfaces without moving backend rules into the UI.
 
 ## Constraints
 

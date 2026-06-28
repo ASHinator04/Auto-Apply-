@@ -1,6 +1,7 @@
 .git
 .next
 .venv
+.job-agent
 node_modules
 dist
 coverage

@@ -47,6 +47,9 @@ Copy-Item .env.example .env
 
 The defaults are enough for the current infrastructure shell.
 
+Resume metadata is stored at `.job-agent/job-agent.sqlite3` by default. This local state is ignored
+by Git.
+
 ## 5. Run Locally
 
 Run both services:

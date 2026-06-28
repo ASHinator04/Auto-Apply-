@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     service_name: str = "job-agent-api"
     version: str = "0.0.0"
+    database_path: str = ".job-agent/job-agent.sqlite3"
+    max_resume_size_bytes: int = 5 * 1024 * 1024
 
     model_config = SettingsConfigDict(
         env_file=".env",
