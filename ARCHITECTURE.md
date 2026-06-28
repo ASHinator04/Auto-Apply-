@@ -72,3 +72,14 @@ Phase 0B.2 implements the approved infrastructure shell:
 
 No product features, domain entities, database schemas, provider adapters, AI providers, or browser
 automation are implemented.
+
+## Phase 0C Shared Contracts
+
+Phase 0C introduces `@job-agent/contracts` in `contracts/domain` as the canonical TypeScript
+contract package. It defines framework-independent domain models, DTOs, enums, errors, and
+interfaces for resumes, users, jobs, providers, applications, knowledge entries, search requests,
+search results, and future provider/storage/tracking boundaries.
+
+Contracts must not import FastAPI, Next.js, React, Playwright, SQLite, SQLAlchemy, browser APIs, or
+implementation packages. Future modules should depend on contracts rather than depending directly on
+each other.

@@ -116,3 +116,15 @@ through documented contracts where cross-layer shapes are shared.
 
 Rationale: Stable contracts prevent frontend, backend, search, automation, and persistence modules
 from depending directly on each other.
+
+## ADR-0013: TypeScript Contract Package as Phase 0C Canonical Surface
+
+Status: Accepted
+
+Decision: Define Phase 0C shared contracts in `contracts/domain` as the `@job-agent/contracts`
+TypeScript package.
+
+Rationale: The frontend and shared workspace are TypeScript-based, TypeScript interfaces compile
+without runtime framework dependencies, and the package can later be mirrored into Python or schema
+formats if backend runtime validation requires it. Contracts remain framework-independent and do not
+depend on implementation modules.

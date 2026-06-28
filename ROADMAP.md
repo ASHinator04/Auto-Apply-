@@ -37,7 +37,7 @@ Docker Compose, CI skeleton, and documentation updates.
 Exit criteria: frontend launches, backend launches, Docker works, tests pass, lint passes,
 documentation is updated, and changes are committed and pushed.
 
-Status: current; local install, frontend/backend startup, lint, typecheck, tests, and build are
+Status: complete; local install, frontend/backend startup, lint, typecheck, tests, and build are
 verified. Docker build awaits a running Docker daemon.
 
 ## Phase 0C: Shared Contracts
@@ -48,6 +48,8 @@ Deliverables: domain models, shared interfaces, DTOs, enums, and errors without 
 behavior.
 
 Exit criteria: the system can be discussed using shared contracts.
+
+Status: current.
 
 ## Product Phases
 

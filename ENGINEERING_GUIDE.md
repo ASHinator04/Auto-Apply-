@@ -93,6 +93,10 @@ call sites need the shared behavior.
 Prefer explicit imports. Do not import across ownership boundaries when a contract should exist
 instead. Interfaces should describe stable boundaries, not implementation details.
 
+Shared domain contracts live in `@job-agent/contracts`. Application, service, provider, automation,
+persistence, and UI modules should import shared shapes from that package rather than redefining
+cross-layer types.
+
 ## Dependency Injection
 
 Inject infrastructure dependencies at service boundaries. Domain code should receive inputs and

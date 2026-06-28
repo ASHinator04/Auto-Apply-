@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-0B.2: Engineering Infrastructure Implementation.
+0C: Shared Contracts and Core Domain Definitions.
 
 ## Completed
 
@@ -14,6 +14,7 @@
 - Phase 0B.1 recommended stack and infrastructure design.
 - Phase 0B.2 monorepo, frontend shell, backend shell, shared package, tooling, Docker/CI
   configuration, and developer experience files.
+- Phase 0C canonical TypeScript contract package in `contracts/domain`.
 
 ## Current Stack
 
@@ -41,13 +42,13 @@ Playwright automation.
 - `PROJECT_PLAN.md` is the governing phase plan.
 - SQLite is the initial database recommendation.
 - Contracts are the cross-layer dependency boundary.
+- `@job-agent/contracts` is the canonical Phase 0C contract surface.
 
 ## Next Phase
 
-0C: Shared Contracts.
+0D: Developer Experience.
 
 ## Blocked By
 
-User approval is required before Phase 0C begins. Docker build verification requires Docker Desktop
-or an equivalent Docker daemon to be running. Git commit and push are user-managed from this phase
-onward.
+User approval is required before Phase 0D begins. Docker build verification requires Docker Desktop
+or an equivalent Docker daemon to be running.

@@ -82,6 +82,12 @@ importers:
         specifier: ^3.2.0
         version: 3.2.6(@types/node@24.13.2)(jiti@1.21.7)
 
+  contracts/domain:
+    devDependencies:
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.6(@types/node@24.13.2)(jiti@1.21.7)
+
   packages/shared:
     devDependencies:
       vitest:

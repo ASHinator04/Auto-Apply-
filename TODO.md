@@ -2,20 +2,19 @@
 
 ## Immediate
 
-- Review Phase 0B.2 infrastructure worktree.
+- Review Phase 0C shared contracts.
 - Run Docker verification after Docker Desktop is running.
-- Commit and push Phase 0B.2 changes from the local workstation.
-- Approve or revise the Phase 0C shared contracts plan.
+- Approve or revise the Phase 0D developer experience plan.
 
 ## Next
 
-- Prepare Phase 0C shared contract design.
-- Decide whether shared contracts start as TypeScript, Python, or language-neutral schema.
-- Define initial contracts for `Job`, `Resume`, `KnowledgeEntry`, `Application`, and `Provider`.
+- Prepare Phase 0D developer experience improvements.
+- Decide whether Python runtime models should be generated from or manually mirrored from
+  `@job-agent/contracts`.
+- Add Docker build verification once Docker Desktop is running.
 
 ## Later
 
-- Define shared contracts for `Job`, `Resume`, `KnowledgeEntry`, `Application`, and `Provider`.
 - Implement resume management in Phase 1.
 - Implement knowledge base CRUD in Phase 2.
 - Implement job provider adapters in Phase 3.

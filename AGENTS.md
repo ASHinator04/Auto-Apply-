@@ -6,10 +6,10 @@ Job Agent is an AI-powered job application engine. The future product will inges
 software engineering jobs, normalize listings, support bulk approval, automate applications, reuse
 application answers, and track application status.
 
-This repository is currently in Phase 0B.2: engineering infrastructure implementation. Product
-functionality remains out of scope: do not implement resume handling, job search, knowledge base
-workflows, dashboard features, authentication, database schemas, provider adapters, AI providers, or
-browser automation.
+This repository is currently in Phase 0C: shared contracts and core domain definitions. Product
+functionality remains out of scope: do not implement resume upload, job search execution, knowledge
+base workflows, dashboard features, authentication, database schemas, repositories, workers, AI
+providers, provider adapters, or browser automation.
 
 ## Engineering Philosophy
 
@@ -30,7 +30,8 @@ conventions. Build small, verifiable modules with clear boundaries.
 - `TODO.md`: prioritized engineering backlog.
 - `docs/`: supporting documentation.
 - `specs/`: future feature and workflow specifications.
-- `contracts/`: shared API, domain, event, and adapter contracts.
+- `contracts/`: shared API, domain, event, and adapter contracts; `contracts/domain` contains the
+  canonical TypeScript contract package.
 - `experiments/`: isolated research and prototypes.
 - `playbooks/`: repeatable engineering operating procedures.
 - `apps/`: user-facing applications, currently `apps/web`.
