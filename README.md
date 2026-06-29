@@ -6,18 +6,18 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 1 resume management is complete. Phase 2 knowledge base work requires explicit
+Current status: Phase 2 user knowledge base is complete. Phase 3 job search requires explicit
 approval before it begins.
 
 Implemented so far:
 
-- Resume dashboard in `apps/web`.
-- FastAPI resume management API in `services/api`.
+- Knowledge Base and resume dashboard in `apps/web`.
+- FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
-Implemented product scope is intentionally limited to resume management.
+Implemented product scope is intentionally limited to resume management and knowledge base CRUD.
 
 ## Quick Start
 
@@ -70,8 +70,8 @@ docker compose up --build
 
 ## Repository Structure
 
-- `apps/web`: Next.js resume dashboard.
-- `services/api`: FastAPI backend with health, version, and resume endpoints.
+- `apps/web`: Next.js dashboard for knowledge base and resume management.
+- `services/api`: FastAPI backend with health, version, resume, and knowledge endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/shared`: small shared TypeScript package.
 - `docs`: supporting docs and phase reports.

@@ -1,5 +1,5 @@
-import { ResumeDashboard } from "./resume-dashboard";
+import { AppDashboard } from "./app-dashboard";
 
 export default function Home() {
-  return <ResumeDashboard />;
+  return <AppDashboard />;
 }

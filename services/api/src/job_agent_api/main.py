@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from job_agent_api.config import get_settings
+from job_agent_api.knowledge_errors import KnowledgeEntryNotFoundError, KnowledgeValidationError
+from job_agent_api.knowledge_routes import router as knowledge_router
 from job_agent_api.logging import configure_logging
 from job_agent_api.resume_errors import (
     PrimaryResumeRequiredError,
@@ -24,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(resume_router)
+app.include_router(knowledge_router)
 
 
 @app.exception_handler(ResumeValidationError)
@@ -48,6 +51,22 @@ async def primary_resume_required_error_handler(
     exc: PrimaryResumeRequiredError,
 ) -> JSONResponse:
     return JSONResponse(status_code=409, content={"detail": exc.message})
+
+
+@app.exception_handler(KnowledgeValidationError)
+async def knowledge_validation_error_handler(
+    _request: Request,
+    exc: KnowledgeValidationError,
+) -> JSONResponse:
+    return JSONResponse(status_code=400, content={"detail": exc.message})
+
+
+@app.exception_handler(KnowledgeEntryNotFoundError)
+async def knowledge_not_found_error_handler(
+    _request: Request,
+    exc: KnowledgeEntryNotFoundError,
+) -> JSONResponse:
+    return JSONResponse(status_code=404, content={"detail": exc.message})
 
 
 @app.get("/health", response_model=HealthResponse)

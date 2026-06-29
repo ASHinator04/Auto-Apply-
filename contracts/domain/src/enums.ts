@@ -19,6 +19,18 @@ export enum KnowledgeEntryType {
   Semantic = "semantic",
 }
 
+export enum KnowledgeSection {
+  Personal = "personal",
+  Professional = "professional",
+  Education = "education",
+  Experience = "experience",
+  Links = "links",
+  WorkAuthorization = "work_authorization",
+  BehavioralAnswers = "behavioral_answers",
+  CompanySpecificAnswers = "company_specific_answers",
+  Miscellaneous = "miscellaneous",
+}
+
 export enum ResumeType {
   Primary = "primary",
   Targeted = "targeted",

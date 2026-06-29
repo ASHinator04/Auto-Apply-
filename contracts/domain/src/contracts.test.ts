@@ -5,6 +5,7 @@ import {
   EmploymentType,
   JobType,
   KnowledgeEntryType,
+  KnowledgeSection,
   ProviderType,
   ResumeType,
   WorkMode,
@@ -18,6 +19,7 @@ describe("domain contracts", () => {
     expect(ApplicationStatus.Found).toBe("found");
     expect(ProviderType.Greenhouse).toBe("greenhouse");
     expect(KnowledgeEntryType.LongForm).toBe("long_form");
+    expect(KnowledgeSection.BehavioralAnswers).toBe("behavioral_answers");
   });
 
   it("serializes and deserializes normalized search results", () => {
@@ -79,5 +81,25 @@ describe("domain contracts", () => {
 
     expect(resume).not.toHaveProperty("parsedText");
     expect(resume.isPrimary).toBe(true);
+  });
+
+  it("defines knowledge entries as editable profile records", () => {
+    const entry = {
+      id: "knowledge_1",
+      userId: "user_1",
+      section: KnowledgeSection.CompanySpecificAnswers,
+      type: KnowledgeEntryType.LongForm,
+      key: "Why Example Co",
+      value: "I am interested in the platform team because...",
+      companyName: "Example Co",
+      tags: [],
+      embeddingReady: false,
+      sortOrder: 0,
+      createdAt: "2026-06-29T00:00:00.000Z",
+      updatedAt: "2026-06-29T00:00:00.000Z",
+    };
+
+    expect(entry.section).toBe(KnowledgeSection.CompanySpecificAnswers);
+    expect(entry.embeddingReady).toBe(false);
   });
 });

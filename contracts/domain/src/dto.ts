@@ -1,4 +1,11 @@
-import { ApplicationStatus, KnowledgeEntryType, ProviderType, ResumeType, WorkMode } from "./enums";
+import {
+  ApplicationStatus,
+  KnowledgeEntryType,
+  KnowledgeSection,
+  ProviderType,
+  ResumeType,
+  WorkMode,
+} from "./enums";
 import type {
   Application,
   EntityId,
@@ -46,11 +53,31 @@ export interface SearchResultOutput {
 
 export interface CreateKnowledgeEntryInput {
   userId: EntityId;
+  section: KnowledgeSection;
   type: KnowledgeEntryType;
   key: string;
   value: string;
+  companyName?: string;
   tags?: string[];
   source?: string;
+  sortOrder?: number;
+}
+
+export interface UpdateKnowledgeEntryInput {
+  section?: KnowledgeSection;
+  type?: KnowledgeEntryType;
+  key?: string;
+  value?: string;
+  companyName?: string;
+  tags?: string[];
+  source?: string;
+  sortOrder?: number;
+}
+
+export interface KnowledgeEntrySearchInput {
+  userId: EntityId;
+  query?: string;
+  section?: KnowledgeSection;
 }
 
 export type KnowledgeEntryOutput = KnowledgeEntry;

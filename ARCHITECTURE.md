@@ -95,3 +95,18 @@ Phase 1 implements the first product vertical slice:
 Uploaded files are validated for PDF extension, MIME type, size, and PDF signature. Phase 1 stores
 metadata only; it does not persist resume file contents, parse resumes, perform OCR, use AI, search
 jobs, or automate applications.
+
+## Phase 2 User Knowledge Base
+
+Phase 2 adds editable user profile and reusable answer storage:
+
+- `apps/web`: Knowledge Base dashboard with create, edit, delete, keyword search, section grouping,
+  collapsible sections, short-answer inputs, and long-form text editing.
+- `services/api`: FastAPI knowledge endpoints and request/response schemas.
+- `services/api`: local SQLite knowledge repository behind a service layer.
+- `contracts/domain`: framework-independent knowledge sections and CRUD/search DTOs.
+
+Knowledge entries are stored as structured text with section, type, title, content, optional company
+name, sort order, and timestamps. Search is simple keyword matching only. Phase 2 does not implement
+AI, semantic search, embeddings, vector storage, provider adapters, job search, automation, or
+authentication.

@@ -6,13 +6,15 @@
 
 ## Responsibilities
 
-Own HTTP boundaries, health/version endpoints, resume management endpoints, request validation,
-response shaping, schema models, configuration loading, logging, and backend service composition.
+Own HTTP boundaries, health/version endpoints, resume management endpoints, knowledge base
+endpoints, request validation, response shaping, schema models, configuration loading, logging, and
+backend service composition.
 
 ## Constraints
 
-Do not place provider integrations, browser automation, job search, AI behavior, or future phase
-logic directly in the API layer. Resume persistence may use the approved local SQLite metadata
-repository; broader storage concerns should stay behind repository boundaries.
+Do not place provider integrations, browser automation, job search, AI behavior, semantic search,
+embeddings, or future phase logic directly in the API layer. Resume and knowledge persistence may
+use approved local SQLite repositories; broader storage concerns should stay behind repository
+boundaries.
 
 Pydantic response and request models belong in `schema.py`, not inline in route modules.

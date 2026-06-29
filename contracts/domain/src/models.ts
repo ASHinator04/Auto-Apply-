@@ -3,6 +3,7 @@ import {
   EmploymentType,
   JobType,
   KnowledgeEntryType,
+  KnowledgeSection,
   ProviderType,
   ResumeType,
   WorkMode,
@@ -95,12 +96,15 @@ export interface Application {
 export interface KnowledgeEntry {
   id: EntityId;
   userId: EntityId;
+  section: KnowledgeSection;
   type: KnowledgeEntryType;
   key: string;
   value: string;
+  companyName?: string;
   tags: string[];
   source?: string;
   embeddingReady: boolean;
+  sortOrder: number;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }

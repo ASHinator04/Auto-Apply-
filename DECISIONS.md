@@ -139,3 +139,15 @@ database. Resume file bytes are not stored.
 Rationale: The Phase 1 requirement is resume management metadata without parsing, AI, OCR, or cloud
 storage. SQLite keeps the workflow local and durable while preserving a clear repository boundary
 for future storage changes.
+
+## ADR-0015: Local Structured Knowledge Storage for Phase 2
+
+Status: Accepted
+
+Decision: Store Phase 2 knowledge base entries as structured local SQLite records behind a
+repository and service boundary. Entries include section, answer type, title, content, optional
+company name, sort order, and timestamps. Search is keyword-only over stored text fields.
+
+Rationale: Phase 2 requires accurate, editable, persistent user information without AI, embeddings,
+semantic retrieval, or cloud sync. SQLite keeps the MVP local-first and inexpensive while preserving
+a future migration path through the repository boundary.

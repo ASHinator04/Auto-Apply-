@@ -3,6 +3,8 @@ import type {
   CreateKnowledgeEntryInput,
   CreateResumeInput,
   JobSearchInput,
+  KnowledgeEntrySearchInput,
+  UpdateKnowledgeEntryInput,
 } from "./dto";
 import type { Application, EntityId, Job, KnowledgeEntry, Resume, SearchResult } from "./models";
 
@@ -24,8 +26,10 @@ export interface ResumeStorage {
 
 export interface KnowledgeRepository {
   saveEntry(input: CreateKnowledgeEntryInput): Promise<KnowledgeEntry>;
+  updateEntry(entryId: EntityId, input: UpdateKnowledgeEntryInput): Promise<KnowledgeEntry>;
+  deleteEntry(entryId: EntityId): Promise<void>;
   getEntryById(entryId: EntityId): Promise<KnowledgeEntry | null>;
-  listEntriesForUser(userId: EntityId): Promise<KnowledgeEntry[]>;
+  listEntriesForUser(input: KnowledgeEntrySearchInput): Promise<KnowledgeEntry[]>;
 }
 
 export interface ApplicationTracker {

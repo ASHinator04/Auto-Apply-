@@ -45,10 +45,10 @@ Copy the example if local overrides are needed:
 Copy-Item .env.example .env
 ```
 
-The defaults are enough for the current infrastructure shell.
+The defaults are enough for local development.
 
-Resume metadata is stored at `.job-agent/job-agent.sqlite3` by default. This local state is ignored
-by Git.
+Resume metadata and knowledge base entries are stored at `.job-agent/job-agent.sqlite3` by default.
+This local state is ignored by Git.
 
 ## 5. Run Locally
 
@@ -70,6 +70,7 @@ Local URLs:
 - Web: `http://localhost:3000`
 - API health: `http://localhost:8000/health`
 - API version: `http://localhost:8000/version`
+- Knowledge API: `http://localhost:8000/knowledge`
 
 ## 6. Verify
 
