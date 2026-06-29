@@ -57,12 +57,12 @@ export function KnowledgeEntryCreateForm({
             <option value="long_form">Long-form answer</option>
           </select>
         </FieldLabel>
-        <FieldLabel label="Title">
+        <FieldLabel label="Question / Label">
           <input
             className="border border-slate-300 px-3 py-2 text-sm"
             maxLength={120}
             onChange={(event) => onChange({ ...entry, title: event.target.value })}
-            placeholder="Current Role"
+            placeholder="Tell me about yourself"
             type="text"
             value={entry.title}
           />
@@ -79,12 +79,12 @@ export function KnowledgeEntryCreateForm({
           />
         </FieldLabel>
       </div>
-      <FieldLabel label="Content">
+      <FieldLabel label="Answer">
         <textarea
           className="min-h-32 border border-slate-300 px-3 py-2 text-sm leading-6"
           maxLength={20_000}
           onChange={(event) => onChange({ ...entry, content: event.target.value })}
-          placeholder="Store the exact answer or profile detail you want reused later."
+          placeholder="Store the answer or profile value you want reused later."
           value={entry.content}
         />
       </FieldLabel>
@@ -94,7 +94,7 @@ export function KnowledgeEntryCreateForm({
         type="submit"
       >
         <Plus aria-hidden="true" className="h-4 w-4" />
-        Add Entry
+        Save Entry
       </button>
     </form>
   );

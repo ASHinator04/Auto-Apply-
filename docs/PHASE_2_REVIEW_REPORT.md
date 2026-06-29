@@ -42,6 +42,8 @@ Quality score: 9/10.
 - Empty search results now show a no-match message instead of the first-entry prompt.
 - Search input now has a screen-reader label.
 - Section-label searches such as `work authorization` now match section values.
+- The UI now presents knowledge records as `Question / Label` and `Answer`, which better matches how
+  reusable application prompts will be entered during current phases.
 
 ## Security Review
 

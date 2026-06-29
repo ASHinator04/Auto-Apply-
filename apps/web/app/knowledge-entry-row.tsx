@@ -109,7 +109,7 @@ export function KnowledgeEntryRow({
             <option value="long_form">Long-form answer</option>
           </select>
         </FieldLabel>
-        <FieldLabel label="Title">
+        <FieldLabel label="Question / Label">
           <input
             className="border border-slate-300 px-3 py-2 text-sm"
             maxLength={120}
@@ -129,7 +129,7 @@ export function KnowledgeEntryRow({
           />
         </FieldLabel>
       </div>
-      <FieldLabel label="Content">
+      <FieldLabel label="Answer">
         <textarea
           className="min-h-40 border border-slate-300 px-3 py-2 text-sm leading-6"
           maxLength={20_000}

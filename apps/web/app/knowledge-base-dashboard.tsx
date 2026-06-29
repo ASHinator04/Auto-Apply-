@@ -126,8 +126,8 @@ export function KnowledgeBaseDashboard() {
         <p className="text-sm font-medium uppercase text-sky-700">Phase 2</p>
         <h1 className="text-3xl font-semibold">User Knowledge Base</h1>
         <p className="max-w-3xl text-sm leading-6 text-slate-600">
-          Store permanent profile details, application facts, and reusable answers without AI,
-          semantic search, or automation.
+          Store permanent profile details plus reusable application questions and answers without
+          AI, semantic search, or automation.
         </p>
       </header>
 
@@ -147,7 +147,7 @@ export function KnowledgeBaseDashboard() {
           <input
             className="min-w-0 flex-1 outline-none"
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search title, content, company, or section"
+            placeholder="Search question, answer, company, or section"
             type="search"
             value={search}
           />

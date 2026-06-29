@@ -1,7 +1,5 @@
 # API Reference
 
-## Resume Management
-
 Base URL for local development: `http://localhost:8000`.
 
 ## Knowledge Base
@@ -41,7 +39,8 @@ Supported entry types:
 
 ### `GET /knowledge`
 
-Returns knowledge entries sorted by `sortOrder`, title, and creation time.
+Returns knowledge entries sorted by `sortOrder`, title, and creation time. In the current UI,
+`title` is shown as `Question / Label` and `content` is shown as `Answer`.
 
 Optional query parameters:
 

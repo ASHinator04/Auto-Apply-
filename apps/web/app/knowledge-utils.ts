@@ -9,7 +9,7 @@ export const KNOWLEDGE_SECTIONS: Array<{
   {
     id: "professional",
     label: "Professional",
-    description: "Role, salary, notice period, preferences.",
+    description: "Role, salary, notice period, and work preferences.",
   },
   { id: "education", label: "Education", description: "Schools, degrees, certifications." },
   { id: "experience", label: "Experience", description: "Roles, projects, achievements." },
@@ -22,12 +22,12 @@ export const KNOWLEDGE_SECTIONS: Array<{
   {
     id: "behavioral_answers",
     label: "Behavioral Answers",
-    description: "Reusable long-form application answers.",
+    description: "Reusable application questions such as strengths or leadership examples.",
   },
   {
     id: "company_specific_answers",
     label: "Company Specific Answers",
-    description: "Answers saved for individual companies.",
+    description: "Questions and answers saved for individual companies.",
   },
   { id: "miscellaneous", label: "Miscellaneous", description: "Anything that does not fit yet." },
 ];

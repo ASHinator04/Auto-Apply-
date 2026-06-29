@@ -9,11 +9,11 @@ AI, embeddings, semantic search, job search, automation, or authentication.
 ## User Workflow
 
 The web dashboard opens on the Knowledge Base tab. Users add entries by selecting a section,
-choosing short answer or long-form answer, entering a title and content, and optionally entering a
-company for company-specific answers. Saved entries appear inside collapsible sections and can be
-edited or deleted inline. Keyword search filters saved entries through the API. A Phase 2 review
-hardened duplicate-entry validation, section-label search, edit cancellation, and empty-search
-feedback.
+choosing short answer or long-form answer, entering a question or label plus its answer, and
+optionally entering a company for company-specific answers. Saved entries appear inside collapsible
+sections and can be edited or deleted inline. Keyword search filters saved entries through the API.
+A Phase 2 review hardened duplicate-entry validation, section-label search, edit cancellation, and
+empty-search feedback.
 
 ## APIs Added
 
