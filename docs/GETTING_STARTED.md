@@ -58,6 +58,12 @@ Run both services:
 pnpm dev
 ```
 
+Windows shortcut:
+
+```powershell
+pnpm start:windows
+```
+
 Run one surface:
 
 ```powershell

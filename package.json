@@ -14,6 +14,7 @@
     "dev": "concurrently -n web,api -c blue,green \"pnpm dev:web\" \"pnpm dev:api\"",
     "dev:api": "uv run uvicorn job_agent_api.main:app --app-dir services/api/src --reload --reload-dir services/api/src --host 0.0.0.0 --port 8000",
     "dev:web": "pnpm --filter @job-agent/web dev",
+    "start:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/start-dev.ps1",
     "format": "prettier . --write && uv run ruff format services/api",
     "format:check": "prettier . --check && uv run ruff format --check services/api",
     "lint": "pnpm lint:ts && pnpm lint:py",
