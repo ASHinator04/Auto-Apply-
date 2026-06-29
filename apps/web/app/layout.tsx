@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Job Agent",
-  description: "Engineering infrastructure placeholder for Job Agent.",
+  description: "Resume management dashboard for Job Agent.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

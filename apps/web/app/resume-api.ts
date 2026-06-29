@@ -61,9 +61,38 @@ async function parseResponse(response: Response): Promise<unknown> {
     return undefined;
   }
 
-  const payload = (await response.json()) as { detail?: string };
+  const payload = await parsePayload(response);
   if (!response.ok) {
-    throw new Error(payload.detail ?? "Resume request failed.");
+    throw new Error(errorDetail(payload));
   }
   return payload;
+}
+
+async function parsePayload(response: Response): Promise<unknown> {
+  const contentType = response.headers.get("content-type") ?? "";
+  if (contentType.includes("application/json")) {
+    return response.json();
+  }
+  return response.text();
+}
+
+function errorDetail(payload: unknown): string {
+  if (typeof payload === "string" && payload.trim()) {
+    return payload;
+  }
+
+  if (isDetailPayload(payload)) {
+    if (typeof payload.detail === "string") {
+      return payload.detail;
+    }
+    if (Array.isArray(payload.detail)) {
+      return "The resume request was invalid. Check the highlighted fields and try again.";
+    }
+  }
+
+  return "Resume request failed.";
+}
+
+function isDetailPayload(payload: unknown): payload is { detail: unknown } {
+  return typeof payload === "object" && payload !== null && "detail" in payload;
 }

@@ -21,6 +21,8 @@ Phase 1 resume management complete. Phase 2 has not started.
   report.
 - Phase 1 resume management dashboard, local SQLite metadata persistence, resume APIs, validation,
   tests, and documentation.
+- Phase 1 review hardening for primary consistency, validation clarity, API error handling, and
+  edge-case coverage.
 
 ## Current Stack
 

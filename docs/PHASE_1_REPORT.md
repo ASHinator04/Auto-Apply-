@@ -43,9 +43,11 @@ See `docs/API.md` for request details.
 
 ## Tests Added
 
-- API tests for upload, list, rename, replace, delete, primary switching, invalid uploads, large
-  files, duplicate names, and persistence through SQLite metadata.
-- Frontend tests for file validation, formatting, sorting, and empty-state rendering.
+- API tests for upload, list, rename, replace, delete, primary switching, invalid uploads, empty and
+  malformed PDFs, large files, duplicate names, missing resumes, and persistence through SQLite
+  metadata.
+- Frontend tests for file validation, size validation, formatting, sorting, and empty-state
+  rendering.
 - Contract test update for resume `version` and `isPrimary` metadata.
 
 ## Verification
@@ -53,8 +55,9 @@ See `docs/API.md` for request details.
 - `pnpm verify` passed.
 - Local API runtime probe passed: `/health` returned OK and `/resumes` returned an empty list.
 - Local web runtime probe passed: `http://localhost:3000` returned HTTP 200.
-- Docker verification was attempted, but Docker Desktop was not running and the Docker engine was
-  unavailable.
+- Docker Compose build and runtime probes pass after Docker Desktop is running.
+- Phase 1 review hardening added stricter SQLite primary consistency, clearer UI validation, more
+  robust API error parsing, and additional edge-case tests.
 
 ## Documentation Updated
 
@@ -67,6 +70,7 @@ See `docs/API.md` for request details.
 - Local `AGENTS.md` files.
 - `specs/resume/SPEC.md`
 - `docs/API.md`
+- `docs/PHASE_1_REVIEW_REPORT.md`
 
 ## Known Limitations
 

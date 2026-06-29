@@ -53,6 +53,7 @@ class SQLiteResumeRepository:
         upload_date = self._now()
 
         with self._connect() as connection:
+            self._begin_write(connection)
             existing_count = self._count_resumes(connection)
             is_primary = existing_count == 0
             connection.execute(
@@ -102,6 +103,7 @@ class SQLiteResumeRepository:
 
     def rename_resume(self, resume_id: str, display_name: str) -> ResumeRecord:
         with self._connect() as connection:
+            self._begin_write(connection)
             cursor = connection.execute(
                 "UPDATE resumes SET display_name = ? WHERE id = ?",
                 (display_name, resume_id),
@@ -122,6 +124,7 @@ class SQLiteResumeRepository:
     ) -> ResumeRecord:
         current = self.get_resume(resume_id)
         with self._connect() as connection:
+            self._begin_write(connection)
             connection.execute(
                 """
                 UPDATE resumes
@@ -144,6 +147,7 @@ class SQLiteResumeRepository:
     def set_primary_resume(self, resume_id: str) -> ResumeRecord:
         self.get_resume(resume_id)
         with self._connect() as connection:
+            self._begin_write(connection)
             connection.execute("UPDATE resumes SET is_primary = 0")
             connection.execute("UPDATE resumes SET is_primary = 1 WHERE id = ?", (resume_id,))
             connection.commit()
@@ -154,6 +158,7 @@ class SQLiteResumeRepository:
         target = self.get_resume(resume_id)
 
         with self._connect() as connection:
+            self._begin_write(connection)
             existing_count = self._count_resumes(connection)
             if target.is_primary and existing_count > 1:
                 if replacement_primary_id is None or replacement_primary_id == resume_id:
@@ -194,7 +199,18 @@ class SQLiteResumeRepository:
                 )
                 """
             )
+            connection.execute(
+                """
+                CREATE UNIQUE INDEX IF NOT EXISTS idx_resumes_single_primary
+                ON resumes (is_primary)
+                WHERE is_primary = 1
+                """
+            )
             connection.commit()
+
+    @staticmethod
+    def _begin_write(connection: sqlite3.Connection) -> None:
+        connection.execute("BEGIN IMMEDIATE")
 
     def _find_resume(self, connection: sqlite3.Connection, resume_id: str) -> ResumeRecord | None:
         row = connection.execute(

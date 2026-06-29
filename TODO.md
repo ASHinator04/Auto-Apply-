@@ -2,7 +2,6 @@
 
 ## Immediate
 
-- Review Phase 1 resume management changes.
 - Approve or revise the Phase 2 knowledge base plan.
 
 ## Next

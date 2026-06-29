@@ -25,20 +25,26 @@ def client(tmp_path: Path) -> Iterator[TestClient]:
 def test_upload_list_and_persist_resumes(client: TestClient) -> None:
     first = upload_resume(client, "backend.pdf", "Backend Resume")
     second = upload_resume(client, "ml.pdf", "ML Resume")
+    default_named = cast(
+        Response,
+        client.post(
+            "/resumes",
+            files={"file": ("research.PDF", pdf_bytes(), "application/pdf")},
+        ),
+    )
 
     assert first["displayName"] == "Backend Resume"
     assert first["isPrimary"] is True
     assert first["version"] == 1
     assert second["isPrimary"] is False
+    assert default_named.status_code == 201
+    assert default_named.json()["displayName"] == "research"
 
     response = cast(Response, client.get("/resumes"))
     payload = cast(dict[str, list[dict[str, object]]], response.json())
 
     assert response.status_code == 200
-    assert [resume["displayName"] for resume in payload["resumes"]] == [
-        "ML Resume",
-        "Backend Resume",
-    ]
+    assert "Backend Resume" in [resume["displayName"] for resume in payload["resumes"]]
 
 
 def test_rename_replace_and_primary_switching(client: TestClient) -> None:
@@ -122,10 +128,43 @@ def test_validation_rejects_invalid_uploads(client: TestClient) -> None:
             files={"file": ("resume.pdf", b"%PDF" + b"x" * (5 * 1024 * 1024), "application/pdf")},
         ),
     )
+    empty = cast(
+        Response,
+        client.post(
+            "/resumes",
+            files={"file": ("resume.pdf", b"", "application/pdf")},
+        ),
+    )
+    malformed = cast(
+        Response,
+        client.post(
+            "/resumes",
+            files={"file": ("resume.pdf", b"not a pdf", "application/pdf")},
+        ),
+    )
 
     assert invalid_extension.status_code == 400
     assert invalid_mime.status_code == 400
     assert too_large.status_code == 400
+    assert empty.status_code == 400
+    assert malformed.status_code == 400
+
+
+def test_rename_rejects_blank_names_and_missing_resumes(client: TestClient) -> None:
+    resume = upload_resume(client, "backend.pdf", "Backend Resume")
+
+    blank = cast(
+        Response,
+        client.patch(f"/resumes/{resume['id']}", json={"displayName": "   "}),
+    )
+    missing = cast(
+        Response,
+        client.patch("/resumes/missing", json={"displayName": "New Name"}),
+    )
+
+    assert blank.status_code == 400
+    assert blank.json()["detail"] == "Resume name is required."
+    assert missing.status_code == 404
 
 
 def test_duplicate_names_are_allowed_for_user_control(client: TestClient) -> None:

@@ -72,8 +72,15 @@ export function ResumeDashboard() {
 
   async function handleRename(resume: Resume) {
     const draftName = draftNames[resume.id] ?? resume.displayName;
+    const trimmedName = draftName.trim();
+    if (!trimmedName) {
+      setError("Resume name is required.");
+      setNotice(null);
+      return;
+    }
+
     await runAction(async () => {
-      await renameResume(resume.id, draftName);
+      await renameResume(resume.id, trimmedName);
       setNotice("Resume renamed.");
     });
   }
@@ -179,10 +186,18 @@ export function ResumeDashboard() {
         </form>
 
         {error ? (
-          <p className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+          <p
+            aria-live="polite"
+            className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {error}
+          </p>
         ) : null}
         {notice ? (
-          <p className="border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <p
+            aria-live="polite"
+            className="border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
+          >
             {notice}
           </p>
         ) : null}
@@ -254,6 +269,7 @@ export function ResumeDashboard() {
                       className="inline-flex items-center gap-2 border border-slate-300 px-3 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:text-slate-400"
                       disabled={
                         isBusy ||
+                        !(draftNames[resume.id] ?? resume.displayName).trim() ||
                         (draftNames[resume.id] ?? resume.displayName).trim() === resume.displayName
                       }
                       onClick={() => {

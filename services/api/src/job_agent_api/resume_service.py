@@ -5,6 +5,9 @@ from fastapi import UploadFile
 from job_agent_api.resume_errors import ResumeValidationError
 from job_agent_api.resume_repository import ResumeRecord, SQLiteResumeRepository
 
+PDF_MIME_TYPE = "application/pdf"
+PDF_SIGNATURE = b"%PDF"
+
 
 class ResumeService:
     def __init__(self, repository: SQLiteResumeRepository, max_size_bytes: int) -> None:
@@ -51,7 +54,7 @@ class ResumeService:
         if not original_filename.lower().endswith(".pdf"):
             raise ResumeValidationError("Only PDF files with a .pdf extension are supported.")
 
-        if file.content_type != "application/pdf":
+        if file.content_type != PDF_MIME_TYPE:
             raise ResumeValidationError(
                 "Only files with the application/pdf MIME type are supported."
             )
@@ -64,13 +67,13 @@ class ResumeService:
             raise ResumeValidationError(
                 f"PDF files must be {self._max_size_bytes // (1024 * 1024)} MB or smaller."
             )
-        if not data.startswith(b"%PDF"):
+        if not data.startswith(PDF_SIGNATURE):
             raise ResumeValidationError("The selected file does not look like a valid PDF.")
 
         return _UploadedPdf(
             original_filename=original_filename,
             size=size,
-            mime_type="application/pdf",
+            mime_type=PDF_MIME_TYPE,
         )
 
     def _normalize_display_name(self, display_name: str | None, original_filename: str) -> str:

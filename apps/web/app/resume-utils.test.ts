@@ -30,6 +30,13 @@ describe("resume utilities", () => {
     expect(validatePdfFile(new File(["%PDF"], "resume.pdf", { type: "text/plain" }))).toBe(
       "Only files with the application/pdf MIME type are supported.",
     );
+    expect(
+      validatePdfFile(
+        new File([new Uint8Array(5 * 1024 * 1024 + 1)], "resume.pdf", {
+          type: "application/pdf",
+        }),
+      ),
+    ).toBe("PDF files must be 5 MB or smaller.");
   });
 });
 
