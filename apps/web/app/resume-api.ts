@@ -1,10 +1,22 @@
 import type { Resume, ResumeListResponse } from "./resume-types";
+import { recordActivity } from "./activity-log-store";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 export async function listResumes(): Promise<Resume[]> {
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Requested resumes.",
+  });
   const response = await fetch(`${API_BASE_URL}/resumes`);
   const payload = (await parseResponse(response)) as ResumeListResponse;
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Loaded resumes.",
+    detail: `${payload.resumes.length} resumes returned.`,
+  });
   return payload.resumes;
 }
 
@@ -15,45 +27,109 @@ export async function uploadResume(file: File, displayName: string): Promise<Res
     formData.append("displayName", displayName.trim());
   }
 
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Uploading resume.",
+    detail: displayName.trim() || file.name,
+  });
   const response = await fetch(`${API_BASE_URL}/resumes`, {
     body: formData,
     method: "POST",
   });
-  return (await parseResponse(response)) as Resume;
+  const payload = (await parseResponse(response)) as Resume;
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Uploaded resume.",
+    detail: payload.displayName,
+  });
+  return payload;
 }
 
 export async function renameResume(resumeId: string, displayName: string): Promise<Resume> {
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Renaming resume.",
+    detail: displayName.trim() || resumeId,
+  });
   const response = await fetch(`${API_BASE_URL}/resumes/${resumeId}`, {
     body: JSON.stringify({ displayName: displayName.trim() }),
     headers: { "Content-Type": "application/json" },
     method: "PATCH",
   });
-  return (await parseResponse(response)) as Resume;
+  const payload = (await parseResponse(response)) as Resume;
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Renamed resume.",
+    detail: payload.displayName,
+  });
+  return payload;
 }
 
 export async function replaceResumeFile(resumeId: string, file: File): Promise<Resume> {
   const formData = new FormData();
   formData.append("file", file);
 
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Replacing resume file.",
+    detail: file.name,
+  });
   const response = await fetch(`${API_BASE_URL}/resumes/${resumeId}/file`, {
     body: formData,
     method: "PUT",
   });
-  return (await parseResponse(response)) as Resume;
+  const payload = (await parseResponse(response)) as Resume;
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Replaced resume file.",
+    detail: payload.displayName,
+  });
+  return payload;
 }
 
 export async function setPrimaryResume(resumeId: string): Promise<Resume> {
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Setting primary resume.",
+    detail: resumeId,
+  });
   const response = await fetch(`${API_BASE_URL}/resumes/${resumeId}/primary`, {
     method: "PUT",
   });
-  return (await parseResponse(response)) as Resume;
+  const payload = (await parseResponse(response)) as Resume;
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Updated primary resume.",
+    detail: payload.displayName,
+  });
+  return payload;
 }
 
 export async function deleteResume(resumeId: string): Promise<void> {
+  recordActivity({
+    area: "api",
+    level: "info",
+    message: "Deleting resume.",
+    detail: resumeId,
+  });
   const response = await fetch(`${API_BASE_URL}/resumes/${resumeId}`, {
     method: "DELETE",
   });
   await parseResponse(response);
+  recordActivity({
+    area: "api",
+    level: "success",
+    message: "Deleted resume.",
+    detail: resumeId,
+  });
 }
 
 async function parseResponse(response: Response): Promise<unknown> {
@@ -63,7 +139,14 @@ async function parseResponse(response: Response): Promise<unknown> {
 
   const payload = await parsePayload(response);
   if (!response.ok) {
-    throw new Error(errorDetail(payload));
+    const message = errorDetail(payload);
+    recordActivity({
+      area: "api",
+      level: "error",
+      message: "Resume API request failed.",
+      detail: message,
+    });
+    throw new Error(message);
   }
   return payload;
 }

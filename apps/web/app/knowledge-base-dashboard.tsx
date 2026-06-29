@@ -12,6 +12,7 @@ import {
 import { EmptyKnowledgeState } from "./knowledge-empty-state";
 import { KnowledgeEntryCreateForm } from "./knowledge-entry-create-form";
 import { KnowledgeEntryRow } from "./knowledge-entry-row";
+import { recordActivity } from "./activity-log-store";
 import type { KnowledgeEntry, KnowledgeEntryInput } from "./knowledge-types";
 import {
   KNOWLEDGE_SECTIONS,
@@ -58,11 +59,23 @@ export function KnowledgeBaseDashboard() {
     event.preventDefault();
     const validationError = validateKnowledgeInput(newEntry);
     if (validationError) {
+      recordActivity({
+        area: "knowledge",
+        level: "error",
+        message: "Knowledge entry validation failed.",
+        detail: validationError,
+      });
       setError(validationError);
       setNotice(null);
       return;
     }
 
+    recordActivity({
+      area: "knowledge",
+      level: "info",
+      message: "Submitting knowledge entry.",
+      detail: newEntry.title.trim() || "Untitled entry",
+    });
     await runAction(async () => {
       await createKnowledgeEntry(newEntry);
       setNewEntry(emptyKnowledgeInput());
@@ -74,11 +87,23 @@ export function KnowledgeBaseDashboard() {
     const draft = drafts[entry.id] ?? toInput(entry);
     const validationError = validateKnowledgeInput(draft);
     if (validationError) {
+      recordActivity({
+        area: "knowledge",
+        level: "error",
+        message: "Knowledge entry validation failed during edit.",
+        detail: validationError,
+      });
       setError(validationError);
       setNotice(null);
       return;
     }
 
+    recordActivity({
+      area: "knowledge",
+      level: "info",
+      message: "Saving knowledge entry changes.",
+      detail: draft.title.trim() || entry.title,
+    });
     await runAction(async () => {
       await updateKnowledgeEntry(entry.id, draft);
       setEditingId(null);
@@ -89,9 +114,21 @@ export function KnowledgeBaseDashboard() {
   async function handleDelete(entry: KnowledgeEntry) {
     const confirmed = window.confirm(`Delete ${entry.title}?`);
     if (!confirmed) {
+      recordActivity({
+        area: "knowledge",
+        level: "info",
+        message: "Knowledge entry deletion cancelled.",
+        detail: entry.title,
+      });
       return;
     }
 
+    recordActivity({
+      area: "knowledge",
+      level: "info",
+      message: "Deleting knowledge entry.",
+      detail: entry.title,
+    });
     await runAction(async () => {
       await deleteKnowledgeEntry(entry.id);
       setNotice("Knowledge entry deleted.");
@@ -101,6 +138,12 @@ export function KnowledgeBaseDashboard() {
   function cancelEdit(entry: KnowledgeEntry) {
     setDrafts((current) => ({ ...current, [entry.id]: toInput(entry) }));
     setEditingId(null);
+    recordActivity({
+      area: "knowledge",
+      level: "info",
+      message: "Discarded knowledge entry edits.",
+      detail: entry.title,
+    });
   }
 
   async function runAction(action: () => Promise<void>) {

@@ -6,11 +6,6 @@ These items were requested outside the active phase flow. They can be completed 
 explicitly requested and should not pull future phase functionality forward.
 
 - Review and approve Phase 2 user knowledge base hardening.
-- Implement a frontend activity logger panel with a hide/show toggle so repository users can inspect
-  each client-side step before Phase 3 begins.
-- Add a simple but pleasant frontend presentation layer for the current development phases, taking
-  light inspiration from Apple's product pages while keeping the implementation easy to replace,
-  maintain, and edit once a dedicated product design direction is approved.
 
 ## Phase-Scoped Backlog
 

@@ -11,6 +11,7 @@ import {
   setPrimaryResume,
   uploadResume,
 } from "./resume-api";
+import { recordActivity } from "./activity-log-store";
 import { EmptyResumeState } from "./resume-empty-state";
 import { formatFileSize, sortResumesNewestFirst, validatePdfFile } from "./resume-utils";
 import type { Resume } from "./resume-types";
@@ -51,16 +52,34 @@ export function ResumeDashboard() {
     event.preventDefault();
     const form = event.currentTarget;
     if (!uploadFile) {
+      recordActivity({
+        area: "resume",
+        level: "error",
+        message: "Resume upload validation failed.",
+        detail: "No file selected.",
+      });
       setError("Choose a PDF resume to upload.");
       return;
     }
 
     const validationError = validatePdfFile(uploadFile);
     if (validationError) {
+      recordActivity({
+        area: "resume",
+        level: "error",
+        message: "Resume upload validation failed.",
+        detail: validationError,
+      });
       setError(validationError);
       return;
     }
 
+    recordActivity({
+      area: "resume",
+      level: "info",
+      message: "Submitting resume upload.",
+      detail: uploadName.trim() || uploadFile.name,
+    });
     await runAction(async () => {
       await uploadResume(uploadFile, uploadName);
       setUploadName("");
@@ -74,11 +93,23 @@ export function ResumeDashboard() {
     const draftName = draftNames[resume.id] ?? resume.displayName;
     const trimmedName = draftName.trim();
     if (!trimmedName) {
+      recordActivity({
+        area: "resume",
+        level: "error",
+        message: "Resume rename validation failed.",
+        detail: "Resume name is required.",
+      });
       setError("Resume name is required.");
       setNotice(null);
       return;
     }
 
+    recordActivity({
+      area: "resume",
+      level: "info",
+      message: "Renaming resume.",
+      detail: trimmedName,
+    });
     await runAction(async () => {
       await renameResume(resume.id, trimmedName);
       setNotice("Resume renamed.");
@@ -88,10 +119,22 @@ export function ResumeDashboard() {
   async function handleReplace(resume: Resume, file: File) {
     const validationError = validatePdfFile(file);
     if (validationError) {
+      recordActivity({
+        area: "resume",
+        level: "error",
+        message: "Resume replacement validation failed.",
+        detail: validationError,
+      });
       setError(validationError);
       return;
     }
 
+    recordActivity({
+      area: "resume",
+      level: "info",
+      message: "Replacing resume file.",
+      detail: resume.displayName,
+    });
     await runAction(async () => {
       await replaceResumeFile(resume.id, file);
       setNotice("Resume replaced.");
@@ -99,6 +142,12 @@ export function ResumeDashboard() {
   }
 
   async function handleSetPrimary(resume: Resume) {
+    recordActivity({
+      area: "resume",
+      level: "info",
+      message: "Changing primary resume.",
+      detail: resume.displayName,
+    });
     await runAction(async () => {
       await setPrimaryResume(resume.id);
       setNotice("Primary resume updated.");
@@ -107,15 +156,33 @@ export function ResumeDashboard() {
 
   async function handleDelete(resume: Resume) {
     if (resume.isPrimary && resumes.length > 1) {
+      recordActivity({
+        area: "resume",
+        level: "error",
+        message: "Resume deletion blocked.",
+        detail: "Choose another primary resume first.",
+      });
       setError("Select another primary resume before deleting this one.");
       return;
     }
 
     const confirmed = window.confirm(`Delete ${resume.displayName}?`);
     if (!confirmed) {
+      recordActivity({
+        area: "resume",
+        level: "info",
+        message: "Resume deletion cancelled.",
+        detail: resume.displayName,
+      });
       return;
     }
 
+    recordActivity({
+      area: "resume",
+      level: "info",
+      message: "Deleting resume.",
+      detail: resume.displayName,
+    });
     await runAction(async () => {
       await deleteResume(resume.id);
       setNotice("Resume deleted.");
