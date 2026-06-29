@@ -88,6 +88,19 @@ importers:
         specifier: ^3.2.0
         version: 3.2.6(@types/node@24.13.2)(jiti@1.21.7)
 
+  packages/domain:
+    dependencies:
+      '@job-agent/contracts':
+        specifier: workspace:*
+        version: link:../../contracts/domain
+    devDependencies:
+      '@types/node':
+        specifier: ^24.13.2
+        version: 24.13.2
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.6(@types/node@24.13.2)(jiti@1.21.7)
+
   packages/shared:
     devDependencies:
       vitest:

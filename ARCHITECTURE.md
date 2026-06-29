@@ -110,3 +110,20 @@ Knowledge entries are stored as structured text with section, type, title, conte
 name, sort order, and timestamps. Search is simple keyword matching only. Phase 2 does not implement
 AI, semantic search, embeddings, vector storage, provider adapters, job search, automation, or
 authentication.
+
+## Phase 3.1 Search Engine Foundation
+
+Phase 3.1 adds `@job-agent/domain` in `packages/domain` as the provider-independent orchestration
+layer for future job discovery. It defines:
+
+- Search configuration for enabled providers, disabled providers, future priorities, timeouts, and
+  maximum provider count.
+- A provider registry that discovers registered providers without knowing their implementations.
+- A search lifecycle pipeline: request accepted, provider selection, provider execution, result
+  collection, and response creation.
+- A search service that implements the contract `SearchEngine` interface and can return diagnostics
+  for orchestration tests and future observability.
+
+The package depends on `@job-agent/contracts` and does not depend on FastAPI, Next.js, React,
+Playwright, SQLite, SQLAlchemy, browser APIs, storage, HTTP clients, or concrete provider adapters.
+Phase 3.1 intentionally returns empty results when no providers are registered.

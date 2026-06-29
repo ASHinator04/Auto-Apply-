@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 2 user knowledge base complete. Phase 3 has not started.
+Phase 3.1 search engine foundation complete. Phase 3.2 has not started.
 
 ## Completed
 
@@ -27,6 +27,8 @@ Phase 2 user knowledge base complete. Phase 3 has not started.
   validation, tests, and documentation.
 - Phase 2 review hardening for duplicate validation, section-label search, edit cancellation,
   empty-search messaging, accessibility, and edge-case coverage.
+- Phase 3.1 provider-independent search engine foundation with search configuration, provider
+  registry, lifecycle pipeline, orchestration service, tests, and documentation.
 
 ## Current Stack
 
@@ -35,6 +37,8 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
+Implemented search capability: provider-independent orchestration foundation only; no concrete job
+providers exist yet.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -58,11 +62,13 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - `@job-agent/contracts` is the canonical Phase 0C contract surface.
 - Resume files are validated during upload but only metadata is stored in Phase 1.
 - Knowledge base entries are stored locally as editable structured text in Phase 2.
+- Search orchestration lives in `packages/domain` and depends on contracts, not concrete providers,
+  storage, browser automation, or network clients.
 
 ## Next Phase
 
-Phase 3: Job Search Engine, after explicit user approval.
+Phase 3.2: Provider Adapter Framework, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3 begins.
+User approval is required before Phase 3.2 begins.

@@ -151,3 +151,17 @@ company name, sort order, and timestamps. Search is keyword-only over stored tex
 Rationale: Phase 2 requires accurate, editable, persistent user information without AI, embeddings,
 semantic retrieval, or cloud sync. SQLite keeps the MVP local-first and inexpensive while preserving
 a future migration path through the repository boundary.
+
+## ADR-0016: Provider-Independent Search Orchestration for Phase 3.1
+
+Status: Accepted
+
+Decision: Implement the Phase 3.1 search engine foundation in `packages/domain` as the
+`@job-agent/domain` TypeScript package. The package owns search configuration, provider registry,
+provider-independent lifecycle orchestration, and a search service that depends on
+`@job-agent/contracts`.
+
+Rationale: Phase 3.1 must define how searches flow without implementing Greenhouse, Lever, Ashby,
+HTTP scraping, browser automation, storage, normalization, deduplication, or ranking. Keeping the
+foundation in the domain package preserves dependency direction and allows later provider phases to
+plug in through registry interfaces.

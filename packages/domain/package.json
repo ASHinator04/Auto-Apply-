@@ -1,0 +1,27 @@
+{
+  "name": "@job-agent/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm --filter @job-agent/contracts build && tsc -p tsconfig.build.json",
+    "lint": "eslint src --max-warnings=0",
+    "test": "pnpm --filter @job-agent/contracts build && vitest run",
+    "typecheck": "pnpm --filter @job-agent/contracts build && tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@job-agent/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "vitest": "^3.2.0"
+  }
+}
