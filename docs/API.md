@@ -63,7 +63,8 @@ Creates a knowledge entry.
 }
 ```
 
-Company name is required when `section` is `company_specific_answers`.
+Company name is required when `section` is `company_specific_answers`. Titles must be unique within
+the same section and company context.
 
 ### `PUT /knowledge/{entry_id}`
 

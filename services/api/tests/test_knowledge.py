@@ -101,6 +101,13 @@ def test_keyword_search_and_section_filter(client: TestClient) -> None:
     )
     create_entry(
         client,
+        section="work_authorization",
+        entry_type="scalar",
+        title="Sponsorship Required",
+        content="No",
+    )
+    create_entry(
+        client,
         section="company_specific_answers",
         entry_type="long_form",
         title="Why this company",
@@ -109,15 +116,29 @@ def test_keyword_search_and_section_filter(client: TestClient) -> None:
     )
 
     search_response = cast(Response, client.get("/knowledge", params={"query": "platform"}))
+    case_insensitive_response = cast(
+        Response, client.get("/knowledge", params={"query": "EXAMPLE CO"})
+    )
+    section_label_response = cast(
+        Response, client.get("/knowledge", params={"query": "work authorization"})
+    )
     section_response = cast(
         Response,
         client.get("/knowledge", params={"section": "company_specific_answers"}),
     )
 
     searched = cast(dict[str, list[dict[str, object]]], search_response.json())["entries"]
+    case_insensitive = cast(dict[str, list[dict[str, object]]], case_insensitive_response.json())[
+        "entries"
+    ]
+    section_label = cast(dict[str, list[dict[str, object]]], section_label_response.json())[
+        "entries"
+    ]
     filtered = cast(dict[str, list[dict[str, object]]], section_response.json())["entries"]
 
     assert [entry["title"] for entry in searched] == ["Leadership example"]
+    assert [entry["companyName"] for entry in case_insensitive] == ["Example Co"]
+    assert [entry["title"] for entry in section_label] == ["Sponsorship Required"]
     assert [entry["companyName"] for entry in filtered] == ["Example Co"]
 
 
@@ -180,6 +201,104 @@ def test_large_long_form_answer_is_stored(client: TestClient) -> None:
 
     assert entry["content"] == content.strip()
     assert len(cast(str, entry["content"])) > 5_000
+
+
+def test_duplicate_entries_are_rejected_within_same_section(client: TestClient) -> None:
+    first = create_entry(
+        client,
+        section="personal",
+        entry_type="scalar",
+        title="Email",
+        content="user@example.com",
+    )
+    duplicate = cast(
+        Response,
+        client.post(
+            "/knowledge",
+            json={
+                "section": "personal",
+                "entryType": "scalar",
+                "title": " email ",
+                "content": "other@example.com",
+            },
+        ),
+    )
+    other_section = create_entry(
+        client,
+        section="professional",
+        entry_type="scalar",
+        title="Email",
+        content="work@example.com",
+    )
+
+    assert duplicate.status_code == 400
+    assert duplicate.json()["detail"] == (
+        "A knowledge entry with this title already exists in this section."
+    )
+    assert other_section["id"] != first["id"]
+
+
+def test_update_rejects_duplicate_target_title(client: TestClient) -> None:
+    first = create_entry(
+        client,
+        section="links",
+        entry_type="scalar",
+        title="GitHub",
+        content="https://github.com/example",
+    )
+    second = create_entry(
+        client,
+        section="links",
+        entry_type="scalar",
+        title="Portfolio",
+        content="https://example.com",
+    )
+
+    response = cast(
+        Response,
+        client.put(
+            f"/knowledge/{second['id']}",
+            json={
+                "section": "links",
+                "entryType": "scalar",
+                "title": "GITHUB",
+                "content": "https://example.com",
+            },
+        ),
+    )
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == (
+        "A knowledge entry with this title already exists in this section."
+    )
+    assert first["id"] != second["id"]
+
+
+def test_update_missing_entry_returns_not_found_before_duplicate_validation(
+    client: TestClient,
+) -> None:
+    create_entry(
+        client,
+        section="personal",
+        entry_type="scalar",
+        title="Email",
+        content="user@example.com",
+    )
+
+    response = cast(
+        Response,
+        client.put(
+            "/knowledge/missing",
+            json={
+                "section": "personal",
+                "entryType": "scalar",
+                "title": "Email",
+                "content": "other@example.com",
+            },
+        ),
+    )
+
+    assert response.status_code == 404
 
 
 def create_entry(

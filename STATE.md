@@ -25,6 +25,8 @@ Phase 2 user knowledge base complete. Phase 3 has not started.
   edge-case coverage.
 - Phase 2 user knowledge base dashboard, local SQLite persistence, CRUD APIs, keyword search,
   validation, tests, and documentation.
+- Phase 2 review hardening for duplicate validation, section-label search, edit cancellation,
+  empty-search messaging, accessibility, and edge-case coverage.
 
 ## Current Stack
 

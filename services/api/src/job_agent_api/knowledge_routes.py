@@ -32,7 +32,7 @@ def get_knowledge_service(
 def list_knowledge_entries(
     service: Annotated[KnowledgeService, Depends(get_knowledge_service)],
     query: Annotated[str | None, Query(max_length=120)] = None,
-    section: str | None = None,
+    section: KnowledgeSection | None = None,
 ) -> KnowledgeEntryListResponse:
     return KnowledgeEntryListResponse(
         entries=[

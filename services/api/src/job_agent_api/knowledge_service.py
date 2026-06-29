@@ -1,3 +1,11 @@
+from job_agent_api.knowledge_contracts import (
+    COMPANY_SPECIFIC_SECTION,
+    KNOWLEDGE_ENTRY_TYPES,
+    KNOWLEDGE_SECTIONS,
+    MAX_COMPANY_NAME_LENGTH,
+    MAX_CONTENT_LENGTH,
+    MAX_TITLE_LENGTH,
+)
 from job_agent_api.knowledge_errors import KnowledgeValidationError
 from job_agent_api.knowledge_repository import (
     KnowledgeEntryCreate,
@@ -5,23 +13,6 @@ from job_agent_api.knowledge_repository import (
     KnowledgeEntryUpdate,
     SQLiteKnowledgeRepository,
 )
-
-KNOWLEDGE_SECTIONS = {
-    "personal",
-    "professional",
-    "education",
-    "experience",
-    "links",
-    "work_authorization",
-    "behavioral_answers",
-    "company_specific_answers",
-    "miscellaneous",
-}
-KNOWLEDGE_ENTRY_TYPES = {"scalar", "long_form"}
-COMPANY_SPECIFIC_SECTION = "company_specific_answers"
-MAX_TITLE_LENGTH = 120
-MAX_COMPANY_NAME_LENGTH = 120
-MAX_CONTENT_LENGTH = 20_000
 
 
 class KnowledgeService:
@@ -48,13 +39,21 @@ class KnowledgeService:
         company_name: str | None,
         sort_order: int,
     ) -> KnowledgeEntryRecord:
+        normalized_section = self._validate_section(section)
+        normalized_title = self._normalize_required_text(title, "Title", MAX_TITLE_LENGTH)
+        normalized_company_name = self._normalize_company_name(normalized_section, company_name)
+        self._ensure_unique_entry(
+            section=normalized_section,
+            title=normalized_title,
+            company_name=normalized_company_name,
+        )
         return self._repository.create_entry(
             KnowledgeEntryCreate(
-                section=self._validate_section(section),
+                section=normalized_section,
                 entry_type=self._validate_entry_type(entry_type),
-                title=self._normalize_required_text(title, "Title", MAX_TITLE_LENGTH),
+                title=normalized_title,
                 content=self._normalize_required_text(content, "Content", MAX_CONTENT_LENGTH),
-                company_name=self._normalize_company_name(section, company_name),
+                company_name=normalized_company_name,
                 sort_order=self._validate_sort_order(sort_order),
             )
         )
@@ -70,14 +69,24 @@ class KnowledgeService:
         company_name: str | None,
         sort_order: int,
     ) -> KnowledgeEntryRecord:
+        self._repository.get_entry(entry_id)
+        normalized_section = self._validate_section(section)
+        normalized_title = self._normalize_required_text(title, "Title", MAX_TITLE_LENGTH)
+        normalized_company_name = self._normalize_company_name(normalized_section, company_name)
+        self._ensure_unique_entry(
+            section=normalized_section,
+            title=normalized_title,
+            company_name=normalized_company_name,
+            exclude_entry_id=entry_id,
+        )
         return self._repository.update_entry(
             entry_id,
             KnowledgeEntryUpdate(
-                section=self._validate_section(section),
+                section=normalized_section,
                 entry_type=self._validate_entry_type(entry_type),
-                title=self._normalize_required_text(title, "Title", MAX_TITLE_LENGTH),
+                title=normalized_title,
                 content=self._normalize_required_text(content, "Content", MAX_CONTENT_LENGTH),
-                company_name=self._normalize_company_name(section, company_name),
+                company_name=normalized_company_name,
                 sort_order=self._validate_sort_order(sort_order),
             ),
         )
@@ -146,3 +155,21 @@ class KnowledgeService:
         if sort_order < 0:
             raise KnowledgeValidationError("Sort order must be zero or greater.")
         return sort_order
+
+    def _ensure_unique_entry(
+        self,
+        *,
+        section: str,
+        title: str,
+        company_name: str | None,
+        exclude_entry_id: str | None = None,
+    ) -> None:
+        if self._repository.entry_exists(
+            section=section,
+            title=title,
+            company_name=company_name,
+            exclude_entry_id=exclude_entry_id,
+        ):
+            raise KnowledgeValidationError(
+                "A knowledge entry with this title already exists in this section."
+            )

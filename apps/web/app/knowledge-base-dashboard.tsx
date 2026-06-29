@@ -98,6 +98,11 @@ export function KnowledgeBaseDashboard() {
     });
   }
 
+  function cancelEdit(entry: KnowledgeEntry) {
+    setDrafts((current) => ({ ...current, [entry.id]: toInput(entry) }));
+    setEditingId(null);
+  }
+
   async function runAction(action: () => Promise<void>) {
     setIsBusy(true);
     setError(null);
@@ -137,6 +142,7 @@ export function KnowledgeBaseDashboard() {
 
       <div className="grid gap-4 border border-slate-200 bg-white p-5 md:grid-cols-[1fr_auto]">
         <label className="flex items-center gap-2 border border-slate-300 px-3 py-2 text-sm text-slate-600">
+          <span className="sr-only">Search knowledge entries</span>
           <Search aria-hidden="true" className="h-4 w-4" />
           <input
             className="min-w-0 flex-1 outline-none"
@@ -173,7 +179,13 @@ export function KnowledgeBaseDashboard() {
           Loading knowledge entries...
         </section>
       ) : totalEntries === 0 ? (
-        <EmptyKnowledgeState />
+        search.trim() ? (
+          <section className="border border-slate-200 bg-white p-6 text-sm text-slate-600">
+            No knowledge entries match this search.
+          </section>
+        ) : (
+          <EmptyKnowledgeState />
+        )
       ) : (
         <div className="space-y-4">
           {KNOWLEDGE_SECTIONS.map((section) => {
@@ -204,7 +216,7 @@ export function KnowledgeBaseDashboard() {
                         isBusy={isBusy}
                         isEditing={editingId === entry.id}
                         key={entry.id}
-                        onCancel={() => setEditingId(null)}
+                        onCancel={() => cancelEdit(entry)}
                         onChange={(draft) =>
                           setDrafts((current) => ({ ...current, [entry.id]: draft }))
                         }

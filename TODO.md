@@ -2,7 +2,7 @@
 
 ## Immediate
 
-- Review Phase 2 user knowledge base implementation.
+- Review and approve Phase 2 user knowledge base hardening.
 
 ## Next
 

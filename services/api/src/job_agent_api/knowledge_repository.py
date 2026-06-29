@@ -66,11 +66,18 @@ class SQLiteKnowledgeRepository:
                     OR lower(content) LIKE ?
                     OR lower(coalesce(company_name, '')) LIKE ?
                     OR lower(section) LIKE ?
+                    OR lower(replace(section, '_', ' ')) LIKE ?
                 )
                 """
             )
             parameters.extend(
-                [normalized_query, normalized_query, normalized_query, normalized_query]
+                [
+                    normalized_query,
+                    normalized_query,
+                    normalized_query,
+                    normalized_query,
+                    normalized_query,
+                ]
             )
 
         where_clause = f"WHERE {' AND '.join(clauses)}" if clauses else ""
@@ -87,6 +94,37 @@ class SQLiteKnowledgeRepository:
             ).fetchall()
 
         return [self._row_to_record(row) for row in rows]
+
+    def entry_exists(
+        self,
+        *,
+        section: str,
+        title: str,
+        company_name: str | None,
+        exclude_entry_id: str | None = None,
+    ) -> bool:
+        clauses = [
+            "section = ?",
+            "lower(title) = lower(?)",
+            "lower(coalesce(company_name, '')) = lower(?)",
+        ]
+        parameters = [section, title, company_name or ""]
+        if exclude_entry_id is not None:
+            clauses.append("id != ?")
+            parameters.append(exclude_entry_id)
+
+        with self._connect() as connection:
+            row = connection.execute(
+                f"""
+                SELECT 1 AS found
+                FROM knowledge_entries
+                WHERE {" AND ".join(clauses)}
+                LIMIT 1
+                """,
+                parameters,
+            ).fetchone()
+
+        return row is not None
 
     def create_entry(self, entry: KnowledgeEntryCreate) -> KnowledgeEntryRecord:
         entry_id = f"knowledge_{uuid4().hex}"
