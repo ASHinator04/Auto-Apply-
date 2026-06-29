@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.1 search engine foundation complete. Phase 3.2 has not started.
+Phase 3.1 search engine foundation architecture review complete. Phase 3.2 has not started.
 
 ## Completed
 
@@ -29,6 +29,9 @@ Phase 3.1 search engine foundation complete. Phase 3.2 has not started.
   empty-search messaging, accessibility, and edge-case coverage.
 - Phase 3.1 provider-independent search engine foundation with search configuration, provider
   registry, lifecycle pipeline, orchestration service, tests, and documentation.
+- Phase 3.1 architecture review hardening with explicit pipeline stage definitions, lifecycle
+  recorder, stable per-execution request correlation, injectable duration measurement, added tests,
+  and review documentation.
 
 ## Current Stack
 
@@ -64,6 +67,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - Knowledge base entries are stored locally as editable structured text in Phase 2.
 - Search orchestration lives in `packages/domain` and depends on contracts, not concrete providers,
   storage, browser automation, or network clients.
+- Phase 3.1 pipeline stages are explicit and documented so later phases can insert provider adapter,
+  normalization, ranking, caching, and storage boundaries without redesign.
 
 ## Next Phase
 

@@ -165,3 +165,16 @@ Rationale: Phase 3.1 must define how searches flow without implementing Greenhou
 HTTP scraping, browser automation, storage, normalization, deduplication, or ranking. Keeping the
 foundation in the domain package preserves dependency direction and allows later provider phases to
 plug in through registry interfaces.
+
+## ADR-0017: Explicit Search Pipeline Stages for Phase 3.1 Review
+
+Status: Accepted
+
+Decision: Represent Phase 3.1 search flow as explicit pipeline stage definitions and lifecycle
+recording in `packages/domain/src/search/pipeline.ts`, while keeping execution orchestration in
+`SearchService`.
+
+Rationale: The architecture review found the original pipeline was correct but too implicit inside
+the service. Explicit stages make extension points visible for later provider adapter,
+normalization, ranking, caching, and storage work without implementing those future capabilities
+early.

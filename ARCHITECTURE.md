@@ -119,11 +119,24 @@ layer for future job discovery. It defines:
 - Search configuration for enabled providers, disabled providers, future priorities, timeouts, and
   maximum provider count.
 - A provider registry that discovers registered providers without knowing their implementations.
-- A search lifecycle pipeline: request accepted, provider selection, provider execution, result
-  collection, and response creation.
+- An explicit search lifecycle pipeline in `packages/domain/src/search/pipeline.ts`: request
+  accepted, provider selection, provider execution, result collection, and response creation.
 - A search service that implements the contract `SearchEngine` interface and can return diagnostics
   for orchestration tests and future observability.
 
 The package depends on `@job-agent/contracts` and does not depend on FastAPI, Next.js, React,
 Playwright, SQLite, SQLAlchemy, browser APIs, storage, HTTP clients, or concrete provider adapters.
 Phase 3.1 intentionally returns empty results when no providers are registered.
+
+Dependency direction:
+
+```text
+future provider adapters -> SearchProvider interface
+SearchService -> SearchProviderRegistry -> SearchProvider interface
+SearchService -> explicit pipeline lifecycle
+packages/domain -> @job-agent/contracts
+```
+
+Later phases may add adapter registration, normalization, ranking, caching, or storage around these
+boundaries, but they must not make the domain package depend on concrete providers or
+infrastructure.

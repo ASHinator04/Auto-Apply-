@@ -57,4 +57,5 @@ export interface SearchExecutionResult {
 }
 
 export type SearchClock = () => string;
+export type SearchDurationClock = () => number;
 export type SearchIdGenerator = (prefix: string) => EntityId;

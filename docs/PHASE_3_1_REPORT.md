@@ -29,6 +29,7 @@ If no providers are registered, the service returns a completed empty result.
 - `SearchProviderRegistry`
 - `createSearchConfiguration`
 - Search lifecycle events
+- Explicit search pipeline stage definitions
 - Provider execution diagnostics
 - Domain package build, lint, test, and typecheck wiring
 
@@ -45,6 +46,7 @@ If no providers are registered, the service returns a completed empty result.
 - Configuration defaults and validation.
 - Provider registration, duplicate rejection, filtering, priorities, and max provider selection.
 - Search lifecycle with zero providers.
+- Explicit pipeline stage order and lifecycle recorder immutability.
 - Independent provider execution and aggregation.
 - Provider failure isolation.
 - Provider timeout handling.

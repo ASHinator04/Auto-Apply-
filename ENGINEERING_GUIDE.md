@@ -98,6 +98,11 @@ Shared domain contracts live in `@job-agent/contracts`. Application, service, pr
 persistence, and UI modules should import shared shapes from that package rather than redefining
 cross-layer types.
 
+Search orchestration lives in `@job-agent/domain`. Its Phase 3.1 pipeline stages are explicit in
+`packages/domain/src/search/pipeline.ts`; future phases should extend the search flow through
+documented boundaries instead of hiding provider, ranking, storage, or UI behavior inside
+`SearchService`.
+
 ## Dependency Injection
 
 Inject infrastructure dependencies at service boundaries. Domain code should receive inputs and

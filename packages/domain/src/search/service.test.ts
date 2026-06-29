@@ -58,6 +58,7 @@ describe("search service", () => {
 
     expect(execution.result.jobs).toEqual([]);
     expect(execution.result.totalFound).toBe(0);
+    expect(execution.result.requestId).toBe("search-request-1");
     expect(execution.providerExecutions).toEqual([]);
     expect(execution.lifecycle.map((event) => event.stage)).toEqual([
       SearchLifecycleStage.Created,
@@ -146,5 +147,18 @@ describe("search service", () => {
     await expect(service.search(request)).resolves.toMatchObject({
       totalFound: 1,
     });
+  });
+
+  it("measures provider duration through an injected clock", async () => {
+    const registry = new SearchProviderRegistry([createProvider("provider-a")]);
+    const durationValues = [100, 125];
+    const service = new SearchService({
+      registry,
+      durationClock: () => durationValues.shift() ?? 125,
+    });
+
+    const execution = await service.searchWithDiagnostics(request);
+
+    expect(execution.providerExecutions[0]?.durationMs).toBe(25);
   });
 });

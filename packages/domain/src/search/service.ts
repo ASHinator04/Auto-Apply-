@@ -9,13 +9,14 @@ import type {
 import type { SearchConfiguration, SearchConfigurationInput } from "./configuration";
 import { createSearchConfiguration } from "./configuration";
 import { createProviderExecutionError } from "./errors";
+import { SearchLifecycleRecorder } from "./pipeline";
 import { SearchProviderRegistry } from "./registry";
 import {
   SearchLifecycleStage,
   type SearchClock,
+  type SearchDurationClock,
   type SearchExecutionResult,
   type SearchIdGenerator,
-  type SearchLifecycleEvent,
   type SearchProvider,
   type SearchProviderExecution,
 } from "./types";
@@ -24,6 +25,7 @@ export interface SearchServiceDependencies {
   registry?: SearchProviderRegistry;
   configuration?: SearchConfigurationInput;
   clock?: SearchClock;
+  durationClock?: SearchDurationClock;
   idGenerator?: SearchIdGenerator;
 }
 
@@ -31,12 +33,14 @@ export class SearchService implements SearchEngine {
   private readonly registry: SearchProviderRegistry;
   private readonly configuration: SearchConfiguration;
   private readonly clock: SearchClock;
+  private readonly durationClock: SearchDurationClock;
   private readonly idGenerator: SearchIdGenerator;
 
   constructor(dependencies: SearchServiceDependencies = {}) {
     this.registry = dependencies.registry ?? new SearchProviderRegistry();
     this.configuration = createSearchConfiguration(dependencies.configuration);
     this.clock = dependencies.clock ?? (() => new Date().toISOString());
+    this.durationClock = dependencies.durationClock ?? (() => Date.now());
     this.idGenerator =
       dependencies.idGenerator ??
       ((prefix) =>
@@ -49,35 +53,33 @@ export class SearchService implements SearchEngine {
   }
 
   async searchWithDiagnostics(request: JobSearchInput): Promise<SearchExecutionResult> {
-    const lifecycle: SearchLifecycleEvent[] = [];
-    const addEvent = (stage: SearchLifecycleStage, message: string): void => {
-      lifecycle.push({ stage, timestamp: this.clock(), message });
-    };
+    const lifecycle = new SearchLifecycleRecorder(this.clock);
+    const requestId = this.idGenerator("search-request");
 
-    addEvent(SearchLifecycleStage.Created, "Search request accepted.");
+    lifecycle.record(SearchLifecycleStage.Created, "Search request accepted.");
 
     const providers = this.registry.select(request, this.configuration);
-    addEvent(
+    lifecycle.record(
       SearchLifecycleStage.ProviderSelection,
       `${providers.length.toString()} provider(s) selected.`,
     );
 
-    addEvent(SearchLifecycleStage.ProviderExecution, "Provider execution started.");
+    lifecycle.record(SearchLifecycleStage.ProviderExecution, "Provider execution started.");
     const providerExecutions = await Promise.all(
       providers.map((provider) => this.executeProvider(provider, request)),
     );
 
-    addEvent(SearchLifecycleStage.ResultCollection, "Provider results collected.");
+    lifecycle.record(SearchLifecycleStage.ResultCollection, "Provider results collected.");
     const jobs = providerExecutions.flatMap((execution) => execution.jobs);
     const providerTypes = [...new Set(providers.map((provider) => provider.type))];
-    const result = this.createResult(request, jobs, providerTypes);
+    const result = this.createResult(requestId, jobs, providerTypes);
 
-    addEvent(SearchLifecycleStage.Completed, "Search response created.");
+    lifecycle.record(SearchLifecycleStage.Completed, "Search response created.");
 
     return {
       result,
       providerExecutions,
-      lifecycle,
+      lifecycle: lifecycle.events(),
     };
   }
 
@@ -85,7 +87,7 @@ export class SearchService implements SearchEngine {
     provider: SearchProvider,
     request: JobSearchInput,
   ): Promise<SearchProviderExecution> {
-    const startedAt = Date.now();
+    const startedAt = this.durationClock();
 
     try {
       const response = await this.withTimeout(
@@ -98,7 +100,7 @@ export class SearchService implements SearchEngine {
         providerType: provider.type,
         status: "succeeded",
         jobs: response.jobs,
-        durationMs: Date.now() - startedAt,
+        durationMs: this.getDurationSince(startedAt),
       };
     } catch (error) {
       const timedOut = error instanceof SearchProviderTimeoutException;
@@ -108,7 +110,7 @@ export class SearchService implements SearchEngine {
         providerType: provider.type,
         status: timedOut ? "timed_out" : "failed",
         jobs: [],
-        durationMs: Date.now() - startedAt,
+        durationMs: this.getDurationSince(startedAt),
         error: createProviderExecutionError(
           provider.id,
           error instanceof Error ? error.message : "Search provider execution failed.",
@@ -119,13 +121,13 @@ export class SearchService implements SearchEngine {
   }
 
   private createResult(
-    _request: JobSearchInput,
+    requestId: string,
     jobs: Job[],
     providerTypes: ProviderType[],
   ): SearchResult {
     return {
       id: this.idGenerator("search-result"),
-      requestId: this.idGenerator("search-request"),
+      requestId,
       jobs,
       totalFound: jobs.length,
       providerTypes,
@@ -148,6 +150,10 @@ export class SearchService implements SearchEngine {
         clearTimeout(timeout);
       }
     }
+  }
+
+  private getDurationSince(startedAt: number): number {
+    return Math.max(0, this.durationClock() - startedAt);
   }
 }
 
