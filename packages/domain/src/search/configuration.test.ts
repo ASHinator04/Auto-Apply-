@@ -1,4 +1,8 @@
-import { createSearchConfiguration, DEFAULT_SEARCH_CONFIGURATION } from "./configuration";
+import {
+  createProviderPluginConfiguration,
+  createSearchConfiguration,
+  DEFAULT_SEARCH_CONFIGURATION,
+} from "./configuration";
 import { SearchConfigurationException } from "./errors";
 
 describe("search configuration", () => {
@@ -23,5 +27,44 @@ describe("search configuration", () => {
     expect(() => createSearchConfiguration({ maxProviders: -1 })).toThrow(
       SearchConfigurationException,
     );
+  });
+
+  it("validates provider plugin configuration", () => {
+    expect(
+      createProviderPluginConfiguration({
+        enabled: false,
+        priority: 2,
+        timeoutMs: 100,
+        retryPolicy: {
+          maxAttempts: 3,
+          backoffMs: 50,
+        },
+        featureFlags: {
+          experimentalFilter: true,
+        },
+      }),
+    ).toMatchObject({
+      enabled: false,
+      priority: 2,
+      timeoutMs: 100,
+      retryPolicy: {
+        maxAttempts: 3,
+        backoffMs: 50,
+      },
+      featureFlags: {
+        experimentalFilter: true,
+      },
+    });
+  });
+
+  it("rejects invalid provider plugin retry configuration", () => {
+    expect(() =>
+      createProviderPluginConfiguration({
+        retryPolicy: {
+          maxAttempts: 0,
+          backoffMs: 0,
+        },
+      }),
+    ).toThrow(SearchConfigurationException);
   });
 });

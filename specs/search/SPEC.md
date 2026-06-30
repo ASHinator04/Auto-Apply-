@@ -2,8 +2,8 @@
 
 ## Status
 
-Phase 3.1 complete. This spec currently covers only the provider-independent search engine
-foundation.
+Phase 3.2 complete. This spec currently covers the provider-independent search engine foundation and
+provider plugin framework.
 
 ## Scope
 
@@ -16,13 +16,17 @@ Implemented scope:
   collection, and response creation.
 - Search service orchestration over the explicit pipeline.
 - Empty-result behavior when no providers are registered.
+- Provider plugin metadata, capability validation, discovery, lifecycle, configuration, enablement,
+  disablement, and handoff to the search provider registry.
 
 Out of scope until later Phase 3 sub-phases:
 
 - Concrete providers.
 - HTTP scraping.
 - Browser automation.
+- HTML parsing.
 - Job normalization.
 - Deduplication.
 - Ranking.
+- Caching.
 - Storage.

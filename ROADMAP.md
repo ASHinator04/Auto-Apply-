@@ -77,8 +77,9 @@ Status: complete; see `docs/PHASE_0_AUDIT_REPORT.md`.
 - Phase 1: Resume Management. Status: complete.
 - Phase 2: User Knowledge Base. Status: complete.
 - Phase 3.1: Search Engine Foundation. Status: complete.
-- Phase 3.2: Provider Adapter Framework. Status: next, pending approval.
-- Phase 3.3-3.6: Provider implementations, normalization, deduplication, ranking, and review.
+- Phase 3.2: Provider Plugin Framework. Status: complete.
+- Phase 3.3: Greenhouse Provider. Status: next, pending approval.
+- Phase 3.4-3.6: Provider implementations, normalization, deduplication, ranking, and review.
   Status: not started.
 - Phase 4: Search Dashboard.
 - Phase 5: Approval Pipeline.

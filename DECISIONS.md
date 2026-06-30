@@ -178,3 +178,16 @@ Rationale: The architecture review found the original pipeline was correct but t
 the service. Explicit stages make extension points visible for later provider adapter,
 normalization, ranking, caching, and storage work without implementing those future capabilities
 early.
+
+## ADR-0018: Provider Plugins as the Phase 3.2 Extension Mechanism
+
+Status: Accepted
+
+Decision: Provider extensions will enter the search engine through a provider plugin framework in
+`@job-agent/domain`. Plugins expose metadata, capabilities, configuration, lifecycle hooks, and a
+future-ready provider contract. `ProviderPluginRegistry` validates plugins, controls enablement, and
+hands ready providers to `SearchProviderRegistry`.
+
+Rationale: The search engine must not know provider implementation details. A plugin framework keeps
+future Greenhouse, Lever, Ashby, and other providers independent while preserving a simple
+dependency direction: search engine to registry to plugin interface to provider plugin.

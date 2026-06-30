@@ -140,3 +140,32 @@ packages/domain -> @job-agent/contracts
 Later phases may add adapter registration, normalization, ranking, caching, or storage around these
 boundaries, but they must not make the domain package depend on concrete providers or
 infrastructure.
+
+## Phase 3.2 Provider Plugin Framework
+
+Phase 3.2 adds provider plugin infrastructure to `@job-agent/domain` without implementing any
+concrete providers. Provider plugins expose metadata and lifecycle hooks independently from search
+execution.
+
+The framework defines:
+
+- Provider metadata: id, type, display name, version, and capability flags.
+- Capability validation for keyword search, pagination, location filters, remote search, salary, and
+  future flags.
+- Provider plugin configuration for enabled state, priority, timeout, future retry policy, and
+  feature flags.
+- Plugin discovery through implementation-independent discoverers.
+- Plugin lifecycle: validated, disabled, ready, and shutdown.
+- Registry handoff from ready plugins into the existing `SearchProviderRegistry`.
+
+Dependency direction:
+
+```text
+future provider plugin -> ProviderPlugin interface -> ProviderPluginRegistry
+ProviderPluginRegistry -> SearchProviderRegistry
+SearchService -> SearchProviderRegistry
+packages/domain -> @job-agent/contracts
+```
+
+The framework does not include Greenhouse, Lever, Ashby, HTTP requests, browser automation, HTML
+parsing, normalization, deduplication, ranking, caching, dashboard code, storage, or search UI.

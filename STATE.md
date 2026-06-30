@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.1 search engine foundation architecture review complete. Phase 3.2 has not started.
+Phase 3.2 provider plugin framework complete. Phase 3.3 has not started.
 
 ## Completed
 
@@ -32,6 +32,9 @@ Phase 3.1 search engine foundation architecture review complete. Phase 3.2 has n
 - Phase 3.1 architecture review hardening with explicit pipeline stage definitions, lifecycle
   recorder, stable per-execution request correlation, injectable duration measurement, added tests,
   and review documentation.
+- Phase 3.2 provider plugin framework with plugin metadata, capability validation, plugin discovery,
+  lifecycle management, enable/disable support, plugin configuration, registry handoff, tests, and
+  documentation.
 
 ## Current Stack
 
@@ -40,8 +43,8 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
-Implemented search capability: provider-independent orchestration foundation only; no concrete job
-providers exist yet.
+Implemented search capability: provider-independent orchestration and provider plugin framework
+only; no concrete job providers exist yet.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -69,11 +72,13 @@ Recommended but not yet implemented as product capability: future Playwright aut
   storage, browser automation, or network clients.
 - Phase 3.1 pipeline stages are explicit and documented so later phases can insert provider adapter,
   normalization, ranking, caching, and storage boundaries without redesign.
+- Provider plugins expose metadata and lifecycle independently from execution; the search engine can
+  receive ready providers through registry handoff without knowing provider implementation details.
 
 ## Next Phase
 
-Phase 3.2: Provider Adapter Framework, after explicit user approval.
+Phase 3.3: Greenhouse Provider, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.2 begins.
+User approval is required before Phase 3.3 begins.

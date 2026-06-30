@@ -16,7 +16,7 @@ starts or is explicitly approved.
 
 - Decide whether Python runtime models should be generated from or manually mirrored from
   `@job-agent/contracts`.
-- Prepare Phase 3.2 provider adapter framework after explicit approval.
+- Prepare Phase 3.3 Greenhouse provider after explicit approval.
 
 ### Later
 

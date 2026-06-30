@@ -103,6 +103,10 @@ Search orchestration lives in `@job-agent/domain`. Its Phase 3.1 pipeline stages
 documented boundaries instead of hiding provider, ranking, storage, or UI behavior inside
 `SearchService`.
 
+Provider plugin infrastructure also lives in `@job-agent/domain`. Future providers should implement
+the `ProviderPlugin` interface, expose metadata without executing, pass registry validation, and
+hand ready providers into `SearchProviderRegistry`. Provider plugins must not depend on each other.
+
 ## Dependency Injection
 
 Inject infrastructure dependencies at service boundaries. Domain code should receive inputs and
