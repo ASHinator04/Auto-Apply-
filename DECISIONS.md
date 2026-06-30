@@ -216,3 +216,17 @@ the provider plugin framework for registration and readiness.
 Rationale: Greenhouse is a public job board provider with a documented JSON endpoint. Implementing
 it as a provider package validates the plugin architecture while preserving the Phase 3.5 boundary
 for normalization, deduplication, ranking, caching, and storage.
+
+## ADR-0021: Provider Connector Response Hardening
+
+Status: Accepted
+
+Decision: Provider HTTP clients should classify invalid JSON as a non-retryable provider response
+error, classify abort-style failures as timeouts, and follow pagination links only when they stay on
+the configured provider API origin. Provider parsers should snapshot raw top-level payloads before
+returning them through the raw provider contract.
+
+Rationale: Phase 3.3 review found the Greenhouse connector architecture correct but identified
+response handling edge cases that should be explicit before adding more providers. These rules keep
+provider connectors deterministic without adding normalization, storage, ranking, or cross-provider
+aggregation early.

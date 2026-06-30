@@ -2,7 +2,7 @@
 
 ## Status
 
-Phase 3.3 complete.
+Phase 3.3 implementation and review complete.
 
 ## Objective
 
@@ -53,5 +53,5 @@ The connector parses available values only:
 ## Verification
 
 Automated tests must mock HTTP behavior and cover configuration, request building, parsing,
-filtering, retry handling, pagination, connector orchestration, plugin registration, and raw result
-handoff.
+filtering, retry handling, same-origin pagination, invalid response handling, timeout
+classification, connector orchestration, plugin registration, and raw result handoff.

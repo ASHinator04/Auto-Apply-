@@ -36,7 +36,7 @@ function parseGreenhouseJob(payload: unknown, boardToken: string): RawGreenhouse
       provider: "greenhouse",
       boardToken,
     },
-    raw: payload,
+    raw: { ...payload },
   };
 }
 

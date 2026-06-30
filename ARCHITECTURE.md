@@ -181,10 +181,10 @@ does not modify `SearchService`, `SearchProviderRegistry`, or `ProviderPluginReg
 The Greenhouse package defines:
 
 - Connector orchestration for raw Greenhouse searches.
-- HTTP client with configurable timeout, User-Agent, retry policy, rate-limit handling, and mocked
-  test support.
+- HTTP client with configurable timeout, User-Agent, retry policy, rate-limit handling, same-origin
+  pagination validation, invalid JSON classification, and mocked test support.
 - Request builder for the Greenhouse public jobs endpoint.
-- Response parser for available Greenhouse fields only.
+- Response parser for available Greenhouse fields only, including a shallow raw payload snapshot.
 - Raw Greenhouse job model.
 - Keyword, location, remote, and department filtering where available.
 - Provider plugin metadata, registration, and discovery helpers.

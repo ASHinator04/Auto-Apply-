@@ -11,9 +11,11 @@ connector returns raw Greenhouse-specific job objects; normalization remains def
 1. A Greenhouse plugin is created from connector configuration.
 2. The plugin exposes metadata and registers through `ProviderPluginRegistry`.
 3. The connector builds the public Greenhouse jobs URL with `content=true`.
-4. The HTTP client fetches JSON with timeout, User-Agent, retry, and rate-limit handling.
-5. Pagination follows `Link: rel="next"` up to `maxPages`.
-6. The parser extracts available Greenhouse fields without inventing missing values.
+4. The HTTP client fetches JSON with timeout, User-Agent, retry, rate-limit handling, invalid JSON
+   classification, and timeout classification.
+5. Pagination follows same-origin `Link: rel="next"` values up to `maxPages`.
+6. The parser extracts available Greenhouse fields without inventing missing values and stores a
+   shallow raw payload snapshot.
 7. Local filters apply keyword, location, remote preference, and department checks where raw fields
    allow it.
 8. Raw Greenhouse jobs are returned through the provider contract bridge.
@@ -39,6 +41,8 @@ connector returns raw Greenhouse-specific job objects; normalization remains def
 - Mocked HTTP client tests.
 - Connector tests with mocked pagination.
 - Plugin registration and raw result handoff tests.
+- Phase 3.3 review tests for invalid JSON handling, same-origin pagination, abort-style timeout
+  classification, and raw payload snapshotting.
 
 All provider tests avoid real network requests.
 
@@ -53,6 +57,7 @@ All provider tests avoid real network requests.
 - `TODO.md`
 - `docs/providers/greenhouse.md`
 - `docs/PHASE_3_3_REPORT.md`
+- `docs/PHASE_3_3_REVIEW_REPORT.md`
 - `packages/providers/AGENTS.md`
 - `specs/providers/greenhouse/SPEC.md`
 

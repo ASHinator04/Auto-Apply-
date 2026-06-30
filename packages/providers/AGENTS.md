@@ -7,7 +7,8 @@
 ## Responsibilities
 
 Own platform boundaries for job search, job detail retrieval, and provider capability metadata.
-Phase 3.3 adds the Greenhouse search connector as the first concrete provider plugin.
+Phase 3.3 adds the Greenhouse search connector as the first concrete provider plugin; its review
+hardening is complete.
 
 ## Constraints
 

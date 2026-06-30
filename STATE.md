@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.3 Greenhouse search connector complete. Phase 3.4 has not started.
+Phase 3.3 Greenhouse search connector review complete. Phase 3.4 has not started.
 
 ## Completed
 
@@ -40,6 +40,8 @@ Phase 3.3 Greenhouse search connector complete. Phase 3.4 has not started.
 - Phase 3.3 Greenhouse provider plugin, HTTP client, request builder, response parser, raw job
   model, filter handling, retry handling, pagination support, registration helpers, tests, and
   documentation.
+- Phase 3.3 review hardening for invalid JSON classification, same-origin pagination validation,
+  abort-style timeout detection, raw payload snapshotting, added tests, and review documentation.
 
 ## Current Stack
 
@@ -83,6 +85,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
   disabled, re-enabled after shutdown, shutdown before readiness, or disabled while ready.
 - Greenhouse search returns raw provider-specific job objects. Normalization, deduplication,
   ranking, caching, storage, dashboard integration, and additional providers remain out of scope.
+- Greenhouse pagination follows only the configured Greenhouse API origin, invalid JSON is a
+  non-retryable connector error, and parser raw payloads are shallow snapshots.
 
 ## Next Phase
 

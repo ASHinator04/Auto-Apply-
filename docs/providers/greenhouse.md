@@ -9,7 +9,8 @@ objects. It is the Phase 3.3 reference provider plugin.
 
 1. Build `GET /boards/{boardToken}/jobs?content=true`.
 2. Fetch JSON using the configured timeout, User-Agent, and retry policy.
-3. Follow `Link: rel="next"` pagination up to `maxPages`.
+3. Follow `Link: rel="next"` pagination up to `maxPages` only when links stay on the configured
+   Greenhouse API origin.
 4. Parse available job fields only.
 5. Apply supported local filters for keyword, location, remote preference, and department.
 6. Return `RawGreenhouseJob[]`.
@@ -27,7 +28,14 @@ https://boards-api.greenhouse.io/v1/boards/{boardToken}/jobs?content=true
 ## Response Structure
 
 Parsed fields include id, internal job id, title, absolute URL, location, departments, offices,
-updated date, requisition id, content, metadata, provider metadata, and the raw payload.
+updated date, requisition id, content, metadata, provider metadata, and a shallow snapshot of the
+raw top-level payload.
+
+## Error Handling
+
+Transient HTTP statuses can be retried according to connector configuration. Invalid JSON is
+reported as `invalid_response` without retrying, rate limits are reported as `rate_limited`, and
+abort-style failures are reported as `timeout`.
 
 ## Limitations
 

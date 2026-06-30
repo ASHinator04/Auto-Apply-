@@ -54,4 +54,16 @@ describe("greenhouse response parser", () => {
       GreenhouseConnectorError,
     );
   });
+
+  it("stores a raw top-level payload snapshot", () => {
+    const sourceJob = {
+      id: 123,
+      title: "Software Engineer",
+    };
+    const jobs = parseGreenhouseJobsResponse({ jobs: [sourceJob] }, "acme");
+
+    sourceJob.title = "Changed Later";
+
+    expect(jobs[0]?.raw.title).toBe("Software Engineer");
+  });
 });

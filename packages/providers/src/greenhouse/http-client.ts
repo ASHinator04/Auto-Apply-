@@ -39,6 +39,8 @@ export class GreenhouseHttpClient {
   }
 
   async getJson(url: string): Promise<GreenhouseHttpResponse> {
+    const allowedPaginationOrigin = new URL(this.configuration.baseUrl).origin;
+
     for (let attempt = 1; attempt <= this.configuration.retryPolicy.maxAttempts; attempt += 1) {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), this.configuration.timeoutMs);
@@ -55,8 +57,8 @@ export class GreenhouseHttpClient {
 
         if (response.ok) {
           return {
-            payload: await response.json(),
-            nextPageUrl: parseNextPageUrl(response.headers.get("link")),
+            payload: await parseJsonResponse(response),
+            nextPageUrl: parseNextPageUrl(response.headers.get("link"), allowedPaginationOrigin),
           };
         }
 
@@ -137,7 +139,18 @@ function getRetryDelayMs(response: Response, fallbackMs: number): number {
   return fallbackMs;
 }
 
-function parseNextPageUrl(linkHeader: string | null): string | undefined {
+async function parseJsonResponse(response: Response): Promise<unknown> {
+  try {
+    return await response.json();
+  } catch {
+    throw new GreenhouseConnectorError(
+      "Greenhouse response was not valid JSON.",
+      "invalid_response",
+    );
+  }
+}
+
+function parseNextPageUrl(linkHeader: string | null, allowedOrigin: string): string | undefined {
   if (linkHeader === null) {
     return undefined;
   }
@@ -149,9 +162,27 @@ function parseNextPageUrl(linkHeader: string | null): string | undefined {
 
   const match = nextLink?.match(/<([^>]+)>/);
 
-  return match?.[1];
+  if (match?.[1] === undefined) {
+    return undefined;
+  }
+
+  try {
+    const nextUrl = new URL(match[1]);
+
+    if (nextUrl.origin !== allowedOrigin) {
+      return undefined;
+    }
+
+    return nextUrl.toString();
+  } catch {
+    return undefined;
+  }
 }
 
 function isAbortError(error: unknown): boolean {
-  return error instanceof DOMException && error.name === "AbortError";
+  return (
+    (error instanceof DOMException ||
+      (typeof error === "object" && error !== null && "name" in error)) &&
+    (error as { name?: unknown }).name === "AbortError"
+  );
 }

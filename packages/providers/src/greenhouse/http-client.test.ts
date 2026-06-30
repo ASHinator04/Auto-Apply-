@@ -7,6 +7,7 @@ function createResponse(
   status: number,
   payload: unknown,
   headers: Record<string, string> = {},
+  jsonError?: Error,
 ): Response {
   return {
     ok: status >= 200 && status < 300,
@@ -17,6 +18,10 @@ function createResponse(
       },
     },
     async json() {
+      if (jsonError !== undefined) {
+        throw jsonError;
+      }
+
       return payload;
     },
   } as Response;
@@ -54,13 +59,62 @@ describe("greenhouse http client", () => {
       createGreenhouseConnectorConfiguration({ boardToken: "acme" }),
       {
         fetch: async () =>
-          createResponse(200, { jobs: [] }, { link: '<https://example.com/page-2>; rel="next"' }),
+          createResponse(
+            200,
+            { jobs: [] },
+            {
+              link: '<https://boards-api.greenhouse.io/page-2>; rel="next"',
+            },
+          ),
       },
     );
 
-    await expect(client.getJson("https://example.com/jobs")).resolves.toMatchObject({
-      nextPageUrl: "https://example.com/page-2",
+    await expect(client.getJson("https://boards-api.greenhouse.io/v1/jobs")).resolves.toMatchObject(
+      {
+        nextPageUrl: "https://boards-api.greenhouse.io/page-2",
+      },
+    );
+  });
+
+  it("ignores pagination links outside the configured Greenhouse origin", async () => {
+    const client = new GreenhouseHttpClient(
+      createGreenhouseConnectorConfiguration({ boardToken: "acme" }),
+      {
+        fetch: async () =>
+          createResponse(200, { jobs: [] }, { link: '<https://evil.example/page-2>; rel="next"' }),
+      },
+    );
+
+    await expect(client.getJson("https://boards-api.greenhouse.io/v1/jobs")).resolves.toMatchObject(
+      {
+        nextPageUrl: undefined,
+      },
+    );
+  });
+
+  it("classifies invalid JSON without retrying", async () => {
+    let attempts = 0;
+    const client = new GreenhouseHttpClient(
+      createGreenhouseConnectorConfiguration({
+        boardToken: "acme",
+        retryPolicy: {
+          maxAttempts: 2,
+          backoffMs: 0,
+        },
+      }),
+      {
+        fetch: async () => {
+          attempts += 1;
+          return createResponse(200, undefined, {}, new Error("Invalid JSON"));
+        },
+        sleep: async () => {},
+      },
+    );
+
+    await expect(client.getJson("https://example.com/jobs")).rejects.toMatchObject({
+      kind: "invalid_response",
     });
+    expect(attempts).toBe(1);
   });
 
   it("retries transient responses and then succeeds", async () => {
@@ -99,5 +153,20 @@ describe("greenhouse http client", () => {
     await expect(client.getJson("https://example.com/jobs")).rejects.toThrow(
       GreenhouseConnectorError,
     );
+  });
+
+  it("classifies abort-style failures as timeouts", async () => {
+    const client = new GreenhouseHttpClient(
+      createGreenhouseConnectorConfiguration({ boardToken: "acme" }),
+      {
+        fetch: async () => {
+          throw { name: "AbortError" };
+        },
+      },
+    );
+
+    await expect(client.getJson("https://example.com/jobs")).rejects.toMatchObject({
+      kind: "timeout",
+    });
   });
 });
