@@ -40,6 +40,16 @@ The registry manages these statuses:
 
 Disabled plugins cannot initialize. Ready plugins can be handed to `SearchProviderRegistry`.
 
+Lifecycle transition rules:
+
+- Disabled plugins cannot initialize.
+- Ready plugins initialize once.
+- Ready plugins must be shutdown before they can be disabled.
+- Only ready plugins can shutdown.
+- Shutdown plugins cannot be re-enabled or re-initialized.
+
+Registry list methods return snapshots. Use registry methods to change lifecycle state.
+
 ## Dependency Rule
 
 ```text

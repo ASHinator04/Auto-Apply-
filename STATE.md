@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.2 provider plugin framework complete. Phase 3.3 has not started.
+Phase 3.2 provider plugin framework architecture review complete. Phase 3.3 has not started.
 
 ## Completed
 
@@ -35,6 +35,8 @@ Phase 3.2 provider plugin framework complete. Phase 3.3 has not started.
 - Phase 3.2 provider plugin framework with plugin metadata, capability validation, plugin discovery,
   lifecycle management, enable/disable support, plugin configuration, registry handoff, tests, and
   documentation.
+- Phase 3.2 review hardening for lifecycle transition validation, immutable registry descriptors,
+  future capability validation, feature flag validation, tests, and review documentation.
 
 ## Current Stack
 
@@ -74,6 +76,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
   normalization, ranking, caching, and storage boundaries without redesign.
 - Provider plugins expose metadata and lifecycle independently from execution; the search engine can
   receive ready providers through registry handoff without knowing provider implementation details.
+- Provider plugin lifecycle transitions are validated so plugins cannot be initialized while
+  disabled, re-enabled after shutdown, shutdown before readiness, or disabled while ready.
 
 ## Next Phase
 

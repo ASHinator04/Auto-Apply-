@@ -40,6 +40,8 @@ orchestration-only and does not know plugin implementation details.
 - Required capability flags must be declared.
 - Provider priority and timeout must be valid integers.
 - Future retry policy configuration is validated but not executed.
+- Future capability and feature flag maps must contain boolean values.
+- Invalid lifecycle transitions fail fast.
 
 ## Tests Added
 
@@ -53,6 +55,8 @@ orchestration-only and does not know plugin implementation details.
 - Plugin discovery.
 - Registry handoff to `SearchProviderRegistry`.
 - Provider plugin configuration validation.
+- Lifecycle transition validation.
+- Immutable registry descriptor snapshots.
 
 ## Documentation Updated
 

@@ -67,4 +67,14 @@ describe("search configuration", () => {
       }),
     ).toThrow(SearchConfigurationException);
   });
+
+  it("rejects non-boolean provider plugin feature flags", () => {
+    expect(() =>
+      createProviderPluginConfiguration({
+        featureFlags: {
+          experimentalFilter: "yes",
+        } as unknown as Record<string, boolean>,
+      }),
+    ).toThrow(SearchConfigurationException);
+  });
 });

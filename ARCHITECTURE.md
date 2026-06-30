@@ -157,6 +157,8 @@ The framework defines:
 - Plugin discovery through implementation-independent discoverers.
 - Plugin lifecycle: validated, disabled, ready, and shutdown.
 - Registry handoff from ready plugins into the existing `SearchProviderRegistry`.
+- Immutable registry descriptor snapshots so callers cannot mutate registry state through list
+  results.
 
 Dependency direction:
 
@@ -169,3 +171,11 @@ packages/domain -> @job-agent/contracts
 
 The framework does not include Greenhouse, Lever, Ashby, HTTP requests, browser automation, HTML
 parsing, normalization, deduplication, ranking, caching, dashboard code, storage, or search UI.
+
+Lifecycle rules:
+
+- Disabled plugins cannot initialize.
+- Ready plugins are initialized at most once.
+- Ready plugins must be shutdown before they can be disabled.
+- Only ready plugins can shutdown.
+- Shutdown plugins cannot be re-enabled or re-initialized.

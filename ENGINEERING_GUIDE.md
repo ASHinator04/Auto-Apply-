@@ -106,6 +106,8 @@ documented boundaries instead of hiding provider, ranking, storage, or UI behavi
 Provider plugin infrastructure also lives in `@job-agent/domain`. Future providers should implement
 the `ProviderPlugin` interface, expose metadata without executing, pass registry validation, and
 hand ready providers into `SearchProviderRegistry`. Provider plugins must not depend on each other.
+Registry list methods return snapshots; provider plugin lifecycle state must be changed through the
+registry API only.
 
 ## Dependency Injection
 

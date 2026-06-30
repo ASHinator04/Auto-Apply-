@@ -110,6 +110,37 @@ describe("provider plugin registry", () => {
     ).toThrow(SearchConfigurationException);
   });
 
+  it("rejects invalid future capability declarations", () => {
+    const invalidCapabilities = {
+      ...capabilities,
+      future: {
+        customFilter: "yes",
+      },
+    } as unknown as ProviderPluginCapabilitySet;
+
+    expect(
+      () =>
+        new ProviderPluginRegistry([
+          { plugin: createPlugin("provider-a", { capabilities: invalidCapabilities }) },
+        ]),
+    ).toThrow(SearchConfigurationException);
+  });
+
+  it("returns descriptor snapshots that do not mutate registry state", () => {
+    const registry = new ProviderPluginRegistry([{ plugin: createPlugin("provider-a") }]);
+    const descriptor = registry.list()[0];
+
+    if (descriptor === undefined) {
+      throw new Error("Expected provider descriptor.");
+    }
+
+    (descriptor.metadata.capabilities.future as Record<string, boolean>).changed = true;
+    (descriptor.configuration.featureFlags as Record<string, boolean>).changed = true;
+
+    expect(registry.list()[0]?.metadata.capabilities.future).toEqual({});
+    expect(registry.list()[0]?.configuration.featureFlags).toEqual({});
+  });
+
   it("enables, disables, resolves, and validates provider plugins", () => {
     const plugin = createPlugin("provider-a");
     const registry = new ProviderPluginRegistry([
@@ -164,6 +195,24 @@ describe("provider plugin registry", () => {
     ).toEqual(["provider-a"]);
   });
 
+  it("does not initialize a ready plugin more than once", async () => {
+    const initialized: string[] = [];
+    const registry = new ProviderPluginRegistry([
+      {
+        plugin: createPlugin("provider-a", {
+          initialize() {
+            initialized.push("provider-a");
+          },
+        }),
+      },
+    ]);
+
+    await registry.initialize("provider-a");
+    await registry.initialize("provider-a");
+
+    expect(initialized).toEqual(["provider-a"]);
+  });
+
   it("does not initialize disabled plugins", async () => {
     const registry = new ProviderPluginRegistry([
       {
@@ -177,7 +226,17 @@ describe("provider plugin registry", () => {
     await expect(registry.initialize("provider-a")).rejects.toThrow(SearchConfigurationException);
   });
 
-  it("runs shutdown lifecycle hooks", async () => {
+  it("rejects invalid lifecycle transitions", async () => {
+    const registry = new ProviderPluginRegistry([{ plugin: createPlugin("provider-a") }]);
+
+    await expect(registry.shutdown("provider-a")).rejects.toThrow(SearchConfigurationException);
+
+    await registry.initialize("provider-a");
+
+    expect(() => registry.disable("provider-a")).toThrow(SearchConfigurationException);
+  });
+
+  it("runs shutdown lifecycle hooks after initialization", async () => {
     const shutdown: string[] = [];
     const registry = new ProviderPluginRegistry([
       {
@@ -189,9 +248,12 @@ describe("provider plugin registry", () => {
       },
     ]);
 
+    await registry.initialize("provider-a");
+    await registry.shutdown("provider-a");
     await registry.shutdown("provider-a");
 
     expect(shutdown).toEqual(["provider-a"]);
     expect(registry.list()[0]?.status).toBe(ProviderPluginLifecycleStatus.Shutdown);
+    expect(() => registry.enable("provider-a")).toThrow(SearchConfigurationException);
   });
 });

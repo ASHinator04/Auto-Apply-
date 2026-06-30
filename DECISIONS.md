@@ -191,3 +191,16 @@ hands ready providers to `SearchProviderRegistry`.
 Rationale: The search engine must not know provider implementation details. A plugin framework keeps
 future Greenhouse, Lever, Ashby, and other providers independent while preserving a simple
 dependency direction: search engine to registry to plugin interface to provider plugin.
+
+## ADR-0019: Strict Provider Plugin Lifecycle Transitions
+
+Status: Accepted
+
+Decision: The provider plugin registry validates lifecycle transitions and returns descriptor
+snapshots rather than live registry state. Disabled plugins cannot initialize, ready plugins are
+initialized once, ready plugins must be shutdown before disabling, only ready plugins can shutdown,
+and shutdown plugins cannot re-enter active states.
+
+Rationale: Phase 3.2 review confirmed the plugin framework was provider-agnostic, but lifecycle
+transitions needed stronger guardrails for future providers. Strict transitions make plugin behavior
+predictable without adding concrete provider functionality.

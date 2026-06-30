@@ -57,10 +57,24 @@ function validateCapabilities(providerId: string, capabilities: ProviderPluginCa
     }
   }
 
-  if (capabilities.future === undefined || typeof capabilities.future !== "object") {
+  if (
+    capabilities.future === undefined ||
+    capabilities.future === null ||
+    Array.isArray(capabilities.future) ||
+    typeof capabilities.future !== "object"
+  ) {
     throw new SearchConfigurationException(
       `Provider plugin '${providerId}' future capability map is required.`,
       "plugin.metadata.capabilities.future",
     );
+  }
+
+  for (const [capability, supported] of Object.entries(capabilities.future)) {
+    if (typeof supported !== "boolean") {
+      throw new SearchConfigurationException(
+        `Provider plugin '${providerId}' future capability '${capability}' must be boolean.`,
+        "plugin.metadata.capabilities.future",
+      );
+    }
   }
 }

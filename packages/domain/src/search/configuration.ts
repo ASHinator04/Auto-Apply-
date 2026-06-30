@@ -140,4 +140,28 @@ function validateProviderPluginConfiguration(
       );
     }
   }
+
+  validateBooleanMap(providerId, configuration.featureFlags, "provider.featureFlags");
+}
+
+function validateBooleanMap(
+  providerId: string,
+  value: Readonly<Record<string, boolean>>,
+  key: string,
+): void {
+  if (value === null || Array.isArray(value) || typeof value !== "object") {
+    throw new SearchConfigurationException(
+      `Provider '${providerId}' ${key} must be an object.`,
+      key,
+    );
+  }
+
+  for (const [flag, enabled] of Object.entries(value)) {
+    if (typeof enabled !== "boolean") {
+      throw new SearchConfigurationException(
+        `Provider '${providerId}' feature flag '${flag}' must be boolean.`,
+        key,
+      );
+    }
+  }
 }

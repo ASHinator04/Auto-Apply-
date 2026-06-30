@@ -64,12 +64,22 @@ export class ProviderPluginRegistry {
 
   enable(providerId: string): void {
     const entry = this.require(providerId);
+    this.assertNotShutdown(providerId, entry);
     entry.configuration = { ...entry.configuration, enabled: true };
     entry.status = ProviderPluginLifecycleStatus.Validated;
   }
 
   disable(providerId: string): void {
     const entry = this.require(providerId);
+
+    if (entry.status === ProviderPluginLifecycleStatus.Ready) {
+      throw new SearchConfigurationException(
+        `Provider plugin '${providerId}' must be shutdown before it can be disabled.`,
+        "plugin.lifecycle.status",
+      );
+    }
+
+    this.assertNotShutdown(providerId, entry);
     entry.configuration = { ...entry.configuration, enabled: false };
     entry.status = ProviderPluginLifecycleStatus.Disabled;
   }
@@ -80,6 +90,12 @@ export class ProviderPluginRegistry {
 
   async initialize(providerId: string): Promise<void> {
     const entry = this.require(providerId);
+
+    if (entry.status === ProviderPluginLifecycleStatus.Ready) {
+      return;
+    }
+
+    this.assertNotShutdown(providerId, entry);
 
     if (!entry.configuration.enabled) {
       throw new SearchConfigurationException(
@@ -104,6 +120,17 @@ export class ProviderPluginRegistry {
 
   async shutdown(providerId: string): Promise<void> {
     const entry = this.require(providerId);
+
+    if (entry.status === ProviderPluginLifecycleStatus.Shutdown) {
+      return;
+    }
+
+    if (entry.status !== ProviderPluginLifecycleStatus.Ready) {
+      throw new SearchConfigurationException(
+        `Provider plugin '${providerId}' must be ready before shutdown.`,
+        "plugin.lifecycle.status",
+      );
+    }
 
     await entry.plugin.shutdown?.();
     entry.status = ProviderPluginLifecycleStatus.Shutdown;
@@ -137,9 +164,39 @@ export class ProviderPluginRegistry {
 
   private describe(entry: RegisteredProviderPlugin): ProviderPluginDescriptor {
     return {
-      metadata: entry.plugin.metadata,
-      configuration: entry.configuration,
+      metadata: copyProviderPluginMetadata(entry.plugin.metadata),
+      configuration: copyProviderPluginConfiguration(entry.configuration),
       status: entry.status,
     };
   }
+
+  private assertNotShutdown(providerId: string, entry: RegisteredProviderPlugin): void {
+    if (entry.status === ProviderPluginLifecycleStatus.Shutdown) {
+      throw new SearchConfigurationException(
+        `Provider plugin '${providerId}' has been shutdown and cannot change lifecycle state.`,
+        "plugin.lifecycle.status",
+      );
+    }
+  }
+}
+
+function copyProviderPluginMetadata(metadata: ProviderPluginMetadata): ProviderPluginMetadata {
+  return {
+    ...metadata,
+    capabilities: {
+      ...metadata.capabilities,
+      future: { ...metadata.capabilities.future },
+    },
+  };
+}
+
+function copyProviderPluginConfiguration(
+  configuration: ProviderPluginConfiguration,
+): ProviderPluginConfiguration {
+  return {
+    ...configuration,
+    retryPolicy:
+      configuration.retryPolicy !== undefined ? { ...configuration.retryPolicy } : undefined,
+    featureFlags: { ...configuration.featureFlags },
+  };
 }
