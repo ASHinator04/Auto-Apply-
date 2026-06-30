@@ -4,7 +4,7 @@
 
 Phase 3.3 implements the Greenhouse search connector as the first concrete provider plugin. It uses
 the existing provider plugin framework and does not modify the search engine or plugin registry. The
-connector returns raw Greenhouse-specific job objects; normalization remains deferred to Phase 3.5.
+connector returns raw Greenhouse-specific job objects; normalization remains deferred to Phase 3.6.
 
 ## Search Flow
 
@@ -76,5 +76,5 @@ providers should keep raw models explicit and avoid guessing missing values.
 
 ## Readiness Assessment
 
-The repository is ready for Phase 3.4 after explicit approval. Lever and Ashby should be implemented
-as independent provider plugins without changing the search engine or plugin framework.
+The repository is ready for Phase 3.4 after explicit approval. Lever should be implemented as an
+independent provider plugin without changing the search engine or plugin framework.

@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.3 Greenhouse search connector review complete. Phase 3.4 has not started.
+Phase 3.4 Lever search connector complete. Phase 3.5 has not started.
 
 ## Completed
 
@@ -42,6 +42,9 @@ Phase 3.3 Greenhouse search connector review complete. Phase 3.4 has not started
   documentation.
 - Phase 3.3 review hardening for invalid JSON classification, same-origin pagination validation,
   abort-style timeout detection, raw payload snapshotting, added tests, and review documentation.
+- Phase 3.4 Lever provider plugin, HTTP client, request builder, response parser, raw job model,
+  filter handling, retry handling, skip/limit pagination support, registration helpers, tests, and
+  documentation.
 
 ## Current Stack
 
@@ -50,8 +53,8 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
-Implemented search capability: provider-independent orchestration, provider plugin framework, and
-Greenhouse raw search connector only.
+Implemented search capability: provider-independent orchestration, provider plugin framework,
+Greenhouse raw search connector, and Lever raw search connector only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -87,11 +90,14 @@ Recommended but not yet implemented as product capability: future Playwright aut
   ranking, caching, storage, dashboard integration, and additional providers remain out of scope.
 - Greenhouse pagination follows only the configured Greenhouse API origin, invalid JSON is a
   non-retryable connector error, and parser raw payloads are shallow snapshots.
+- Lever search returns raw provider-specific posting objects. Lever uses skip/limit pagination,
+  supports API-side filters for location, team, department, and commitment, and handles unsupported
+  keyword/remote filtering locally where raw fields allow it.
 
 ## Next Phase
 
-Phase 3.4: Lever and Ashby Connectors, after explicit user approval.
+Phase 3.5: Ashby Search Connector, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.4 begins.
+User approval is required before Phase 3.5 begins.

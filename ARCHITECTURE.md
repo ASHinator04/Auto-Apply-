@@ -190,7 +190,7 @@ The Greenhouse package defines:
 - Provider plugin metadata, registration, and discovery helpers.
 
 The connector intentionally returns raw Greenhouse-specific job objects through the provider
-contract bridge. Phase 3.5 owns conversion into canonical normalized jobs, deduplication, ranking,
+contract bridge. Phase 3.6 owns conversion into canonical normalized jobs, deduplication, ranking,
 caching, and storage.
 
 Lifecycle rules:
@@ -200,3 +200,29 @@ Lifecycle rules:
 - Ready plugins must be shutdown before they can be disabled.
 - Only ready plugins can shutdown.
 - Shutdown plugins cannot be re-enabled or re-initialized.
+
+## Phase 3.4 Lever Search Connector
+
+Phase 3.4 adds Lever as the second concrete provider plugin in `@job-agent/providers`. The Lever
+connector mirrors the Greenhouse structure and does not modify `SearchService`,
+`SearchProviderRegistry`, `ProviderPluginRegistry`, or shared contracts.
+
+The Lever package defines:
+
+- Connector orchestration for raw Lever posting searches.
+- HTTP client with configurable timeout, User-Agent, retry policy, rate-limit handling, invalid JSON
+  classification, and mocked test support.
+- Request builder for the Lever public postings endpoint.
+- Response parser for available Lever posting fields only, including a shallow raw payload snapshot.
+- Raw Lever job model.
+- Keyword, location, remote, team, department, and commitment filtering where available.
+- Provider plugin metadata, registration, and discovery helpers.
+
+Lever uses `skip` and `limit` query parameters for pagination. The connector continues fetching
+until a page returns fewer postings than `pageSize` or `maxPages` is reached. Lever supports
+location, team, department, and commitment filters through query parameters; keyword and remote
+filters are handled locally when raw fields allow it.
+
+The connector intentionally returns raw Lever-specific posting objects through the provider contract
+bridge. Phase 3.6 owns aggregation, canonical normalization, deduplication, ranking, caching, and
+storage.

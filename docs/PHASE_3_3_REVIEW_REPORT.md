@@ -13,7 +13,7 @@ Score: 9/10.
 
 The connector integrates cleanly through `@job-agent/providers` and the existing provider plugin
 framework without modifying the search engine, plugin registry, or domain contracts. The remaining
-gap is expected: canonical job normalization belongs to Phase 3.5.
+gap is expected: canonical job normalization belongs to Phase 3.6.
 
 ## Connector Review
 
@@ -74,13 +74,13 @@ parallel provider execution, ranking, or storage was added in this phase.
 ## Technical Debt
 
 - Greenhouse filtering remains limited to public board fields.
-- Raw provider objects still require Phase 3.5 normalization before cross-provider comparison.
-- Additional provider behavior patterns should be compared during Phase 3.4.
+- Raw provider objects still require Phase 3.6 normalization before cross-provider comparison.
+- Additional provider behavior patterns should continue to be compared during later provider phases.
 
 ## Readiness Assessment
 
 Ready for Phase 3.4 after explicit user approval.
 
-Phase 3.4 should add Lever and Ashby as independent provider plugins without changing the search
-engine or implementing normalization, deduplication, ranking, storage, dashboard integration, or
+Phase 3.4 should add Lever as an independent provider plugin without changing the search engine or
+implementing Ashby, normalization, deduplication, ranking, storage, dashboard integration, or
 application workflows.

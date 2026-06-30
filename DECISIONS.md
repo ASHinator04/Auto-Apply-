@@ -214,7 +214,7 @@ domain search engine and plugin framework. The connector returns raw Greenhouse 
 the provider plugin framework for registration and readiness.
 
 Rationale: Greenhouse is a public job board provider with a documented JSON endpoint. Implementing
-it as a provider package validates the plugin architecture while preserving the Phase 3.5 boundary
+it as a provider package validates the plugin architecture while preserving the Phase 3.6 boundary
 for normalization, deduplication, ranking, caching, and storage.
 
 ## ADR-0021: Provider Connector Response Hardening
@@ -230,3 +230,17 @@ Rationale: Phase 3.3 review found the Greenhouse connector architecture correct 
 response handling edge cases that should be explicit before adding more providers. These rules keep
 provider connectors deterministic without adding normalization, storage, ranking, or cross-provider
 aggregation early.
+
+## ADR-0022: Lever as Second Provider Plugin
+
+Status: Accepted
+
+Decision: Implement Lever as the second concrete provider in `@job-agent/providers`, mirroring the
+Greenhouse connector structure. The connector returns raw Lever posting objects and uses the
+provider plugin framework for registration and readiness without changing the search engine,
+registry, plugin framework, or shared contracts.
+
+Rationale: Lever exposes a public postings API with JSON output, skip/limit pagination, and
+provider-side category filters for location, team, department, and commitment. Implementing Lever as
+an independent provider validates the plugin framework against a second API shape while preserving
+the Phase 3.6 boundary for aggregation, normalization, deduplication, ranking, caching, and storage.
