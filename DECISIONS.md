@@ -244,3 +244,17 @@ Rationale: Lever exposes a public postings API with JSON output, skip/limit pagi
 provider-side category filters for location, team, department, and commitment. Implementing Lever as
 an independent provider validates the plugin framework against a second API shape while preserving
 the Phase 3.6 boundary for aggregation, normalization, deduplication, ranking, caching, and storage.
+
+## ADR-0023: Shared Provider JSON Request Utility
+
+Status: Accepted
+
+Decision: Greenhouse and Lever share provider-agnostic JSON HTTP request infrastructure in
+`packages/providers/src/shared/http-json-client.ts`. The helper owns timeout setup, transient retry,
+`Retry-After` handling, JSON parsing, common HTTP headers, rate-limit mapping, invalid JSON
+classification, and abort-style timeout classification. Provider modules still own request building,
+pagination interpretation, parsing, filtering, raw models, configuration, and plugin registration.
+
+Rationale: Phase 3.4 review found duplicated networking code across both provider connectors. A
+small shared utility reduces drift before Ashby while preserving provider-specific behavior and
+avoiding premature abstraction of parsing, pagination, or search semantics.

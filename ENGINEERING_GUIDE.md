@@ -112,6 +112,8 @@ registry API only.
 Concrete provider connectors live in `@job-agent/providers`. Provider packages may own HTTP clients,
 request builders, response parsers, raw provider models, and provider-specific configuration. They
 must not change search orchestration or normalize jobs unless the active phase explicitly allows it.
+Common provider-only JSON HTTP behavior lives in `packages/providers/src/shared`; keep provider
+request builders, pagination, parsing, filters, raw models, and registration local to each provider.
 
 ## Dependency Injection
 

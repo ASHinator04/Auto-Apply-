@@ -106,6 +106,25 @@ describe("lever http client", () => {
     await expect(client.getJson("https://example.com/jobs")).rejects.toThrow(LeverConnectorError);
   });
 
+  it("classifies exhausted rate limits", async () => {
+    const client = new LeverHttpClient(
+      createLeverConnectorConfiguration({
+        site: "acme",
+        retryPolicy: {
+          maxAttempts: 1,
+          backoffMs: 0,
+        },
+      }),
+      {
+        fetch: async () => createResponse(429, {}),
+      },
+    );
+
+    await expect(client.getJson("https://example.com/jobs")).rejects.toMatchObject({
+      kind: "rate_limited",
+    });
+  });
+
   it("classifies abort-style failures as timeouts", async () => {
     const client = new LeverHttpClient(createLeverConnectorConfiguration({ site: "acme" }), {
       fetch: async () => {

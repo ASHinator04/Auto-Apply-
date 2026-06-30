@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.4 Lever search connector complete. Phase 3.5 has not started.
+Phase 3.4 Lever search connector review complete. Phase 3.5 has not started.
 
 ## Completed
 
@@ -45,6 +45,8 @@ Phase 3.4 Lever search connector complete. Phase 3.5 has not started.
 - Phase 3.4 Lever provider plugin, HTTP client, request builder, response parser, raw job model,
   filter handling, retry handling, skip/limit pagination support, registration helpers, tests, and
   documentation.
+- Phase 3.4 review hardening with shared provider JSON request/retry infrastructure, cross-provider
+  consistency documentation, implementation guide, tests, and review report.
 
 ## Current Stack
 
@@ -93,6 +95,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - Lever search returns raw provider-specific posting objects. Lever uses skip/limit pagination,
   supports API-side filters for location, team, department, and commitment, and handles unsupported
   keyword/remote filtering locally where raw fields allow it.
+- Greenhouse and Lever share provider-agnostic JSON HTTP retry, timeout, rate-limit, invalid JSON,
+  and abort-style timeout handling through `packages/providers/src/shared`.
 
 ## Next Phase
 

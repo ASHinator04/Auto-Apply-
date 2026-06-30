@@ -226,3 +226,23 @@ filters are handled locally when raw fields allow it.
 The connector intentionally returns raw Lever-specific posting objects through the provider contract
 bridge. Phase 3.6 owns aggregation, canonical normalization, deduplication, ranking, caching, and
 storage.
+
+## Phase 3.4 Provider Consistency Review
+
+Greenhouse and Lever now share provider-agnostic JSON HTTP infrastructure in
+`packages/providers/src/shared`. The shared helper owns timeout setup, transient retry handling,
+`Retry-After` parsing, User-Agent and JSON headers, invalid JSON classification, abort-style timeout
+classification, and common rate-limit/provider-down error mapping.
+
+Provider-specific modules still own:
+
+- Configuration defaults and validation.
+- Request URL construction.
+- Pagination interpretation.
+- Response parsing.
+- Raw provider models.
+- Provider-specific filtering.
+- Plugin metadata and registration.
+
+Ashby should be implementable by adding a new provider folder that follows the same structure,
+without modifying `packages/domain`, Greenhouse, or Lever.
