@@ -172,6 +172,27 @@ packages/domain -> @job-agent/contracts
 The framework does not include Greenhouse, Lever, Ashby, HTTP requests, browser automation, HTML
 parsing, normalization, deduplication, ranking, caching, dashboard code, storage, or search UI.
 
+## Phase 3.3 Greenhouse Search Connector
+
+Phase 3.3 adds `@job-agent/providers` in `packages/providers` and implements the first concrete
+provider plugin for Greenhouse public job boards. The Greenhouse connector is provider-specific and
+does not modify `SearchService`, `SearchProviderRegistry`, or `ProviderPluginRegistry`.
+
+The Greenhouse package defines:
+
+- Connector orchestration for raw Greenhouse searches.
+- HTTP client with configurable timeout, User-Agent, retry policy, rate-limit handling, and mocked
+  test support.
+- Request builder for the Greenhouse public jobs endpoint.
+- Response parser for available Greenhouse fields only.
+- Raw Greenhouse job model.
+- Keyword, location, remote, and department filtering where available.
+- Provider plugin metadata, registration, and discovery helpers.
+
+The connector intentionally returns raw Greenhouse-specific job objects through the provider
+contract bridge. Phase 3.5 owns conversion into canonical normalized jobs, deduplication, ranking,
+caching, and storage.
+
 Lifecycle rules:
 
 - Disabled plugins cannot initialize.

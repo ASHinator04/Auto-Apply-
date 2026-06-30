@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.2 provider plugin framework architecture review complete. Phase 3.3 has not started.
+Phase 3.3 Greenhouse search connector complete. Phase 3.4 has not started.
 
 ## Completed
 
@@ -37,6 +37,9 @@ Phase 3.2 provider plugin framework architecture review complete. Phase 3.3 has 
   documentation.
 - Phase 3.2 review hardening for lifecycle transition validation, immutable registry descriptors,
   future capability validation, feature flag validation, tests, and review documentation.
+- Phase 3.3 Greenhouse provider plugin, HTTP client, request builder, response parser, raw job
+  model, filter handling, retry handling, pagination support, registration helpers, tests, and
+  documentation.
 
 ## Current Stack
 
@@ -45,8 +48,8 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
-Implemented search capability: provider-independent orchestration and provider plugin framework
-only; no concrete job providers exist yet.
+Implemented search capability: provider-independent orchestration, provider plugin framework, and
+Greenhouse raw search connector only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -78,11 +81,13 @@ Recommended but not yet implemented as product capability: future Playwright aut
   receive ready providers through registry handoff without knowing provider implementation details.
 - Provider plugin lifecycle transitions are validated so plugins cannot be initialized while
   disabled, re-enabled after shutdown, shutdown before readiness, or disabled while ready.
+- Greenhouse search returns raw provider-specific job objects. Normalization, deduplication,
+  ranking, caching, storage, dashboard integration, and additional providers remain out of scope.
 
 ## Next Phase
 
-Phase 3.3: Greenhouse Provider, after explicit user approval.
+Phase 3.4: Lever and Ashby Connectors, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.3 begins.
+User approval is required before Phase 3.4 begins.

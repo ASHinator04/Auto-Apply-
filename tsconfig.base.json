@@ -16,6 +16,7 @@
     "paths": {
       "@job-agent/contracts": ["contracts/domain/src/index.ts"],
       "@job-agent/domain": ["packages/domain/src/index.ts"],
+      "@job-agent/providers": ["packages/providers/src/index.ts"],
       "@job-agent/shared": ["packages/shared/src/index.ts"]
     },
     "resolveJsonModule": true,

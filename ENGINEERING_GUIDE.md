@@ -109,6 +109,10 @@ hand ready providers into `SearchProviderRegistry`. Provider plugins must not de
 Registry list methods return snapshots; provider plugin lifecycle state must be changed through the
 registry API only.
 
+Concrete provider connectors live in `@job-agent/providers`. Provider packages may own HTTP clients,
+request builders, response parsers, raw provider models, and provider-specific configuration. They
+must not change search orchestration or normalize jobs unless the active phase explicitly allows it.
+
 ## Dependency Injection
 
 Inject infrastructure dependencies at service boundaries. Domain code should receive inputs and

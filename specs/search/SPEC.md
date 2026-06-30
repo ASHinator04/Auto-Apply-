@@ -2,8 +2,8 @@
 
 ## Status
 
-Phase 3.2 complete. This spec currently covers the provider-independent search engine foundation and
-provider plugin framework.
+Phase 3.3 complete. This spec currently covers the provider-independent search engine foundation,
+provider plugin framework, and Greenhouse raw search connector.
 
 ## Scope
 
@@ -18,10 +18,11 @@ Implemented scope:
 - Empty-result behavior when no providers are registered.
 - Provider plugin metadata, capability validation, discovery, lifecycle, configuration, enablement,
   disablement, and handoff to the search provider registry.
+- Greenhouse raw search connector through the provider plugin framework.
 
 Out of scope until later Phase 3 sub-phases:
 
-- Concrete providers.
+- Additional concrete providers.
 - HTTP scraping.
 - Browser automation.
 - HTML parsing.

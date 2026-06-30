@@ -204,3 +204,15 @@ and shutdown plugins cannot re-enter active states.
 Rationale: Phase 3.2 review confirmed the plugin framework was provider-agnostic, but lifecycle
 transitions needed stronger guardrails for future providers. Strict transitions make plugin behavior
 predictable without adding concrete provider functionality.
+
+## ADR-0020: Greenhouse as First Provider Plugin
+
+Status: Accepted
+
+Decision: Implement Greenhouse as the first concrete provider in `@job-agent/providers`, outside the
+domain search engine and plugin framework. The connector returns raw Greenhouse job objects and uses
+the provider plugin framework for registration and readiness.
+
+Rationale: Greenhouse is a public job board provider with a documented JSON endpoint. Implementing
+it as a provider package validates the plugin architecture while preserving the Phase 3.5 boundary
+for normalization, deduplication, ranking, caching, and storage.
