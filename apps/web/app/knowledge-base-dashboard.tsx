@@ -189,6 +189,7 @@ export function KnowledgeBaseDashboard() {
           <Search aria-hidden="true" className="h-4 w-4" />
           <input
             className="min-w-0 flex-1 outline-none"
+            data-testid="knowledge-search-input"
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search question, answer, company, or section"
             type="search"
@@ -236,6 +237,8 @@ export function KnowledgeBaseDashboard() {
             return (
               <details
                 className="border border-slate-200 bg-white"
+                data-section-id={section.id}
+                data-testid="knowledge-section"
                 key={section.id}
                 open={sectionEntries.length > 0}
               >

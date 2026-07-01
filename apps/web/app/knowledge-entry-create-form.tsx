@@ -19,12 +19,14 @@ export function KnowledgeEntryCreateForm({
   return (
     <form
       className="grid gap-4 border border-slate-200 bg-white p-5 lg:grid-cols-[1fr_1fr]"
+      data-testid="knowledge-create-form"
       onSubmit={onSubmit}
     >
       <div className="grid gap-4 md:grid-cols-2">
         <FieldLabel label="Section">
           <select
             className="border border-slate-300 bg-white px-3 py-2 text-sm"
+            data-testid="knowledge-create-section"
             onChange={(event) =>
               onChange({
                 ...entry,
@@ -45,6 +47,7 @@ export function KnowledgeEntryCreateForm({
         <FieldLabel label="Answer type">
           <select
             className="border border-slate-300 bg-white px-3 py-2 text-sm"
+            data-testid="knowledge-create-type"
             onChange={(event) =>
               onChange({
                 ...entry,
@@ -60,6 +63,7 @@ export function KnowledgeEntryCreateForm({
         <FieldLabel label="Question / Label">
           <input
             className="border border-slate-300 px-3 py-2 text-sm"
+            data-testid="knowledge-create-title"
             maxLength={120}
             onChange={(event) => onChange({ ...entry, title: event.target.value })}
             placeholder="Tell me about yourself"
@@ -70,6 +74,7 @@ export function KnowledgeEntryCreateForm({
         <FieldLabel label="Company">
           <input
             className="border border-slate-300 px-3 py-2 text-sm disabled:bg-slate-100"
+            data-testid="knowledge-create-company"
             disabled={entry.section !== "company_specific_answers"}
             maxLength={120}
             onChange={(event) => onChange({ ...entry, companyName: event.target.value })}
@@ -82,6 +87,7 @@ export function KnowledgeEntryCreateForm({
       <FieldLabel label="Answer">
         <textarea
           className="min-h-32 border border-slate-300 px-3 py-2 text-sm leading-6"
+          data-testid="knowledge-create-content"
           maxLength={20_000}
           onChange={(event) => onChange({ ...entry, content: event.target.value })}
           placeholder="Store the answer or profile value you want reused later."
@@ -90,6 +96,7 @@ export function KnowledgeEntryCreateForm({
       </FieldLabel>
       <button
         className="inline-flex h-10 items-center justify-center gap-2 bg-sky-700 px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300 md:w-fit"
+        data-testid="knowledge-create-submit"
         disabled={isBusy}
         type="submit"
       >

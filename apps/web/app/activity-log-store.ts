@@ -11,16 +11,7 @@ export interface ActivityEntry {
 
 const MAX_ENTRIES = 200;
 
-let entries: ActivityEntry[] = [
-  {
-    id: crypto.randomUUID(),
-    area: "app",
-    level: "info",
-    message: "Dashboard ready.",
-    detail: "Client-side activity logger is active.",
-    timestamp: new Date().toISOString(),
-  },
-];
+let entries: ActivityEntry[] = [];
 
 const listeners = new Set<() => void>();
 

@@ -6,18 +6,22 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 2 user knowledge base is complete. Phase 3 job search requires explicit
-approval before it begins.
+Current status: Phase 3.4 Lever search connector review is complete. Phase 3.5 has not started and
+requires explicit approval.
 
 Implemented so far:
 
-- Knowledge Base and resume dashboard in `apps/web`.
+- Knowledge Base and Resume Management dashboard in `apps/web`.
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
+- Provider-independent search orchestration and plugin framework in `packages/domain`.
+- Greenhouse and Lever raw search connectors in `packages/providers`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management and knowledge base CRUD.
+Search UI, Ashby, normalization, deduplication, ranking, automation, AI, and application workflows
+remain out of scope.
 
 ## Quick Start
 
@@ -73,6 +77,8 @@ docker compose up --build
 - `apps/web`: Next.js dashboard for knowledge base and resume management.
 - `services/api`: FastAPI backend with health, version, resume, and knowledge endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
+- `packages/domain`: provider-independent search orchestration and plugin framework.
+- `packages/providers`: provider connector infrastructure and raw Greenhouse/Lever connectors.
 - `packages/shared`: small shared TypeScript package.
 - `docs`: supporting docs and phase reports.
 - `scripts`: local developer automation.
@@ -87,3 +93,5 @@ docker compose up --build
 - [Engineering Guide](ENGINEERING_GUIDE.md)
 - [Project Plan](PROJECT_PLAN.md)
 - [Current State](STATE.md)
+- [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
+- [Browser Smoke Test](playbooks/browser-smoke-test.md)

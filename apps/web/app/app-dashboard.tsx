@@ -1,7 +1,7 @@
 "use client";
 
 import { BookOpenText, FileText, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ActivityLogPanel } from "./activity-log-panel";
 import { recordActivity } from "./activity-log-store";
@@ -13,6 +13,20 @@ type DashboardTab = "knowledge" | "resumes";
 export function AppDashboard() {
   const [activeTab, setActiveTab] = useState<DashboardTab>("knowledge");
   const [isLogOpen, setIsLogOpen] = useState(true);
+  const didRecordReady = useRef(false);
+
+  useEffect(() => {
+    if (didRecordReady.current) {
+      return;
+    }
+    didRecordReady.current = true;
+    recordActivity({
+      area: "app",
+      level: "info",
+      message: "Dashboard ready.",
+      detail: "Client-side activity logger is active.",
+    });
+  }, []);
 
   function selectTab(nextTab: DashboardTab) {
     setActiveTab(nextTab);

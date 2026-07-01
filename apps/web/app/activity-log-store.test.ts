@@ -7,6 +7,10 @@ describe("activity log store", () => {
     clearActivityEntries();
   });
 
+  it("starts empty so server and client snapshots are stable", () => {
+    expect(getActivityEntries()).toEqual([]);
+  });
+
   it("records ordered activity entries", () => {
     recordActivity({
       area: "knowledge",

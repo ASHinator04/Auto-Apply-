@@ -47,6 +47,8 @@ Phase 3.4 Lever search connector review complete. Phase 3.5 has not started.
   documentation.
 - Phase 3.4 review hardening with shared provider JSON request/retry infrastructure, cross-provider
   consistency documentation, implementation guide, tests, and review report.
+- Post-smoke QA hardening for Activity Log hydration, stable dashboard test selectors, README
+  status, local reset/seed workflow, and browser smoke-test playbook.
 
 ## Current Stack
 

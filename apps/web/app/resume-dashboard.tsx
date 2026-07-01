@@ -216,6 +216,7 @@ export function ResumeDashboard() {
 
       <form
         className="grid gap-4 border border-slate-200 bg-white p-5 md:grid-cols-[1fr_1fr_auto]"
+        data-testid="resume-upload-form"
         onSubmit={(event) => {
           void handleUpload(event);
         }}
@@ -225,6 +226,7 @@ export function ResumeDashboard() {
           <input
             accept="application/pdf,.pdf"
             className="border border-slate-300 bg-white px-3 py-2 text-sm"
+            data-testid="resume-upload-file"
             name="resume"
             onChange={(event) => setUploadFile(event.target.files?.[0] ?? null)}
             type="file"
@@ -234,6 +236,7 @@ export function ResumeDashboard() {
           Display name
           <input
             className="border border-slate-300 px-3 py-2 text-sm"
+            data-testid="resume-upload-name"
             maxLength={120}
             onChange={(event) => setUploadName(event.target.value)}
             placeholder="Backend Resume"
@@ -243,6 +246,7 @@ export function ResumeDashboard() {
         </label>
         <button
           className="inline-flex h-10 items-center justify-center gap-2 self-end bg-sky-700 px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+          data-testid="resume-upload-submit"
           disabled={isBusy}
           type="submit"
         >
@@ -287,6 +291,8 @@ export function ResumeDashboard() {
             {resumes.map((resume) => (
               <article
                 className="grid gap-4 px-5 py-4 lg:grid-cols-[minmax(0,1fr)_auto]"
+                data-resume-id={resume.id}
+                data-testid="resume-row"
                 key={resume.id}
               >
                 <div className="min-w-0">
@@ -294,6 +300,7 @@ export function ResumeDashboard() {
                     <input
                       aria-label={`Display name for ${resume.displayName}`}
                       className="min-w-0 flex-1 border border-slate-300 px-3 py-2 text-sm font-medium"
+                      data-testid="resume-display-name"
                       maxLength={120}
                       onChange={(event) =>
                         setDraftNames((current) => ({
@@ -333,6 +340,7 @@ export function ResumeDashboard() {
                 <div className="flex flex-wrap items-center gap-2 lg:justify-end">
                   <button
                     className="inline-flex items-center gap-2 border border-slate-300 px-3 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:text-slate-400"
+                    data-testid="resume-save-name"
                     disabled={
                       isBusy ||
                       !(draftNames[resume.id] ?? resume.displayName).trim() ||
@@ -352,6 +360,7 @@ export function ResumeDashboard() {
                     <input
                       accept="application/pdf,.pdf"
                       className="sr-only"
+                      data-testid="resume-replace-file"
                       disabled={isBusy}
                       onChange={(event) => {
                         const file = event.target.files?.[0];
@@ -365,6 +374,7 @@ export function ResumeDashboard() {
                   </label>
                   <button
                     className="inline-flex items-center gap-2 border border-slate-300 px-3 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:text-slate-400"
+                    data-testid="resume-make-primary"
                     disabled={isBusy || resume.isPrimary}
                     onClick={() => {
                       void handleSetPrimary(resume);
@@ -376,6 +386,7 @@ export function ResumeDashboard() {
                   </button>
                   <button
                     className="inline-flex items-center gap-2 border border-red-200 px-3 py-2 text-sm font-medium text-red-700 disabled:cursor-not-allowed disabled:text-red-300"
+                    data-testid="resume-delete"
                     disabled={isBusy}
                     onClick={() => {
                       void handleDelete(resume);

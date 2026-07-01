@@ -10,11 +10,13 @@ import {
   type ActivityEntry,
 } from "./activity-log-store";
 
+const SERVER_ACTIVITY_ENTRIES: ActivityEntry[] = [];
+
 export function ActivityLogPanel({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   const entries = useSyncExternalStore(
     subscribeToActivityLog,
     getActivityEntries,
-    getActivityEntries,
+    getServerActivityEntries,
   );
 
   return (
@@ -98,6 +100,10 @@ export function ActivityLogPanel({ isOpen, onToggle }: { isOpen: boolean; onTogg
       </div>
     </aside>
   );
+}
+
+function getServerActivityEntries(): ActivityEntry[] {
+  return SERVER_ACTIVITY_ENTRIES;
 }
 
 function levelClassName(entry: ActivityEntry): string {
