@@ -298,3 +298,26 @@ use AI, perform semantic matching, cache results, or automate applications.
 The Phase 3.6 review certified this processing boundary after hardening exact duplicate grouping as
 connected components, validating provider metadata shape, and splitting provider-specific
 normalizers into focused modules.
+
+## Phase 3.7 Search Engine Certification
+
+Phase 3.7 certifies the complete search engine as the foundation for Phase 4. `SearchService` now
+offers `searchUnified(request)`, which executes selected providers through `SearchProviderRegistry`,
+collects provider execution diagnostics, converts raw provider results into
+`RawProviderResultCollection` records, and runs the Phase 3.6 processing pipeline to return a
+`UnifiedSearchResponse`.
+
+Provider plugins still live outside the domain package. `ProviderPluginRegistry` hands ready
+providers to `SearchProviderRegistry` and now also exposes matching search configuration input so
+provider priorities and plugin configuration remain synchronized during search execution.
+
+Certified end-to-end dependency direction:
+
+```text
+provider plugins -> SearchProvider interface
+ProviderPluginRegistry -> SearchProviderRegistry + SearchConfigurationInput
+SearchService.searchUnified -> SearchResultProcessingPipeline -> UnifiedSearchResponse
+```
+
+Phase 3 remains free of dashboard UI, search persistence, search history, application queues,
+tracking, AI ranking, semantic search, embeddings, and browser automation.

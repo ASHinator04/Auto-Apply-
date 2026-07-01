@@ -40,6 +40,10 @@ provider semantics.
 5. Apply supported local filters.
 6. Return raw results through the plugin bridge.
 
+`SearchService.searchUnified` consumes this bridge output and runs the certified processing
+pipeline. Provider folders must still not normalize, deduplicate, rank, cache, store, or render
+jobs.
+
 See the canonical spec for naming, review checklist, documentation expectations, and cross-provider
 consistency rules.
 
@@ -52,4 +56,4 @@ perform real network requests in automated tests.
 ## Phase Boundaries
 
 Do not add aggregation, normalization, deduplication, ranking, storage, dashboard integration,
-application logic, browser automation, or AI behavior from provider phases.
+application logic, browser automation, or AI behavior inside provider folders.

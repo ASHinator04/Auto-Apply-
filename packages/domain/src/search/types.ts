@@ -44,6 +44,7 @@ export type SearchProviderExecutionStatus = "succeeded" | "failed" | "timed_out"
 export interface SearchProviderExecution {
   providerId: EntityId;
   providerType: ProviderType;
+  providerName: string;
   status: SearchProviderExecutionStatus;
   jobs: Job[];
   durationMs: number;

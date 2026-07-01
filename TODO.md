@@ -16,11 +16,11 @@ starts or is explicitly approved.
 
 - Decide whether Python runtime models should be generated from or manually mirrored from
   `@job-agent/contracts`.
-- Prepare Phase 3.7 search engine certification after explicit approval.
+- Prepare Phase 4 search dashboard after explicit approval.
 
 ### Later
 
-- Implement job provider adapters in Phase 3.
+- Decide whether search persistence belongs before or during later dashboard workflow phases.
 
 ### Future Ideas
 

@@ -1,5 +1,6 @@
 import { createProviderPluginConfiguration } from "./configuration";
 import type { ProviderPluginConfiguration } from "./configuration";
+import type { SearchConfigurationInput } from "./configuration";
 import { SearchConfigurationException } from "./errors";
 import type { ProviderPlugin, ProviderPluginMetadata, ProviderPluginRegistration } from "./plugin";
 import { ProviderPluginLifecycleStatus } from "./plugin";
@@ -147,6 +148,25 @@ export class ProviderPluginRegistry {
 
   createSearchProviderRegistry(): SearchProviderRegistry {
     return new SearchProviderRegistry(this.readyProviders());
+  }
+
+  createSearchConfigurationInput(): SearchConfigurationInput {
+    const readyEntries = [...this.plugins.values()].filter(
+      (entry) => entry.status === ProviderPluginLifecycleStatus.Ready,
+    );
+
+    return {
+      enabledProviderIds: readyEntries.map((entry) => entry.plugin.provider.id),
+      providerPriorities: Object.fromEntries(
+        readyEntries.map((entry) => [entry.plugin.provider.id, entry.configuration.priority]),
+      ),
+      providerConfigurations: Object.fromEntries(
+        readyEntries.map((entry) => [
+          entry.plugin.provider.id,
+          copyProviderPluginConfiguration(entry.configuration),
+        ]),
+      ),
+    };
   }
 
   private require(providerId: string): RegisteredProviderPlugin {

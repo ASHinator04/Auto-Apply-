@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 3.6 search result processing pipeline and review certification are complete.
-Phase 3.7 has not started and requires explicit approval.
+Current status: Phase 3.7 search engine certification is complete. Phase 4 has not started and
+requires explicit approval.
 
 Implemented so far:
 
@@ -16,7 +16,7 @@ Implemented so far:
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
 - Search result aggregation, normalization, validation, deduplication, quality filtering, ranking,
-  and unified response processing in `packages/domain`.
+  unified response processing, and certified end-to-end search execution in `packages/domain`.
 - Greenhouse, Lever, and Ashby raw search connectors in `packages/providers`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.

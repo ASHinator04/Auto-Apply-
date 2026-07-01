@@ -195,6 +195,47 @@ describe("provider plugin registry", () => {
     ).toEqual(["provider-a"]);
   });
 
+  it("creates search configuration input for ready providers", async () => {
+    const registry = new ProviderPluginRegistry([
+      {
+        plugin: createPlugin("provider-a"),
+        configuration: {
+          priority: 5,
+          timeoutMs: 2_000,
+          featureFlags: {
+            custom: true,
+          },
+        },
+      },
+      {
+        plugin: createPlugin("provider-b"),
+        configuration: {
+          enabled: false,
+          priority: 1,
+        },
+      },
+    ]);
+
+    await registry.initializeAll();
+
+    expect(registry.createSearchConfigurationInput()).toMatchObject({
+      enabledProviderIds: ["provider-a"],
+      providerPriorities: {
+        "provider-a": 5,
+      },
+      providerConfigurations: {
+        "provider-a": {
+          enabled: true,
+          priority: 5,
+          timeoutMs: 2_000,
+          featureFlags: {
+            custom: true,
+          },
+        },
+      },
+    });
+  });
+
   it("does not initialize a ready plugin more than once", async () => {
     const initialized: string[] = [];
     const registry = new ProviderPluginRegistry([

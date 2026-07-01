@@ -5,6 +5,10 @@
 The Phase 3.6 pipeline converts raw provider results into one deterministic unified search response.
 It is stateless and does not persist results.
 
+Phase 3.7 certifies `SearchService.searchUnified(request)` as the end-to-end entrypoint that
+executes ready providers, collects raw provider results, runs this pipeline, and returns
+`UnifiedSearchResponse`.
+
 ## Flow
 
 ```text
@@ -30,11 +34,11 @@ Provider raw results
 | Ranking           | Quality jobs                | Ranked jobs                          | Sort deterministically using replaceable scoring                                       |
 | Response          | Ranked jobs and stats       | Unified response                     | Return jobs, provider stats, processing stats, timings, validation, and dedupe summary |
 
-## Extension Points
+## Certified Entry Point
 
-Future phases may call this pipeline from the search service or API layer. Persistence, dashboard
-views, saved searches, application queues, AI ranking, and semantic retrieval are not part of this
-pipeline.
+Future phases should call `SearchService.searchUnified` from the API or UI integration layer and
+consume `UnifiedSearchResponse`. Persistence, dashboard views, saved searches, application queues,
+AI ranking, and semantic retrieval are not part of this pipeline.
 
 ## Certification Guarantees
 

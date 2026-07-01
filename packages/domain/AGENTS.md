@@ -11,7 +11,8 @@ Phase 3.1 adds the provider-independent search foundation: registry, configurati
 search service orchestration. Phase 3.2 adds provider plugin metadata, discovery, validation,
 configuration, lifecycle, and registry handoff. Phase 3.6 adds stateless search result processing:
 aggregation, normalization, validation, deduplication, quality filtering, ranking, and unified
-response creation.
+response creation. Phase 3.7 certifies `SearchService.searchUnified` as the end-to-end search
+boundary future phases should consume.
 
 ## Constraints
 

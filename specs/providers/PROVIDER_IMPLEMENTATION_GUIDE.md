@@ -84,9 +84,9 @@ searches or hide provider-specific logic.
 ## Plugin Contract
 
 Plugins must expose metadata without executing network calls. The `provider.search` bridge may
-return raw provider jobs cast through the current `Job` contract only until Phase 3.6 replaces that
-bridge with canonical normalized mapping. Keep a separate `searchRaw` method for provider-specific
-tests and future processing stages.
+return raw provider jobs cast through the current `Job` contract so `SearchService.searchUnified`
+can pass them through the certified processing pipeline. Keep a separate `searchRaw` method for
+provider-specific tests and raw connector diagnostics.
 
 ## Testing
 

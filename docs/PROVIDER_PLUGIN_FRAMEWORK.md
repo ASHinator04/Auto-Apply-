@@ -38,7 +38,10 @@ The registry manages these statuses:
 3. `ready`
 4. `shutdown`
 
-Disabled plugins cannot initialize. Ready plugins can be handed to `SearchProviderRegistry`.
+Disabled plugins cannot initialize. Ready plugins can be handed to `SearchProviderRegistry`. Use
+`createSearchProviderRegistry()` and `createSearchConfigurationInput()` together when building a
+`SearchService`; this preserves ready providers, provider priorities, and plugin configuration for
+unified search execution.
 
 Lifecycle transition rules:
 
@@ -55,6 +58,7 @@ Registry list methods return snapshots. Use registry methods to change lifecycle
 ```text
 SearchService -> SearchProviderRegistry
 ProviderPluginRegistry -> SearchProviderRegistry
+ProviderPluginRegistry -> SearchConfigurationInput
 future provider plugin -> ProviderPlugin interface
 ```
 

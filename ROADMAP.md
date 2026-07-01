@@ -80,10 +80,10 @@ Status: complete; see `docs/PHASE_0_AUDIT_REPORT.md`.
 - Phase 3.2: Provider Plugin Framework. Status: complete.
 - Phase 3.3: Greenhouse Provider. Status: complete.
 - Phase 3.4: Lever Provider. Status: complete.
-- Phase 3.5: Ashby Provider. Status: next, pending approval.
-- Phase 3.6-3.7: Aggregation, normalization, deduplication, and final verification. Status: not
-  started.
-- Phase 4: Search Dashboard.
+- Phase 3.5: Ashby Provider. Status: complete.
+- Phase 3.6: Search Result Processing Pipeline. Status: complete.
+- Phase 3.7: Search Engine Certification. Status: complete.
+- Phase 4: Search Dashboard. Status: next, pending approval.
 - Phase 5: Approval Pipeline.
 - Phase 6: Application Engine.
 - Phase 7: Application Tracking.

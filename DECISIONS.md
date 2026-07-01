@@ -299,3 +299,16 @@ one duplicate group before deterministic tie-breaking.
 Rationale: A job can match one provider by URL and another by identity fields. Connected exact-key
 groups prevent transitive duplicates from leaking into the unified response while preserving the
 no-fuzzy-matching and no-AI constraints.
+
+## ADR-0027: Unified Search Response as Phase 4 Boundary
+
+Status: Accepted
+
+Decision: Phase 3.7 certifies `SearchService.searchUnified` as the end-to-end search consumption
+boundary. It executes ready providers through `SearchProviderRegistry`, collects raw provider
+results, passes them through the stateless processing pipeline, and returns `UnifiedSearchResponse`.
+
+Rationale: Future product surfaces should consume canonical jobs, provider statistics, validation
+errors, deduplication decisions, and processing metadata without depending on provider raw models.
+Keeping this boundary in the domain package preserves provider isolation while giving Phase 4 a
+single stable response contract.

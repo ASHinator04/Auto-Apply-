@@ -38,10 +38,11 @@ function createJob(id: string, providerId: string): Job {
 function createProvider(
   id: string,
   search: SearchProvider["search"] = async () => ({ jobs: [createJob(`job-${id}`, id)] }),
+  type: ProviderType = ProviderType.Other,
 ): SearchProvider {
   return {
     id,
-    type: ProviderType.Other,
+    type,
     name: id,
     search,
   };
@@ -160,5 +161,129 @@ describe("search service", () => {
     const execution = await service.searchWithDiagnostics(request);
 
     expect(execution.providerExecutions[0]?.durationMs).toBe(25);
+  });
+
+  it("returns a unified processed response from provider executions", async () => {
+    const registry = new SearchProviderRegistry([
+      createProvider(
+        "greenhouse:acme",
+        async () => ({
+          jobs: [
+            {
+              id: 123,
+              title: "Software Engineer",
+              absoluteUrl: "https://boards.greenhouse.io/acme/jobs/123",
+              location: { name: "Remote" },
+              departments: [{ name: "Engineering" }],
+              offices: [],
+              content: "Build job search systems.",
+              providerMetadata: {
+                provider: "greenhouse",
+                boardToken: "acme",
+              },
+              raw: {},
+            } as unknown as Job,
+          ],
+        }),
+        ProviderType.Greenhouse,
+      ),
+    ]);
+    const service = new SearchService({
+      registry,
+      clock: () => "2026-01-01T00:00:00.000Z",
+      idGenerator: (prefix) => `${prefix}-1`,
+    });
+
+    const response = await service.searchUnified(request);
+
+    expect(response.jobs).toHaveLength(1);
+    expect(response.jobs[0]).toMatchObject({
+      providerId: "greenhouse:acme",
+      providerType: ProviderType.Greenhouse,
+      providerJobId: "123",
+      title: "Software Engineer",
+    });
+    expect(response.providerStatistics[0]).toMatchObject({
+      providerId: "greenhouse:acme",
+      providerName: "greenhouse:acme",
+      rawCount: 1,
+      returnedCount: 1,
+    });
+  });
+
+  it("keeps unified search responses when one provider fails", async () => {
+    const registry = new SearchProviderRegistry([
+      createProvider(
+        "greenhouse:acme",
+        async () => ({
+          jobs: [
+            {
+              id: 123,
+              title: "Software Engineer",
+              absoluteUrl: "https://boards.greenhouse.io/acme/jobs/123",
+              location: { name: "Remote" },
+              departments: [],
+              offices: [],
+              providerMetadata: {
+                provider: "greenhouse",
+                boardToken: "acme",
+              },
+              raw: {},
+            } as unknown as Job,
+          ],
+        }),
+        ProviderType.Greenhouse,
+      ),
+      createProvider(
+        "lever:down",
+        async () => {
+          throw new Error("Provider unavailable.");
+        },
+        ProviderType.Lever,
+      ),
+    ]);
+    const service = new SearchService({
+      registry,
+      clock: () => "2026-01-01T00:00:00.000Z",
+    });
+
+    const response = await service.searchUnified(request);
+
+    expect(response.jobs).toHaveLength(1);
+    expect(response.providerStatistics.map((provider) => provider.status)).toEqual([
+      "succeeded",
+      "failed",
+    ]);
+  });
+
+  it("returns an empty unified response when two providers are unavailable", async () => {
+    const registry = new SearchProviderRegistry([
+      createProvider(
+        "greenhouse:down",
+        async () => {
+          throw new Error("Greenhouse unavailable.");
+        },
+        ProviderType.Greenhouse,
+      ),
+      createProvider(
+        "lever:down",
+        async () => {
+          throw new Error("Lever unavailable.");
+        },
+        ProviderType.Lever,
+      ),
+    ]);
+    const service = new SearchService({
+      registry,
+      clock: () => "2026-01-01T00:00:00.000Z",
+    });
+
+    const response = await service.searchUnified(request);
+
+    expect(response.jobs).toEqual([]);
+    expect(response.providerStatistics.map((provider) => provider.status)).toEqual([
+      "failed",
+      "failed",
+    ]);
   });
 });

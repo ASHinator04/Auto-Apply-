@@ -101,13 +101,16 @@ cross-layer types.
 Search orchestration lives in `@job-agent/domain`. Its Phase 3.1 pipeline stages are explicit in
 `packages/domain/src/search/pipeline.ts`; future phases should extend the search flow through
 documented boundaries instead of hiding provider, ranking, storage, or UI behavior inside
-`SearchService`.
+`SearchService`. Phase 3.7 certifies `SearchService.searchUnified` as the provider-to-canonical
+search boundary for future product surfaces.
 
 Provider plugin infrastructure also lives in `@job-agent/domain`. Future providers should implement
 the `ProviderPlugin` interface, expose metadata without executing, pass registry validation, and
 hand ready providers into `SearchProviderRegistry`. Provider plugins must not depend on each other.
 Registry list methods return snapshots; provider plugin lifecycle state must be changed through the
-registry API only.
+registry API only. Use `ProviderPluginRegistry.createSearchProviderRegistry()` together with
+`ProviderPluginRegistry.createSearchConfigurationInput()` when wiring ready plugins into
+`SearchService`.
 
 Concrete provider connectors live in `@job-agent/providers`. Provider packages may own HTTP clients,
 request builders, response parsers, raw provider models, and provider-specific configuration. They

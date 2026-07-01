@@ -16,7 +16,8 @@ implementation standard. Shared provider-only infrastructure lives in
 
 Provider code must translate external data into documented internal shapes and must not leak
 vendor-specific behavior into domain logic. Greenhouse, Lever, and Ashby return raw
-provider-specific jobs in their current phases; do not normalize, deduplicate, rank, cache, store,
-or add other providers until their approved phases. Use shared provider utilities only for behavior
-that is identical across implemented providers; keep request builders, pagination, parsing, filters,
-raw models, and plugin registration provider-specific.
+provider-specific jobs through the provider bridge; `SearchService.searchUnified` sends those raw
+jobs through the certified processing pipeline. Do not normalize, deduplicate, rank, cache, store,
+or add other providers in this package until their approved phases. Use shared provider utilities
+only for behavior that is identical across implemented providers; keep request builders, pagination,
+parsing, filters, raw models, and plugin registration provider-specific.

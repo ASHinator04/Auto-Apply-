@@ -10,6 +10,11 @@ import type { SearchConfiguration, SearchConfigurationInput } from "./configurat
 import { createSearchConfiguration } from "./configuration";
 import { createProviderExecutionError } from "./errors";
 import { SearchLifecycleRecorder } from "./pipeline";
+import {
+  SearchResultProcessingPipeline,
+  type RawProviderResultCollection,
+  type UnifiedSearchResponse,
+} from "./processing";
 import { SearchProviderRegistry } from "./registry";
 import {
   SearchLifecycleStage,
@@ -50,6 +55,21 @@ export class SearchService implements SearchEngine {
   async search(request: JobSearchInput): Promise<SearchResult> {
     const execution = await this.searchWithDiagnostics(request);
     return execution.result;
+  }
+
+  async searchUnified(request: JobSearchInput): Promise<UnifiedSearchResponse> {
+    const execution = await this.searchWithDiagnostics(request);
+    const processingPipeline = new SearchResultProcessingPipeline({
+      clock: this.clock,
+      durationClock: this.durationClock,
+    });
+
+    return processingPipeline.process({
+      request,
+      providerResults: execution.providerExecutions.map((providerExecution) =>
+        this.createRawProviderResult(providerExecution),
+      ),
+    });
   }
 
   async searchWithDiagnostics(request: JobSearchInput): Promise<SearchExecutionResult> {
@@ -98,6 +118,7 @@ export class SearchService implements SearchEngine {
       return {
         providerId: provider.id,
         providerType: provider.type,
+        providerName: provider.name,
         status: "succeeded",
         jobs: response.jobs,
         durationMs: this.getDurationSince(startedAt),
@@ -108,6 +129,7 @@ export class SearchService implements SearchEngine {
       return {
         providerId: provider.id,
         providerType: provider.type,
+        providerName: provider.name,
         status: timedOut ? "timed_out" : "failed",
         jobs: [],
         durationMs: this.getDurationSince(startedAt),
@@ -132,6 +154,19 @@ export class SearchService implements SearchEngine {
       totalFound: jobs.length,
       providerTypes,
       createdAt: this.clock(),
+    };
+  }
+
+  private createRawProviderResult(execution: SearchProviderExecution): RawProviderResultCollection {
+    return {
+      providerId: execution.providerId,
+      providerType: execution.providerType,
+      providerName: execution.providerName,
+      providerPriority: this.configuration.providerPriorities[execution.providerId],
+      status: execution.status,
+      durationMs: execution.durationMs,
+      totalFound: execution.jobs.length,
+      jobs: execution.jobs,
     };
   }
 

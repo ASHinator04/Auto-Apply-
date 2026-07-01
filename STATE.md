@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.6 search result processing pipeline complete. Phase 3.7 has not started.
+Phase 3.7 search engine certification complete. Phase 4 has not started.
 
 ## Completed
 
@@ -59,6 +59,9 @@ Phase 3.6 search result processing pipeline complete. Phase 3.7 has not started.
   documentation.
 - Phase 3.6 review certification with transitive duplicate-group hardening, metadata validation
   hardening, provider-specific normalization file split, regression tests, and certification report.
+- Phase 3.7 final search engine certification with `SearchService.searchUnified`, provider plugin
+  configuration handoff, end-to-end provider/pipeline certification tests, failure certification,
+  and final certification report.
 
 ## Current Stack
 
@@ -68,8 +71,8 @@ Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
 Implemented search capability: provider-independent orchestration, provider plugin framework,
-Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, and
-stateless search result processing pipeline only.
+Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, stateless
+search result processing pipeline, and certified end-to-end unified search execution only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -119,11 +122,15 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - Search result deduplication is exact and deterministic, including transitive exact-key duplicate
   groups. AI, embeddings, fuzzy matching, caching, persistence, and dashboard integration remain out
   of scope.
+- `SearchService.searchUnified` is the certified Phase 3 search consumption boundary. Future
+  dashboard and workflow phases should consume `UnifiedSearchResponse`, not provider raw models.
+- `ProviderPluginRegistry.createSearchConfigurationInput` preserves ready provider priorities and
+  plugin configuration when handing providers to `SearchService`.
 
 ## Next Phase
 
-Phase 3.7: Search Engine Certification, after explicit user approval.
+Phase 4: Search Dashboard, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.7 begins.
+User approval is required before Phase 4 begins.
