@@ -35,6 +35,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@job-agent/contracts':
+        specifier: workspace:*
+        version: link:../../contracts/domain
+      '@job-agent/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@job-agent/shared':
         specifier: workspace:*
         version: link:../../packages/shared

@@ -11,6 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@job-agent/contracts": "workspace:*",
+    "@job-agent/domain": "workspace:*",
     "@job-agent/shared": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

@@ -1,14 +1,15 @@
 "use client";
 
-import { BookOpenText, FileText, Sparkles } from "lucide-react";
+import { BookOpenText, FileText, Search, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { ActivityLogPanel } from "./activity-log-panel";
 import { recordActivity } from "./activity-log-store";
 import { KnowledgeBaseDashboard } from "./knowledge-base-dashboard";
 import { ResumeDashboard } from "./resume-dashboard";
+import { SearchExperienceDashboard } from "./search-experience-dashboard";
 
-type DashboardTab = "knowledge" | "resumes";
+type DashboardTab = "knowledge" | "resumes" | "search";
 
 export function AppDashboard() {
   const [activeTab, setActiveTab] = useState<DashboardTab>("knowledge");
@@ -33,7 +34,7 @@ export function AppDashboard() {
     recordActivity({
       area: "app",
       level: "info",
-      message: `Switched to ${nextTab === "knowledge" ? "Knowledge Base" : "Resumes"}.`,
+      message: `Switched to ${tabLabel(nextTab)}.`,
     });
   }
 
@@ -71,12 +72,20 @@ export function AppDashboard() {
                   label="Resumes"
                   onClick={() => selectTab("resumes")}
                 />
+                <TabButton
+                  active={activeTab === "search"}
+                  icon={<Search aria-hidden="true" className="h-4 w-4" />}
+                  label="Search"
+                  onClick={() => selectTab("search")}
+                />
               </div>
             </div>
           </section>
 
           <section className="app-panel px-6 py-6">
-            {activeTab === "knowledge" ? <KnowledgeBaseDashboard /> : <ResumeDashboard />}
+            {activeTab === "knowledge" ? <KnowledgeBaseDashboard /> : null}
+            {activeTab === "resumes" ? <ResumeDashboard /> : null}
+            {activeTab === "search" ? <SearchExperienceDashboard /> : null}
           </section>
         </div>
 
@@ -95,6 +104,16 @@ export function AppDashboard() {
       </div>
     </main>
   );
+}
+
+function tabLabel(tab: DashboardTab): string {
+  if (tab === "knowledge") {
+    return "Knowledge Base";
+  }
+  if (tab === "resumes") {
+    return "Resumes";
+  }
+  return "Search";
 }
 
 function TabButton({

@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.7 search engine certification and release audit complete. Phase 4 has not started.
+Phase 4.1 search experience foundation complete. Phase 4.2 has not started.
 
 ## Completed
 
@@ -64,6 +64,9 @@ Phase 3.7 search engine certification and release audit complete. Phase 4 has no
   and final certification report.
 - Phase 3.7 release audit with provider-specific timeout enforcement, duplicate-heavy deduplication
   coverage, MVP status documentation, and release audit report.
+- Phase 4.1 search experience foundation with Search tab, resume selector, search criteria form,
+  Next.js `/api/search` route, unified search response execution, loading/error/empty/no-results
+  states, retry control, tests, and documentation.
 
 ## Current Stack
 
@@ -71,10 +74,11 @@ Implemented infrastructure: Next.js, TypeScript, Tailwind CSS, shadcn/ui configu
 Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadata storage, Docker
 Compose configuration, Markdown documentation, and GitHub Actions.
 
-Implemented product capability: resume metadata management and user knowledge base CRUD only.
-Implemented search capability: provider-independent orchestration, provider plugin framework,
-Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, stateless
-search result processing pipeline, and certified end-to-end unified search execution only.
+Implemented product capability: resume metadata management, user knowledge base CRUD, and initial
+search execution experience only. Implemented search capability: provider-independent orchestration,
+provider plugin framework, Greenhouse raw search connector, Lever raw search connector, Ashby raw
+search connector, stateless search result processing pipeline, and certified end-to-end unified
+search execution only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -130,11 +134,13 @@ Recommended but not yet implemented as product capability: future Playwright aut
   plugin configuration when handing providers to `SearchService`.
 - `SearchService` enforces provider-specific timeout settings when present and falls back to the
   global search timeout otherwise.
+- Phase 4.1 web search execution uses only `SearchService.searchUnified` and
+  `UnifiedSearchResponse`; the UI does not consume provider-specific raw models.
 
 ## Next Phase
 
-Phase 4: Search Dashboard, after explicit user approval.
+Phase 4.2: Search Results Dashboard, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 4 begins.
+User approval is required before Phase 4.2 begins.

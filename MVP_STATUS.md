@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 3.7 Search Engine release audit complete. Phase 4 Search Dashboard has not started.
+Phase 4.1 Search Experience foundation complete. Phase 4.2 Search Results Dashboard has not started.
 
 ## Implemented
 
@@ -10,6 +10,8 @@ Phase 3.7 Search Engine release audit complete. Phase 4 Search Dashboard has not
 - User Knowledge Base: local CRUD, search, validation, APIs, and dashboard.
 - Search Engine: provider plugin framework, Greenhouse, Lever, Ashby, processing pipeline, and
   certified unified search response.
+- Search Experience Foundation: resume selector, search form, loading/error/empty/no-results states,
+  and web route integration with the unified search response.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 
@@ -20,7 +22,7 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Not Yet Implemented
 
-- Search Dashboard.
+- Search Results Dashboard.
 - Search persistence and search history.
 - Approval workflow.
 - Application automation.

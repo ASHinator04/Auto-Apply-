@@ -2,7 +2,7 @@ export type ActivityLevel = "info" | "success" | "error";
 
 export interface ActivityEntry {
   id: string;
-  area: "app" | "knowledge" | "resume" | "api";
+  area: "app" | "knowledge" | "resume" | "api" | "search";
   detail?: string;
   level: ActivityLevel;
   message: string;

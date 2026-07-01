@@ -1,6 +1,26 @@
 # API Reference
 
-Base URL for local development: `http://localhost:8000`.
+Base URL for local backend development: `http://localhost:8000`.
+
+The Phase 4.1 web search route is served by the Next.js app at `http://localhost:3000`.
+
+## Search Experience
+
+### `POST /api/search`
+
+Executes the certified unified search boundary from the web app. The response is
+`UnifiedSearchResponse` from `@job-agent/domain`.
+
+```json
+{
+  "query": "software engineer",
+  "locations": ["Remote"],
+  "workModes": ["remote"]
+}
+```
+
+`query` is required. `locations` and `workModes` are optional. Phase 4.1 does not expose provider
+raw models, search history, result cards, sorting, pagination, or persistence.
 
 ## Knowledge Base
 

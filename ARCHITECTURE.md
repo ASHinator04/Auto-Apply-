@@ -323,3 +323,21 @@ SearchService.searchUnified -> SearchResultProcessingPipeline -> UnifiedSearchRe
 
 Phase 3 remains free of dashboard UI, search persistence, search history, application queues,
 tracking, AI ranking, semantic search, embeddings, and browser automation.
+
+## Phase 4.1 Search Experience Foundation
+
+Phase 4.1 adds the first user-facing search workflow in `apps/web`:
+
+- Search tab in the existing development workspace.
+- Resume selector that reuses the Phase 1 resume API and defaults to the primary resume when
+  available.
+- Search form for keywords, location, remote preference, and employment type capture.
+- Next.js `/api/search` route that calls the certified `SearchService.searchUnified` boundary and
+  returns `UnifiedSearchResponse`.
+- Loading, validation error, retry, empty, and no-results states.
+
+The UI consumes only the unified response summary. It does not render job cards, consume raw
+provider models, persist search history, create search sessions, add sorting or pagination, or
+perform browser automation. The foundation route currently runs the certified search pipeline
+without configured live provider plugins; provider-backed result browsing belongs to later Phase 4
+slices.

@@ -104,6 +104,10 @@ documented boundaries instead of hiding provider, ranking, storage, or UI behavi
 `SearchService`. Phase 3.7 certifies `SearchService.searchUnified` as the provider-to-canonical
 search boundary for future product surfaces.
 
+Phase 4.1 web search surfaces must consume only the unified search response. Keep search form state,
+request state, response state, and UI state separate in the frontend. Do not render provider raw
+models or add search result dashboard behavior before the approved phase.
+
 Provider plugin infrastructure also lives in `@job-agent/domain`. Future providers should implement
 the `ProviderPlugin` interface, expose metadata without executing, pass registry validation, and
 hand ready providers into `SearchProviderRegistry`. Provider plugins must not depend on each other.

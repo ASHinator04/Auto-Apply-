@@ -6,11 +6,11 @@ Job Agent is an AI-powered job application engine. The future product will inges
 software engineering jobs, normalize listings, support bulk approval, automate applications, reuse
 application answers, and track application status.
 
-Phase 3.7 search engine certification and release audit are complete, and the repository is pending
-explicit approval before Phase 4 begins. Future product functionality remains out of scope until
-that approval: do not implement browser automation, authentication, AI providers, semantic
-retrieval, embeddings, answer suggestions, storage, dashboard workflows, application workflows, or
-Phase 4 search dashboard work.
+Phase 4.1 search experience foundation is complete, and the repository is pending explicit approval
+before Phase 4.2 begins. Future product functionality remains out of scope until that approval: do
+not implement browser automation, authentication, AI providers, semantic retrieval, embeddings,
+answer suggestions, storage, search sessions, job details, dashboard result cards, application
+workflows, or Phase 4.2 search results dashboard work.
 
 ## Engineering Philosophy
 
