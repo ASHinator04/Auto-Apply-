@@ -190,8 +190,8 @@ The Greenhouse package defines:
 - Provider plugin metadata, registration, and discovery helpers.
 
 The connector intentionally returns raw Greenhouse-specific job objects through the provider
-contract bridge. Phase 3.6 owns conversion into canonical normalized jobs, deduplication, ranking,
-caching, and storage.
+contract bridge. Phase 3.6 owns conversion into canonical normalized jobs, deduplication, and
+ranking. Caching and storage remain later-phase concerns.
 
 Lifecycle rules:
 
@@ -224,8 +224,8 @@ location, team, department, and commitment filters through query parameters; key
 filters are handled locally when raw fields allow it.
 
 The connector intentionally returns raw Lever-specific posting objects through the provider contract
-bridge. Phase 3.6 owns aggregation, canonical normalization, deduplication, ranking, caching, and
-storage.
+bridge. Phase 3.6 owns aggregation, canonical normalization, deduplication, and ranking. Caching and
+storage remain later-phase concerns.
 
 ## Phase 3.4 Provider Consistency Review
 
@@ -270,4 +270,27 @@ The Ashby package defines:
 Ashby does not require public API pagination for this connector; the connector fetches one
 board-wide JSON payload and reports one fetched page for consistency. The connector intentionally
 returns raw Ashby-specific posting objects through the provider contract bridge. Phase 3.6 owns
-aggregation, canonical normalization, deduplication, ranking, caching, and storage.
+aggregation, canonical normalization, deduplication, and ranking. Caching and storage remain
+later-phase concerns.
+
+## Phase 3.6 Search Result Processing Pipeline
+
+Phase 3.6 adds a stateless provider-independent processing pipeline in
+`packages/domain/src/search/processing`. It does not modify `SearchService`,
+`SearchProviderRegistry`, `ProviderPluginRegistry`, or provider modules.
+
+The pipeline defines:
+
+- Aggregation of raw provider result collections without transformation.
+- Normalization from structural Greenhouse, Lever, and Ashby raw shapes into `CanonicalJob`.
+- Validation with structured errors for missing title, provider identity, job identifier, invalid
+  URL, or corrupt metadata.
+- Exact deterministic deduplication using provider id, canonical URL, and company/title/location
+  keys.
+- Conservative quality filtering for missing company, missing location, or missing source metadata.
+- Deterministic ranking by keyword relevance, posting recency, and provider priority.
+- Unified response metadata including provider statistics, processing statistics, stage timings,
+  validation summary, and deduplication decisions.
+
+The pipeline remains local and stateless. It does not persist results, expose dashboard workflows,
+use AI, perform semantic matching, cache results, or automate applications.

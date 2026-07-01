@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.5 Ashby search connector and provider standardization complete. Phase 3.6 has not started.
+Phase 3.6 search result processing pipeline complete. Phase 3.7 has not started.
 
 ## Completed
 
@@ -54,6 +54,9 @@ Phase 3.5 Ashby search connector and provider standardization complete. Phase 3.
   and documentation.
 - Phase 3.5 provider ecosystem certification review with provider guide hardening, parser empty
   response coverage, Greenhouse comment/error consistency cleanup, and certification report.
+- Phase 3.6 stateless search result processing pipeline with aggregation, normalization, validation,
+  deduplication, quality filtering, deterministic ranking, unified response metadata, tests, and
+  documentation.
 
 ## Current Stack
 
@@ -63,7 +66,8 @@ Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
 Implemented search capability: provider-independent orchestration, provider plugin framework,
-Greenhouse raw search connector, Lever raw search connector, and Ashby raw search connector only.
+Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, and
+stateless search result processing pipeline only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -95,8 +99,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
   receive ready providers through registry handoff without knowing provider implementation details.
 - Provider plugin lifecycle transitions are validated so plugins cannot be initialized while
   disabled, re-enabled after shutdown, shutdown before readiness, or disabled while ready.
-- Greenhouse search returns raw provider-specific job objects. Normalization, deduplication,
-  ranking, caching, storage, dashboard integration, and additional providers remain out of scope.
+- Greenhouse search returns raw provider-specific job objects. Provider modules do not normalize,
+  deduplicate, rank, cache, store, or integrate dashboard behavior.
 - Greenhouse pagination follows only the configured Greenhouse API origin, invalid JSON is a
   non-retryable connector error, and parser raw payloads are shallow snapshots.
 - Lever search returns raw provider-specific posting objects. Lever uses skip/limit pagination,
@@ -104,16 +108,19 @@ Recommended but not yet implemented as product capability: future Playwright aut
   keyword/remote filtering locally where raw fields allow it.
 - Greenhouse and Lever share provider-agnostic JSON HTTP retry, timeout, rate-limit, invalid JSON,
   and abort-style timeout handling through `packages/providers/src/shared`.
-- Ashby search returns raw provider-specific posting objects from the public job board API.
-  Normalization, deduplication, ranking, caching, storage, dashboard integration, and application
-  workflows remain out of scope.
+- Ashby search returns raw provider-specific posting objects from the public job board API. Provider
+  modules do not normalize, deduplicate, rank, cache, store, or integrate dashboard behavior.
 - Greenhouse, Lever, and Ashby now follow the provider implementation guide in
   `specs/providers/PROVIDER_IMPLEMENTATION_GUIDE.md`.
+- Phase 3.6 processing lives in `packages/domain/src/search/processing`, remains stateless, and does
+  not import concrete provider modules.
+- Search result deduplication is exact and deterministic; AI, embeddings, fuzzy matching, caching,
+  persistence, and dashboard integration remain out of scope.
 
 ## Next Phase
 
-Phase 3.6: Aggregation, Normalization, and Deduplication, after explicit user approval.
+Phase 3.7: Search Engine Certification, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.6 begins.
+User approval is required before Phase 3.7 begins.

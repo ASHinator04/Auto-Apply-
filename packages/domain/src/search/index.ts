@@ -5,6 +5,7 @@ export * from "./plugin";
 export * from "./plugin-discovery";
 export * from "./plugin-registry";
 export * from "./plugin-validation";
+export * from "./processing";
 export * from "./registry";
 export * from "./service";
 export * from "./types";

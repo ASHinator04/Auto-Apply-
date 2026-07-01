@@ -272,3 +272,18 @@ Rationale: Ashby's public postings API exposes published job postings for a conf
 name through a JSON endpoint. Implementing Ashby validates the provider standard against a third API
 shape while preserving the Phase 3.6 boundary for aggregation, normalization, deduplication,
 ranking, caching, and storage.
+
+## ADR-0025: Stateless Search Result Processing Pipeline
+
+Status: Accepted
+
+Decision: Implement Phase 3.6 processing in `packages/domain/src/search/processing` as a stateless
+pipeline with explicit aggregation, normalization, validation, deduplication, quality filtering,
+ranking, and unified response stages. The pipeline consumes structural raw provider result
+collections and returns canonical jobs with provider metadata, processing statistics, provider
+statistics, validation errors, deduplication decisions, and stage timings.
+
+Rationale: Provider connectors intentionally return raw platform-specific jobs. A separate
+provider-independent pipeline keeps `SearchService`, the plugin framework, and concrete providers
+stable while creating a deterministic processing boundary for future API and dashboard phases.
+Persistence, caching, AI ranking, semantic retrieval, and dashboard integration remain out of scope.

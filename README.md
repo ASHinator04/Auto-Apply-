@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 3.5 Ashby search connector and provider standardization are complete. Phase
-3.6 has not started and requires explicit approval.
+Current status: Phase 3.6 search result processing pipeline is complete. Phase 3.7 has not started
+and requires explicit approval.
 
 Implemented so far:
 
@@ -15,13 +15,14 @@ Implemented so far:
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
+- Search result aggregation, normalization, validation, deduplication, quality filtering, ranking,
+  and unified response processing in `packages/domain`.
 - Greenhouse, Lever, and Ashby raw search connectors in `packages/providers`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management and knowledge base CRUD.
-Search UI, normalization, deduplication, ranking, automation, AI, and application workflows remain
-out of scope.
+Search UI, persistence, automation, AI, and application workflows remain out of scope.
 
 ## Quick Start
 
@@ -78,6 +79,7 @@ docker compose up --build
 - `services/api`: FastAPI backend with health, version, resume, and knowledge endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/domain`: provider-independent search orchestration and plugin framework.
+- `docs/search`: search result processing pipeline documentation.
 - `packages/providers`: provider connector infrastructure and raw Greenhouse/Lever connectors.
 - `packages/shared`: small shared TypeScript package.
 - `docs`: supporting docs and phase reports.
