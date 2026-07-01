@@ -10,7 +10,7 @@ search response through the certified `SearchService.searchUnified` boundary.
 
 1. Open the Search tab.
 2. Use the primary resume by default or select another uploaded resume.
-3. Enter required keywords plus optional location, remote preference, and employment type.
+3. Enter required keywords plus optional location and remote preference.
 4. Submit the form.
 5. Observe loading, error, no-results, or response summary state.
 
@@ -51,8 +51,6 @@ consumes Greenhouse, Lever, Ashby, or other provider-specific raw models.
 
 - The Phase 4.1 route executes the certified search pipeline without configured live provider
   plugins, so local searches can validly return no results.
-- Employment type is captured in UI state but not sent to the search engine because the certified
-  `JobSearchInput` contract does not support it yet.
 - Job cards, details, sorting, pagination, sessions, saved searches, persistence, and dashboard
   workflows are intentionally out of scope.
 

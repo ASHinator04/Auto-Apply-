@@ -1,11 +1,10 @@
-import type { EmploymentType, WorkMode } from "@job-agent/contracts";
+import type { WorkMode } from "@job-agent/contracts";
 import type { UnifiedSearchResponse } from "@job-agent/domain";
 
 export interface SearchFormState {
   keywords: string;
   location: string;
   remoteOnly: boolean;
-  employmentType: EmploymentType | "";
   resumeId: string;
 }
 
@@ -13,7 +12,6 @@ export interface SearchExecutionRequest {
   keywords: string;
   location?: string;
   remoteOnly: boolean;
-  employmentType?: EmploymentType;
   resumeId?: string;
 }
 

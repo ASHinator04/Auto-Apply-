@@ -4,7 +4,6 @@ import type { FormEvent } from "react";
 
 import type { Resume } from "./resume-types";
 import type { SearchFormState } from "./search-types";
-import { SEARCH_EMPLOYMENT_TYPES } from "./search-utils";
 
 export function SearchForm({
   form,
@@ -61,7 +60,7 @@ export function SearchForm({
         </label>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
           Location
           <input
@@ -73,28 +72,6 @@ export function SearchForm({
             type="text"
             value={form.location}
           />
-        </label>
-
-        <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
-          Employment type
-          <select
-            className="border border-slate-300 bg-white px-3 py-2 text-sm"
-            data-testid="search-employment-type"
-            onChange={(event) =>
-              onChange({
-                ...form,
-                employmentType: event.target.value as SearchFormState["employmentType"],
-              })
-            }
-            value={form.employmentType}
-          >
-            <option value="">Any employment type</option>
-            {SEARCH_EMPLOYMENT_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
         </label>
 
         <label className="inline-flex min-h-10 items-center gap-2 border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
@@ -111,8 +88,7 @@ export function SearchForm({
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-xs leading-5 text-slate-500">
-          Employment type is captured for the experience but will only affect execution once the
-          certified search contract supports it.
+          Future filters can be added here without changing the Search tab ownership boundary.
         </p>
         <button
           className="inline-flex h-10 items-center justify-center gap-2 bg-slate-900 px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"

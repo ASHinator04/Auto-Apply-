@@ -1,32 +1,21 @@
-import { EmploymentType, WorkMode } from "@job-agent/contracts";
+import { WorkMode } from "@job-agent/contracts";
 
 import type { SearchApiPayload, SearchExecutionRequest, SearchFormState } from "./search-types";
-
-export const SEARCH_EMPLOYMENT_TYPES: readonly { value: EmploymentType; label: string }[] = [
-  { value: EmploymentType.Permanent, label: "Permanent" },
-  { value: EmploymentType.Contract, label: "Contract" },
-  { value: EmploymentType.Internship, label: "Internship" },
-  { value: EmploymentType.Temporary, label: "Temporary" },
-];
 
 export function emptySearchFormState(resumeId = ""): SearchFormState {
   return {
     keywords: "",
     location: "",
     remoteOnly: false,
-    employmentType: "",
     resumeId,
   };
 }
 
 export function createSearchExecutionRequest(form: SearchFormState): SearchExecutionRequest {
-  const employmentType = form.employmentType === "" ? undefined : form.employmentType;
-
   return {
     keywords: form.keywords.trim(),
     location: form.location.trim() || undefined,
     remoteOnly: form.remoteOnly,
-    employmentType,
     resumeId: form.resumeId || undefined,
   };
 }

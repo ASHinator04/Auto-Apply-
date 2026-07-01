@@ -1,4 +1,4 @@
-import { EmploymentType, WorkMode } from "@job-agent/contracts";
+import { WorkMode } from "@job-agent/contracts";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -18,7 +18,6 @@ describe("search form utilities", () => {
       keywords: " software engineer ",
       location: " Remote ",
       remoteOnly: true,
-      employmentType: EmploymentType.Contract,
       resumeId: "resume-1",
     });
 
@@ -26,7 +25,6 @@ describe("search form utilities", () => {
       keywords: "software engineer",
       location: "Remote",
       remoteOnly: true,
-      employmentType: EmploymentType.Contract,
       resumeId: "resume-1",
     });
   });
@@ -36,7 +34,6 @@ describe("search form utilities", () => {
       keywords: "frontend",
       location: "New York",
       remoteOnly: true,
-      employmentType: EmploymentType.Permanent,
       resumeId: "resume-1",
     });
 

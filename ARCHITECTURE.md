@@ -331,7 +331,7 @@ Phase 4.1 adds the first user-facing search workflow in `apps/web`:
 - Search tab in the existing development workspace.
 - Resume selector that reuses the Phase 1 resume API and defaults to the primary resume when
   available.
-- Search form for keywords, location, remote preference, and employment type capture.
+- Search form for keywords, location, and remote preference.
 - Next.js `/api/search` route that calls the certified `SearchService.searchUnified` boundary and
   returns `UnifiedSearchResponse`.
 - Loading, validation error, retry, empty, and no-results states.

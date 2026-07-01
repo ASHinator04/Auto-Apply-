@@ -57,8 +57,6 @@ search route and Search tab components.
 
 - Local searches can validly return no results until provider plugin wiring is approved for the
   user-facing search experience.
-- Employment type remains UI-captured only because the certified `JobSearchInput` contract does not
-  include it.
 - Job cards, details, sessions, history, sorting, and pagination remain deferred to later Phase 4
   sub-phases.
 
