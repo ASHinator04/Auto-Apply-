@@ -258,3 +258,17 @@ pagination interpretation, parsing, filtering, raw models, configuration, and pl
 Rationale: Phase 3.4 review found duplicated networking code across both provider connectors. A
 small shared utility reduces drift before Ashby while preserving provider-specific behavior and
 avoiding premature abstraction of parsing, pagination, or search semantics.
+
+## ADR-0024: Ashby as Third Provider Plugin
+
+Status: Accepted
+
+Decision: Implement Ashby as the third concrete provider in `@job-agent/providers`, using the same
+provider folder structure as Greenhouse and Lever. The connector uses Ashby's public job postings
+API, returns raw Ashby posting objects, and uses the provider plugin framework for registration and
+readiness without changing the search engine, registry, plugin framework, or shared contracts.
+
+Rationale: Ashby's public postings API exposes published job postings for a configured job board
+name through a JSON endpoint. Implementing Ashby validates the provider standard against a third API
+shape while preserving the Phase 3.6 boundary for aggregation, normalization, deduplication,
+ranking, caching, and storage.

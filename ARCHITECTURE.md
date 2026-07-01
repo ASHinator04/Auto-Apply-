@@ -246,3 +246,28 @@ Provider-specific modules still own:
 
 Ashby should be implementable by adding a new provider folder that follows the same structure,
 without modifying `packages/domain`, Greenhouse, or Lever.
+
+## Phase 3.5 Ashby Search Connector and Provider Standardization
+
+Phase 3.5 adds Ashby as the third concrete provider plugin in `@job-agent/providers` and codifies
+the provider implementation pattern in `specs/providers/PROVIDER_IMPLEMENTATION_GUIDE.md`.
+
+The Ashby package defines:
+
+- Connector orchestration for raw Ashby public job board searches.
+- HTTP client using the shared provider JSON request helper for timeout, retry, rate-limit, invalid
+  JSON, and abort-style timeout handling.
+- Request builder for `https://api.ashbyhq.com/posting-api/job-board/{JOB_BOARD_NAME}` with optional
+  compensation inclusion.
+- Response parser for available Ashby posting fields only, including secondary locations, employment
+  type, listed/remote flags, compensation fields, provider metadata, and a shallow raw payload
+  snapshot.
+- Raw Ashby job model.
+- Keyword, location, remote, team, department, and employment-type filtering where raw fields allow
+  it.
+- Provider plugin metadata, registration, and discovery helpers.
+
+Ashby does not require public API pagination for this connector; the connector fetches one
+board-wide JSON payload and reports one fetched page for consistency. The connector intentionally
+returns raw Ashby-specific posting objects through the provider contract bridge. Phase 3.6 owns
+aggregation, canonical normalization, deduplication, ranking, caching, and storage.

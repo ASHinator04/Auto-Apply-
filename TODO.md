@@ -16,7 +16,7 @@ starts or is explicitly approved.
 
 - Decide whether Python runtime models should be generated from or manually mirrored from
   `@job-agent/contracts`.
-- Prepare Phase 3.5 Ashby connector after explicit approval.
+- Prepare Phase 3.6 aggregation, normalization, and deduplication after explicit approval.
 
 ### Later
 

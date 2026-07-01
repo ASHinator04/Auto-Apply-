@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.4 Lever search connector review complete. Phase 3.5 has not started.
+Phase 3.5 Ashby search connector and provider standardization complete. Phase 3.6 has not started.
 
 ## Completed
 
@@ -49,6 +49,9 @@ Phase 3.4 Lever search connector review complete. Phase 3.5 has not started.
   consistency documentation, implementation guide, tests, and review report.
 - Post-smoke QA hardening for Activity Log hydration, stable dashboard test selectors, README
   status, local reset/seed workflow, and browser smoke-test playbook.
+- Phase 3.5 Ashby provider plugin, public postings connector, HTTP client, request builder, response
+  parser, raw job model, local filters, registration helpers, tests, provider implementation guide,
+  and documentation.
 
 ## Current Stack
 
@@ -58,7 +61,7 @@ Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management and user knowledge base CRUD only.
 Implemented search capability: provider-independent orchestration, provider plugin framework,
-Greenhouse raw search connector, and Lever raw search connector only.
+Greenhouse raw search connector, Lever raw search connector, and Ashby raw search connector only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -99,11 +102,16 @@ Recommended but not yet implemented as product capability: future Playwright aut
   keyword/remote filtering locally where raw fields allow it.
 - Greenhouse and Lever share provider-agnostic JSON HTTP retry, timeout, rate-limit, invalid JSON,
   and abort-style timeout handling through `packages/providers/src/shared`.
+- Ashby search returns raw provider-specific posting objects from the public job board API.
+  Normalization, deduplication, ranking, caching, storage, dashboard integration, and application
+  workflows remain out of scope.
+- Greenhouse, Lever, and Ashby now follow the provider implementation guide in
+  `specs/providers/PROVIDER_IMPLEMENTATION_GUIDE.md`.
 
 ## Next Phase
 
-Phase 3.5: Ashby Search Connector, after explicit user approval.
+Phase 3.6: Aggregation, Normalization, and Deduplication, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 3.5 begins.
+User approval is required before Phase 3.6 begins.

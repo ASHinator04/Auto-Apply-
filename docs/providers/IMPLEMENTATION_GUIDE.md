@@ -2,26 +2,15 @@
 
 ## Purpose
 
-Use this guide when adding the next job provider. Greenhouse and Lever are the reference
-implementations.
+Use `specs/providers/PROVIDER_IMPLEMENTATION_GUIDE.md` as the canonical provider implementation
+standard. This document is a short operational pointer for provider maintainers.
+
+Greenhouse, Lever, and Ashby are the current reference implementations.
 
 ## Required Structure
 
-Each provider folder should contain:
-
-- `configuration.ts`
-- `connector.ts`
-- `errors.ts`
-- `filters.ts`
-- `http-client.ts`
-- `logger.ts`
-- `models.ts`
-- `parser.ts`
-- `plugin.ts`
-- `registration.ts`
-- `request-builder.ts`
-- matching `*.test.ts` files
-- `index.ts`
+Each provider folder must contain configuration, connector, errors, filters, HTTP client, logger,
+models, parser, plugin, registration, request builder, matching mocked tests, and `index.ts`.
 
 ## Ownership Rules
 
@@ -46,6 +35,9 @@ provider semantics.
 4. Parse into a raw provider model.
 5. Apply supported local filters.
 6. Return raw results through the plugin bridge.
+
+See the canonical spec for naming, review checklist, documentation expectations, and cross-provider
+consistency rules.
 
 ## Testing Checklist
 

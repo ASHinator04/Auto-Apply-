@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 3.4 Lever search connector review is complete. Phase 3.5 has not started and
-requires explicit approval.
+Current status: Phase 3.5 Ashby search connector and provider standardization are complete. Phase
+3.6 has not started and requires explicit approval.
 
 Implemented so far:
 
@@ -15,13 +15,13 @@ Implemented so far:
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
-- Greenhouse and Lever raw search connectors in `packages/providers`.
+- Greenhouse, Lever, and Ashby raw search connectors in `packages/providers`.
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management and knowledge base CRUD.
-Search UI, Ashby, normalization, deduplication, ranking, automation, AI, and application workflows
-remain out of scope.
+Search UI, normalization, deduplication, ranking, automation, AI, and application workflows remain
+out of scope.
 
 ## Quick Start
 
