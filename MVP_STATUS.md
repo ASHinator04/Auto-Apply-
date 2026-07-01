@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 4.1 Search Experience foundation and review complete. Phase 4.2 Job Browser has not started.
+Phase 4.2 Job Browser complete. Phase 4.3 Job Details has not started.
 
 ## Implemented
 
@@ -12,6 +12,8 @@ Phase 4.1 Search Experience foundation and review complete. Phase 4.2 Job Browse
   certified unified search response.
 - Search Experience Foundation: resume selector, search form, loading/error/empty/no-results states,
   and web route integration with the unified search response.
+- Job Browser: client-side job cards, provider badges, filtering, sorting, pagination, individual
+  and visible-job selection, and clear selection controls.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 
@@ -22,7 +24,7 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Not Yet Implemented
 
-- Job Browser.
+- Job Details.
 - Search persistence and search history.
 - Approval workflow.
 - Application automation.
@@ -31,4 +33,4 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Next Required Approval
 
-Phase 4.2 Job Browser requires explicit approval before implementation begins.
+Phase 4.3 Job Details requires explicit approval before implementation begins.

@@ -15,7 +15,7 @@ describe("search experience states", () => {
     const html = renderToStaticMarkup(<SearchEmptyState />);
 
     expect(html).toContain("Start with keywords");
-    expect(html).toContain("Phase 4.2");
+    expect(html).toContain("Job Browser");
   });
 
   it("renders search form labels and resume selector", () => {
@@ -71,13 +71,13 @@ describe("search experience states", () => {
     expect(html).toContain("No results returned");
   });
 
-  it("renders response metrics without job cards", () => {
+  it("renders response metrics with browser handoff copy", () => {
     const html = renderToStaticMarkup(
       <SearchResponseSummary response={createResponse(2)} status="success" />,
     );
 
     expect(html).toContain("Jobs returned");
-    expect(html).toContain("Job cards");
+    expect(html).toContain("Job Browser");
   });
 });
 

@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { recordActivity } from "./activity-log-store";
+import { JobBrowser } from "./job-browser";
 import { listResumes } from "./resume-api";
 import type { Resume } from "./resume-types";
 import { executeSearch } from "./search-api";
@@ -100,10 +101,10 @@ export function SearchExperienceDashboard() {
   return (
     <section className="flex flex-col gap-6">
       <header className="flex flex-col gap-2 border-b border-slate-200 pb-5">
-        <p className="text-sm font-medium uppercase text-sky-700">Phase 4.1</p>
+        <p className="text-sm font-medium uppercase text-sky-700">Phase 4.2</p>
         <h1 className="text-3xl font-semibold">Search Experience</h1>
         <p className="max-w-3xl text-sm leading-6 text-slate-600">
-          Run the first user-facing search workflow against the certified unified search boundary.
+          Run a search against the certified unified boundary, then browse and select returned jobs.
         </p>
       </header>
 
@@ -144,10 +145,14 @@ export function SearchExperienceDashboard() {
 
       {status === "idle" ? <SearchEmptyState /> : null}
       <SearchResponseSummary response={response} status={status} />
+      {status === "success" && response && response.jobs.length > 0 ? (
+        <JobBrowser key={response.createdAt} response={response} />
+      ) : null}
 
       <footer className="flex items-center gap-2 text-xs text-slate-500">
         <Search aria-hidden="true" className="h-4 w-4" />
-        Phase 4.1 shows execution state only. Result cards and dashboard controls are not included.
+        Phase 4.2 supports browsing and selection only. Job details and applications are not
+        included.
       </footer>
     </section>
   );

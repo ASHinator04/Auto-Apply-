@@ -52,8 +52,7 @@ export function SearchResponseSummary({
         <Metric label="Validation issues" value={response.validation.errors.length.toString()} />
       </div>
       <p className="mt-4 text-sm leading-6 text-slate-600">
-        Unified response received. Job cards, sorting, pagination, and detailed review controls are
-        reserved for Phase 4.2.
+        Unified response received. Use the Job Browser below to review and select returned jobs.
       </p>
     </section>
   );

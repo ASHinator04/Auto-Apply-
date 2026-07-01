@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4.1 search experience foundation and review complete. Phase 4.2 has not started.
+Phase 4.2 Job Browser complete. Phase 4.3 has not started.
 
 ## Completed
 
@@ -70,6 +70,9 @@ Phase 4.1 search experience foundation and review complete. Phase 4.2 has not st
 - Phase 4.1 review hardening for malformed search payload validation, native keyword validation,
   focused error state accessibility, route validation coverage, browser workflow verification, and
   review documentation.
+- Phase 4.2 Job Browser with canonical job cards, provider badges, client-side filtering, sorting,
+  pagination, individual selection, visible-job selection, clear selection, tests, and
+  documentation.
 
 ## Current Stack
 
@@ -77,11 +80,11 @@ Implemented infrastructure: Next.js, TypeScript, Tailwind CSS, shadcn/ui configu
 Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadata storage, Docker
 Compose configuration, Markdown documentation, and GitHub Actions.
 
-Implemented product capability: resume metadata management, user knowledge base CRUD, and initial
-search execution experience only. Implemented search capability: provider-independent orchestration,
-provider plugin framework, Greenhouse raw search connector, Lever raw search connector, Ashby raw
-search connector, stateless search result processing pipeline, and certified end-to-end unified
-search execution only.
+Implemented product capability: resume metadata management, user knowledge base CRUD, initial search
+execution experience, and client-side job browsing/selection. Implemented search capability:
+provider-independent orchestration, provider plugin framework, Greenhouse raw search connector,
+Lever raw search connector, Ashby raw search connector, stateless search result processing pipeline,
+and certified end-to-end unified search execution only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -141,11 +144,14 @@ Recommended but not yet implemented as product capability: future Playwright aut
   `UnifiedSearchResponse`; the UI does not consume provider-specific raw models.
 - Phase 4.1 review keeps Search Engine contracts unchanged and confines robustness fixes to the web
   route and presentation layer.
+- Phase 4.2 Job Browser consumes only canonical jobs from `UnifiedSearchResponse`. Filtering,
+  sorting, pagination, and selection are local UI state and do not create sessions, details routes,
+  queues, storage, or application records.
 
 ## Next Phase
 
-Phase 4.2: Job Browser, after explicit user approval.
+Phase 4.3: Job Details, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 4.2 begins.
+User approval is required before Phase 4.3 begins.

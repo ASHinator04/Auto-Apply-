@@ -2,7 +2,7 @@
 
 Base URL for local backend development: `http://localhost:8000`.
 
-The Phase 4.1 web search route is served by the Next.js app at `http://localhost:3000`.
+The Phase 4 web search route is served by the Next.js app at `http://localhost:3000`.
 
 ## Search Experience
 
@@ -21,8 +21,8 @@ Executes the certified unified search boundary from the web app. The response is
 
 `query` is required. `locations` and `workModes` are optional. Malformed JSON, non-array filters,
 non-string locations, and unsupported work modes return `400` with a `detail` message. Phase 4.1
-does not expose provider raw models, search history, result cards, sorting, pagination, or
-persistence.
+does not expose provider raw models. Phase 4.2 Job Browser filtering, sorting, pagination, and
+selection are client-side operations over the returned unified response; the API shape is unchanged.
 
 ## Knowledge Base
 

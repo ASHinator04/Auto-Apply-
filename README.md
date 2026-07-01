@@ -6,12 +6,12 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.1 search experience foundation and review are complete. Phase 4.2 has not
-started and requires explicit approval.
+Current status: Phase 4.2 Job Browser is complete. Phase 4.3 Job Details has not started and
+requires explicit approval.
 
 Implemented so far:
 
-- Knowledge Base, Resume Management, and Search Experience foundation in `apps/web`.
+- Knowledge Base, Resume Management, Search Experience foundation, and Job Browser in `apps/web`.
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
@@ -21,8 +21,8 @@ Implemented so far:
 - Shared workspace package in `packages/shared`.
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
-Implemented product scope is intentionally limited to resume management, knowledge base CRUD, and
-the first search execution workflow. Job Browser controls, persistence, automation, AI, and
+Implemented product scope is intentionally limited to resume management, knowledge base CRUD, search
+execution, and client-side job browsing/selection. Job Details, persistence, automation, AI, and
 application workflows remain out of scope.
 
 ## Quick Start
@@ -76,8 +76,8 @@ docker compose up --build
 
 ## Repository Structure
 
-- `apps/web`: Next.js dashboard for knowledge base, resume management, and search experience
-  foundation.
+- `apps/web`: Next.js dashboard for knowledge base, resume management, search execution, and the Job
+  Browser.
 - `services/api`: FastAPI backend with health, version, resume, and knowledge endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/domain`: provider-independent search orchestration and plugin framework.
@@ -101,5 +101,6 @@ docker compose up --build
 - [Search Engine Release Audit](docs/PHASE_3_7_RELEASE_AUDIT.md)
 - [Phase 4.1 Report](docs/PHASE_4_1_REPORT.md)
 - [Phase 4.1 Review Report](docs/PHASE_4_1_REVIEW_REPORT.md)
+- [Phase 4.2 Report](docs/PHASE_4_2_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

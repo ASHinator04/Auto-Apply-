@@ -12,7 +12,7 @@ export function SearchEmptyState() {
           <h2 className="font-semibold text-slate-900">Start with keywords</h2>
           <p className="mt-1 max-w-2xl leading-6">
             Select a resume, enter search criteria, and run the certified search flow. Results are
-            summarized here; detailed job cards arrive in Phase 4.2.
+            summarized here before the Job Browser appears for returned jobs.
           </p>
         </div>
       </div>

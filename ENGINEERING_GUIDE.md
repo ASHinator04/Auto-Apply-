@@ -104,9 +104,14 @@ documented boundaries instead of hiding provider, ranking, storage, or UI behavi
 `SearchService`. Phase 3.7 certifies `SearchService.searchUnified` as the provider-to-canonical
 search boundary for future product surfaces.
 
-Phase 4.1 web search surfaces must consume only the unified search response. Keep search form state,
-request state, response state, and UI state separate in the frontend. Do not render provider raw
-models or add Job Browser behavior before the approved phase.
+Phase 4 web search surfaces must consume only the unified search response. Keep search form state,
+request state, response state, browser state, filter state, sort state, selection state, and UI
+state separate in the frontend. Do not render provider raw models or add Job Details behavior before
+the approved phase.
+
+Phase 4.2 Job Browser behavior is client-side only. It may filter, sort, paginate, and select
+canonical jobs from `UnifiedSearchResponse`, but it must not create search sessions, persist
+selection, expose job-detail routes, create application queues, or submit applications.
 
 Web routes that adapt UI payloads into search requests should validate malformed JSON, filter
 arrays, and enum values before calling `SearchService.searchUnified`. Keep this validation at the

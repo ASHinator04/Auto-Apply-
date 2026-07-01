@@ -345,3 +345,20 @@ slices.
 The Phase 4.1 review hardened the web boundary without changing Search Engine contracts. Malformed
 search payloads are rejected at the Next.js route boundary, keyword inputs use native browser
 validation, and error panels receive focus when client-side validation or execution fails.
+
+## Phase 4.2 Job Browser
+
+Phase 4.2 adds client-side browsing controls to the existing Search tab in `apps/web`:
+
+- Job Browser rendering for canonical jobs from `UnifiedSearchResponse`.
+- Compact job cards with title, company, provider badge, location, posted date, employment type, and
+  remote/work-mode summary.
+- Local browser utilities for provider, remote, employment type, and location filtering.
+- Local sorting by relevance, newest, company, and title.
+- Local pagination with a fixed page size for predictable state and simple tests.
+- Individual selection, visible-job selection, and clear selection controls.
+
+The Job Browser does not change `SearchService`, provider connectors, contracts, or the
+`/api/search` route. Selection remains local UI state; it does not create job details, search
+sessions, saved searches, application queues, application tracking, persistence, automation, or AI
+behavior.
