@@ -67,6 +67,10 @@ describe("lever response parser", () => {
     expect(() => parseLeverPostingsResponse({ postings: [] }, "acme")).toThrow(LeverConnectorError);
   });
 
+  it("accepts an empty Lever postings array", () => {
+    expect(parseLeverPostingsResponse([], "acme")).toEqual([]);
+  });
+
   it("stores a raw top-level payload snapshot", () => {
     const sourceJob = {
       id: "posting-1",

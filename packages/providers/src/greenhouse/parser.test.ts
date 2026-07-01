@@ -55,6 +55,10 @@ describe("greenhouse response parser", () => {
     );
   });
 
+  it("accepts an empty Greenhouse jobs array", () => {
+    expect(parseGreenhouseJobsResponse({ jobs: [] }, "acme")).toEqual([]);
+  });
+
   it("stores a raw top-level payload snapshot", () => {
     const sourceJob = {
       id: 123,

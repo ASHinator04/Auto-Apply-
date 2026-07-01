@@ -52,6 +52,8 @@ Phase 3.5 Ashby search connector and provider standardization complete. Phase 3.
 - Phase 3.5 Ashby provider plugin, public postings connector, HTTP client, request builder, response
   parser, raw job model, local filters, registration helpers, tests, provider implementation guide,
   and documentation.
+- Phase 3.5 provider ecosystem certification review with provider guide hardening, parser empty
+  response coverage, Greenhouse comment/error consistency cleanup, and certification report.
 
 ## Current Stack
 

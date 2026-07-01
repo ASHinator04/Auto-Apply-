@@ -12,6 +12,10 @@ Greenhouse, Lever, and Ashby are the current reference implementations.
 Each provider folder must contain configuration, connector, errors, filters, HTTP client, logger,
 models, parser, plugin, registration, request builder, matching mocked tests, and `index.ts`.
 
+Provider-specific code must stay in the provider folder. Shared code belongs in
+`packages/providers/src/shared` only when it is independent of provider payload shape, pagination,
+filtering, and search semantics.
+
 ## Ownership Rules
 
 Provider modules own provider-specific behavior only:

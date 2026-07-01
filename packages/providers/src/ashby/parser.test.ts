@@ -108,6 +108,10 @@ describe("ashby response parser", () => {
     expect(() => parseAshbyPostingsResponse({ postings: [] }, "acme")).toThrow(AshbyConnectorError);
   });
 
+  it("accepts an empty Ashby jobs array", () => {
+    expect(parseAshbyPostingsResponse({ jobs: [] }, "acme")).toEqual([]);
+  });
+
   it("stores a raw top-level payload snapshot", () => {
     const sourceJob = {
       title: "Software Engineer",

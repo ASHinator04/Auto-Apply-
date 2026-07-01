@@ -10,7 +10,7 @@ export class GreenhouseConnectorError extends Error {
   constructor(
     message: string,
     readonly kind: GreenhouseErrorKind,
-    readonly context: Record<string, string | number | boolean | undefined> = {},
+    readonly details: Record<string, unknown> = {},
   ) {
     super(message);
     this.name = "GreenhouseConnectorError";

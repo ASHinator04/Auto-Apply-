@@ -50,7 +50,7 @@ export function createGreenhouseProviderPlugin(
       async search(request) {
         const result = await connector.search(createGreenhouseSearchRequest(request.input));
 
-        // Phase 3.3 intentionally returns raw provider jobs. Phase 3.5 will replace this bridge
+        // Phase 3.3 intentionally returns raw provider jobs. Phase 3.6 will replace this bridge
         // with canonical Job mapping.
         return { jobs: result.jobs as unknown as Job[] };
       },
