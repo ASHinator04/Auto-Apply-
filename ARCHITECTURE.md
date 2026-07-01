@@ -294,3 +294,7 @@ The pipeline defines:
 
 The pipeline remains local and stateless. It does not persist results, expose dashboard workflows,
 use AI, perform semantic matching, cache results, or automate applications.
+
+The Phase 3.6 review certified this processing boundary after hardening exact duplicate grouping as
+connected components, validating provider metadata shape, and splitting provider-specific
+normalizers into focused modules.

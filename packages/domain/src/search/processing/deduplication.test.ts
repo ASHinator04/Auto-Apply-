@@ -43,6 +43,39 @@ describe("search result deduplication", () => {
       keptJobId: "lever:a",
     });
   });
+
+  it("merges transitive duplicate groups across different exact keys", () => {
+    const result = deduplicateJobs([
+      createJob({
+        id: "lever:url-match",
+        providerType: ProviderType.Lever,
+        providerId: "lever:acme",
+        providerJobId: "lever-1",
+        sourceUrl: "https://jobs.example.com/backend",
+        title: "Backend Engineer",
+      }),
+      createJob({
+        id: "ashby:identity-match",
+        providerType: ProviderType.Ashby,
+        providerId: "ashby:acme",
+        providerJobId: "ashby-1",
+        sourceUrl: "https://jobs.example.com/different",
+        title: "Backend Engineer",
+      }),
+      createJob({
+        id: "greenhouse:bridge",
+        providerType: ProviderType.Greenhouse,
+        providerId: "greenhouse:acme",
+        providerJobId: "greenhouse-1",
+        sourceUrl: "https://jobs.example.com/backend",
+        title: "Backend Engineer",
+      }),
+    ]);
+
+    expect(result.jobs).toHaveLength(1);
+    expect(result.jobs[0]?.id).toBe("greenhouse:bridge");
+    expect(result.removed).toHaveLength(2);
+  });
 });
 
 function createJob(overrides: Partial<CanonicalJob> = {}): CanonicalJob {

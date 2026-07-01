@@ -21,6 +21,15 @@ cross-provider job data only:
 
 Provider-specific raw models are consumed only by normalization and do not leave the stage.
 
+## Module Layout
+
+- `normalization.ts`: provider dispatch and structural raw-object guard.
+- `greenhouse-normalizer.ts`: Greenhouse field mapping only.
+- `lever-normalizer.ts`: Lever field mapping only.
+- `ashby-normalizer.ts`: Ashby field mapping only.
+- `normalization-helpers.ts`: shared structural readers, location helpers, work-mode mapping, and
+  canonical id creation.
+
 ## Provider Mapping
 
 | Provider   | Identifier                           | URL                          | Company                  | Location                                      | Notes                                                         |

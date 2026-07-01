@@ -10,6 +10,10 @@ Deduplication is exact and deterministic. It uses these keys:
 
 No fuzzy matching, semantic similarity, AI, embeddings, or machine learning are used.
 
+Duplicate groups are connected components across all exact keys. If one job matches by URL and
+another matches that same group by company/title/location, all related jobs are evaluated together
+as one duplicate group.
+
 ## Tie-Breaking
 
 When multiple jobs match the same duplicate group, the pipeline keeps one job using:

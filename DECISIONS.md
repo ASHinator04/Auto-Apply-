@@ -287,3 +287,15 @@ Rationale: Provider connectors intentionally return raw platform-specific jobs. 
 provider-independent pipeline keeps `SearchService`, the plugin framework, and concrete providers
 stable while creating a deterministic processing boundary for future API and dashboard phases.
 Persistence, caching, AI ranking, semantic retrieval, and dashboard integration remain out of scope.
+
+## ADR-0026: Exact Duplicate Groups as Connected Components
+
+Status: Accepted
+
+Decision: Phase 3.6 deduplication treats exact duplicate keys as connected components. If jobs are
+connected through provider id, canonical URL, or company/title/location keys, they are evaluated in
+one duplicate group before deterministic tie-breaking.
+
+Rationale: A job can match one provider by URL and another by identity fields. Connected exact-key
+groups prevent transitive duplicates from leaking into the unified response while preserving the
+no-fuzzy-matching and no-AI constraints.

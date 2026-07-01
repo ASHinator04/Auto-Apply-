@@ -57,6 +57,8 @@ Phase 3.6 search result processing pipeline complete. Phase 3.7 has not started.
 - Phase 3.6 stateless search result processing pipeline with aggregation, normalization, validation,
   deduplication, quality filtering, deterministic ranking, unified response metadata, tests, and
   documentation.
+- Phase 3.6 review certification with transitive duplicate-group hardening, metadata validation
+  hardening, provider-specific normalization file split, regression tests, and certification report.
 
 ## Current Stack
 
@@ -114,8 +116,9 @@ Recommended but not yet implemented as product capability: future Playwright aut
   `specs/providers/PROVIDER_IMPLEMENTATION_GUIDE.md`.
 - Phase 3.6 processing lives in `packages/domain/src/search/processing`, remains stateless, and does
   not import concrete provider modules.
-- Search result deduplication is exact and deterministic; AI, embeddings, fuzzy matching, caching,
-  persistence, and dashboard integration remain out of scope.
+- Search result deduplication is exact and deterministic, including transitive exact-key duplicate
+  groups. AI, embeddings, fuzzy matching, caching, persistence, and dashboard integration remain out
+  of scope.
 
 ## Next Phase
 

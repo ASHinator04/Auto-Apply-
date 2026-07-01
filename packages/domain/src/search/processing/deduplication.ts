@@ -54,25 +54,55 @@ function groupDuplicates(jobs: readonly CanonicalJob[]): DuplicateGroup[] {
 
   for (const job of jobs) {
     const keys = getDuplicateKeys(job);
-    const existingGroup = keys
+    const matchingGroups = keys
       .map((key) => groupByKey.get(key))
-      .find((group) => group !== undefined);
+      .filter((group): group is DuplicateGroup => group !== undefined);
+    const uniqueMatchingGroups = [...new Set(matchingGroups)];
 
-    if (existingGroup === undefined) {
+    if (uniqueMatchingGroups.length === 0) {
       const group = { key: keys[0] ?? job.id, jobs: [job] };
       groups.push(group);
       for (const key of keys) {
         groupByKey.set(key, group);
       }
     } else {
-      existingGroup.jobs.push(job);
-      for (const key of keys) {
-        groupByKey.set(key, existingGroup);
-      }
+      const targetGroup = uniqueMatchingGroups[0] as DuplicateGroup;
+      targetGroup.jobs.push(job);
+      mergeGroups(targetGroup, uniqueMatchingGroups.slice(1), groups, groupByKey);
+      reindexGroup(targetGroup, groupByKey);
     }
   }
 
   return groups;
+}
+
+function mergeGroups(
+  targetGroup: DuplicateGroup,
+  groupsToMerge: readonly DuplicateGroup[],
+  groups: DuplicateGroup[],
+  groupByKey: Map<string, DuplicateGroup>,
+): void {
+  for (const group of groupsToMerge) {
+    targetGroup.jobs.push(...group.jobs);
+    const groupIndex = groups.indexOf(group);
+    if (groupIndex !== -1) {
+      groups.splice(groupIndex, 1);
+    }
+
+    for (const [key, indexedGroup] of groupByKey) {
+      if (indexedGroup === group) {
+        groupByKey.set(key, targetGroup);
+      }
+    }
+  }
+}
+
+function reindexGroup(group: DuplicateGroup, groupByKey: Map<string, DuplicateGroup>): void {
+  for (const groupedJob of group.jobs) {
+    for (const key of getDuplicateKeys(groupedJob)) {
+      groupByKey.set(key, group);
+    }
+  }
 }
 
 function getDuplicateKeys(job: CanonicalJob): string[] {

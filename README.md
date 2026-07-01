@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 3.6 search result processing pipeline is complete. Phase 3.7 has not started
-and requires explicit approval.
+Current status: Phase 3.6 search result processing pipeline and review certification are complete.
+Phase 3.7 has not started and requires explicit approval.
 
 Implemented so far:
 
@@ -80,7 +80,7 @@ docker compose up --build
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/domain`: provider-independent search orchestration and plugin framework.
 - `docs/search`: search result processing pipeline documentation.
-- `packages/providers`: provider connector infrastructure and raw Greenhouse/Lever connectors.
+- `packages/providers`: provider connector infrastructure and raw Greenhouse/Lever/Ashby connectors.
 - `packages/shared`: small shared TypeScript package.
 - `docs`: supporting docs and phase reports.
 - `scripts`: local developer automation.

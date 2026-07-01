@@ -35,3 +35,11 @@ Provider raw results
 Future phases may call this pipeline from the search service or API layer. Persistence, dashboard
 views, saved searches, application queues, AI ranking, and semantic retrieval are not part of this
 pipeline.
+
+## Certification Guarantees
+
+- Stages are pure, stateless functions or a stateless orchestration class.
+- Provider raw objects do not leave normalization.
+- Invalid canonical jobs return structured validation errors.
+- Corrupt provider metadata is rejected before deduplication.
+- Future consumers should depend on `UnifiedSearchResponse`, not provider raw models.

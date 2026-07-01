@@ -18,6 +18,23 @@ describe("search result validation and quality filtering", () => {
     ]);
   });
 
+  it("rejects corrupt provider metadata shape", () => {
+    const result = validateCanonicalJobs([
+      createJob({
+        metadata: {
+          providerId: "greenhouse:acme",
+          providerType: ProviderType.Greenhouse,
+          providerName: "Acme",
+          sourceFields: undefined,
+        } as unknown as CanonicalJob["metadata"],
+      }),
+    ]);
+
+    expect(result.validJobs).toEqual([]);
+    expect(result.errors).toHaveLength(1);
+    expect(result.errors[0]?.code).toBe("corrupt_metadata");
+  });
+
   it("removes low-quality jobs conservatively", () => {
     const result = filterLowQualityJobs([
       createJob({

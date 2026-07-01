@@ -35,9 +35,13 @@ export function validateCanonicalJob(job: CanonicalJob): JobValidationError[] {
     errors.push(createError(job, "invalid_url", "Job source URL must be absolute and valid."));
   }
 
+  const metadata = job.metadata as unknown;
   if (
+    !isRecord(metadata) ||
     job.metadata.providerId !== job.providerId ||
-    job.metadata.providerType !== job.providerType
+    job.metadata.providerType !== job.providerType ||
+    typeof job.metadata.providerName !== "string" ||
+    !isRecord(job.metadata.sourceFields)
   ) {
     errors.push(createError(job, "corrupt_metadata", "Provider metadata does not match job."));
   }
@@ -65,4 +69,8 @@ function isValidUrl(value: string): boolean {
   } catch {
     return false;
   }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
