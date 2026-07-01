@@ -310,6 +310,8 @@ collects provider execution diagnostics, converts raw provider results into
 Provider plugins still live outside the domain package. `ProviderPluginRegistry` hands ready
 providers to `SearchProviderRegistry` and now also exposes matching search configuration input so
 provider priorities and plugin configuration remain synchronized during search execution.
+`SearchService` enforces provider-specific timeout configuration when present and falls back to the
+global search timeout otherwise.
 
 Certified end-to-end dependency direction:
 

@@ -76,6 +76,22 @@ describe("search result deduplication", () => {
     expect(result.jobs[0]?.id).toBe("greenhouse:bridge");
     expect(result.removed).toHaveLength(2);
   });
+
+  it("handles duplicate-heavy result sets deterministically", () => {
+    const jobs = Array.from({ length: 100 }, (_, index) =>
+      createJob({
+        id: `lever:duplicate-${index.toString()}`,
+        providerJobId: `posting-${index.toString()}`,
+        sourceUrl: `https://jobs.example.com/backend?ref=${index.toString()}`,
+      }),
+    );
+
+    const result = deduplicateJobs(jobs);
+
+    expect(result.jobs).toHaveLength(1);
+    expect(result.jobs[0]?.id).toBe("lever:duplicate-0");
+    expect(result.removed).toHaveLength(99);
+  });
 });
 
 function createJob(overrides: Partial<CanonicalJob> = {}): CanonicalJob {

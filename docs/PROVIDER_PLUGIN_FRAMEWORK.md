@@ -41,7 +41,8 @@ The registry manages these statuses:
 Disabled plugins cannot initialize. Ready plugins can be handed to `SearchProviderRegistry`. Use
 `createSearchProviderRegistry()` and `createSearchConfigurationInput()` together when building a
 `SearchService`; this preserves ready providers, provider priorities, and plugin configuration for
-unified search execution.
+unified search execution. `SearchService` enforces each ready provider's configured timeout when
+present.
 
 Lifecycle transition rules:
 

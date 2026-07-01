@@ -110,7 +110,8 @@ hand ready providers into `SearchProviderRegistry`. Provider plugins must not de
 Registry list methods return snapshots; provider plugin lifecycle state must be changed through the
 registry API only. Use `ProviderPluginRegistry.createSearchProviderRegistry()` together with
 `ProviderPluginRegistry.createSearchConfigurationInput()` when wiring ready plugins into
-`SearchService`.
+`SearchService`. Provider-specific timeouts from plugin configuration are enforced by the search
+service.
 
 Concrete provider connectors live in `@job-agent/providers`. Provider packages may own HTTP clients,
 request builders, response parsers, raw provider models, and provider-specific configuration. They

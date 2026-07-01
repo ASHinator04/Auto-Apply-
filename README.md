@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 3.7 search engine certification is complete. Phase 4 has not started and
-requires explicit approval.
+Current status: Phase 3.7 search engine certification and release audit are complete. Phase 4 has
+not started and requires explicit approval.
 
 Implemented so far:
 
@@ -95,5 +95,7 @@ docker compose up --build
 - [Engineering Guide](ENGINEERING_GUIDE.md)
 - [Project Plan](PROJECT_PLAN.md)
 - [Current State](STATE.md)
+- [MVP Status](MVP_STATUS.md)
+- [Search Engine Release Audit](docs/PHASE_3_7_RELEASE_AUDIT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

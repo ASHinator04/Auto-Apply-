@@ -108,11 +108,12 @@ export class SearchService implements SearchEngine {
     request: JobSearchInput,
   ): Promise<SearchProviderExecution> {
     const startedAt = this.durationClock();
+    const timeoutMs = this.getProviderTimeoutMs(provider.id);
 
     try {
       const response = await this.withTimeout(
-        provider.search({ input: request, timeoutMs: this.configuration.timeoutMs }),
-        this.configuration.timeoutMs,
+        provider.search({ input: request, timeoutMs }),
+        timeoutMs,
       );
 
       return {
@@ -168,6 +169,13 @@ export class SearchService implements SearchEngine {
       totalFound: execution.jobs.length,
       jobs: execution.jobs,
     };
+  }
+
+  private getProviderTimeoutMs(providerId: string): number {
+    return (
+      this.configuration.providerConfigurations[providerId]?.timeoutMs ??
+      this.configuration.timeoutMs
+    );
   }
 
   private async withTimeout<T>(operation: Promise<T>, timeoutMs: number): Promise<T> {

@@ -312,3 +312,14 @@ Rationale: Future product surfaces should consume canonical jobs, provider stati
 errors, deduplication decisions, and processing metadata without depending on provider raw models.
 Keeping this boundary in the domain package preserves provider isolation while giving Phase 4 a
 single stable response contract.
+
+## ADR-0028: Provider-Specific Timeout Enforcement
+
+Status: Accepted
+
+Decision: `SearchService` uses provider-specific timeout configuration when available and falls back
+to the global search timeout otherwise.
+
+Rationale: Provider plugins already carry validated timeout settings. Enforcing those settings in
+the search service keeps slow or unavailable providers isolated without requiring provider-specific
+branches in orchestration.

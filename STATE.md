@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3.7 search engine certification complete. Phase 4 has not started.
+Phase 3.7 search engine certification and release audit complete. Phase 4 has not started.
 
 ## Completed
 
@@ -62,6 +62,8 @@ Phase 3.7 search engine certification complete. Phase 4 has not started.
 - Phase 3.7 final search engine certification with `SearchService.searchUnified`, provider plugin
   configuration handoff, end-to-end provider/pipeline certification tests, failure certification,
   and final certification report.
+- Phase 3.7 release audit with provider-specific timeout enforcement, duplicate-heavy deduplication
+  coverage, MVP status documentation, and release audit report.
 
 ## Current Stack
 
@@ -126,6 +128,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
   dashboard and workflow phases should consume `UnifiedSearchResponse`, not provider raw models.
 - `ProviderPluginRegistry.createSearchConfigurationInput` preserves ready provider priorities and
   plugin configuration when handing providers to `SearchService`.
+- `SearchService` enforces provider-specific timeout settings when present and falls back to the
+  global search timeout otherwise.
 
 ## Next Phase
 

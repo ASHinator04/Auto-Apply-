@@ -141,6 +141,35 @@ describe("search service", () => {
     expect(execution.result.jobs).toEqual([]);
   });
 
+  it("uses provider-specific timeout configuration when available", async () => {
+    const observedTimeouts: number[] = [];
+    const registry = new SearchProviderRegistry([
+      createProvider("provider-a", async ({ timeoutMs }) => {
+        observedTimeouts.push(timeoutMs);
+        return { jobs: [] };
+      }),
+    ]);
+    const service = new SearchService({
+      registry,
+      configuration: {
+        timeoutMs: 30_000,
+        providerConfigurations: {
+          "provider-a": {
+            enabled: true,
+            priority: 1,
+            timeoutMs: 250,
+            featureFlags: {},
+          },
+        },
+      },
+    });
+
+    const execution = await service.searchWithDiagnostics(request);
+
+    expect(observedTimeouts).toEqual([250]);
+    expect(execution.providerExecutions[0]?.status).toBe("succeeded");
+  });
+
   it("implements the contract search interface by returning only the unified result", async () => {
     const registry = new SearchProviderRegistry([createProvider("provider-a")]);
     const service = new SearchService({ registry });

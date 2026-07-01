@@ -6,10 +6,11 @@ Job Agent is an AI-powered job application engine. The future product will inges
 software engineering jobs, normalize listings, support bulk approval, automate applications, reuse
 application answers, and track application status.
 
-Phase 3.7 search engine certification is complete, and the repository is pending explicit approval
-before Phase 4 begins. Future product functionality remains out of scope until that approval: do not
-implement browser automation, authentication, AI providers, semantic retrieval, embeddings, answer
-suggestions, storage, dashboard workflows, application workflows, or Phase 4 search dashboard work.
+Phase 3.7 search engine certification and release audit are complete, and the repository is pending
+explicit approval before Phase 4 begins. Future product functionality remains out of scope until
+that approval: do not implement browser automation, authentication, AI providers, semantic
+retrieval, embeddings, answer suggestions, storage, dashboard workflows, application workflows, or
+Phase 4 search dashboard work.
 
 ## Engineering Philosophy
 
@@ -26,6 +27,7 @@ conventions. Build small, verifiable modules with clear boundaries.
 - `PRD.md`: product requirements and non-goals.
 - `ROADMAP.md`: phased delivery plan.
 - `STATE.md`: current repository and phase status.
+- `MVP_STATUS.md`: current MVP implementation and release-readiness summary.
 - `DECISIONS.md`: architecture decision record log.
 - `TODO.md`: prioritized engineering backlog.
 - `docs/`: supporting documentation.
@@ -66,8 +68,9 @@ then stop. Never advance into the next phase without explicit user approval.
 ## Documentation Map
 
 Use `PRD.md` for product intent, `ARCHITECTURE.md` for system shape, `ENGINEERING_GUIDE.md` for
-engineering practice, `ROADMAP.md` for sequencing, `DECISIONS.md` for durable decisions, and
-`TODO.md` for actionable backlog. Avoid duplicating content; link or reference the owning document.
+engineering practice, `ROADMAP.md` for sequencing, `MVP_STATUS.md` for MVP readiness, `DECISIONS.md`
+for durable decisions, and `TODO.md` for actionable backlog. Avoid duplicating content; link or
+reference the owning document.
 
 ## Child AGENTS Hierarchy
 
