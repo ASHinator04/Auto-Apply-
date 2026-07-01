@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { recordActivity } from "./activity-log-store";
 import { listResumes } from "./resume-api";
@@ -29,10 +29,17 @@ export function SearchExperienceDashboard() {
   const [response, setResponse] = useState<SearchExperienceResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
+  const errorPanelRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     void refreshResumes();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      errorPanelRef.current?.focus();
+    }
+  }, [error]);
 
   async function refreshResumes() {
     try {
@@ -131,6 +138,7 @@ export function SearchExperienceDashboard() {
           onRetry={() => {
             void runSearch();
           }}
+          panelRef={errorPanelRef}
         />
       ) : null}
 

@@ -341,3 +341,7 @@ provider models, persist search history, create search sessions, add sorting or 
 perform browser automation. The foundation route currently runs the certified search pipeline
 without configured live provider plugins; provider-backed result browsing belongs to later Phase 4
 slices.
+
+The Phase 4.1 review hardened the web boundary without changing Search Engine contracts. Malformed
+search payloads are rejected at the Next.js route boundary, keyword inputs use native browser
+validation, and error panels receive focus when client-side validation or execution fails.

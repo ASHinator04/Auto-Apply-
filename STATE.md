@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4.1 search experience foundation complete. Phase 4.2 has not started.
+Phase 4.1 search experience foundation and review complete. Phase 4.2 has not started.
 
 ## Completed
 
@@ -67,6 +67,9 @@ Phase 4.1 search experience foundation complete. Phase 4.2 has not started.
 - Phase 4.1 search experience foundation with Search tab, resume selector, search criteria form,
   Next.js `/api/search` route, unified search response execution, loading/error/empty/no-results
   states, retry control, tests, and documentation.
+- Phase 4.1 review hardening for malformed search payload validation, native keyword validation,
+  focused error state accessibility, route validation coverage, browser workflow verification, and
+  review documentation.
 
 ## Current Stack
 
@@ -136,6 +139,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
   global search timeout otherwise.
 - Phase 4.1 web search execution uses only `SearchService.searchUnified` and
   `UnifiedSearchResponse`; the UI does not consume provider-specific raw models.
+- Phase 4.1 review keeps Search Engine contracts unchanged and confines robustness fixes to the web
+  route and presentation layer.
 
 ## Next Phase
 

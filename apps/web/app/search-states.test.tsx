@@ -43,6 +43,8 @@ describe("search experience states", () => {
     expect(html).toContain("Keywords");
     expect(html).toContain("Backend Resume");
     expect(html).toContain("Remote only");
+    expect(html).toContain("required");
+    expect(html).toContain('minLength="2"');
   });
 
   it("renders loading state", () => {
@@ -58,6 +60,7 @@ describe("search experience states", () => {
 
     expect(html).toContain("Search failed.");
     expect(html).toContain("Retry");
+    expect(html).toContain('tabindex="-1"');
   });
 
   it("renders no-results state for an empty unified response", () => {

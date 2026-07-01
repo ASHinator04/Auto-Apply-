@@ -1,4 +1,4 @@
-import type { JobSearchInput } from "@job-agent/contracts";
+import { WorkMode, type JobSearchInput } from "@job-agent/contracts";
 import { SearchService, type UnifiedSearchResponse } from "@job-agent/domain";
 
 import type { SearchApiPayload } from "./search-types";
@@ -26,8 +26,8 @@ export function toJobSearchInput(payload: SearchApiPayload): JobSearchInput {
   return {
     userId: LOCAL_USER_ID,
     query,
-    locations: cleanList(payload.locations),
-    workModes: payload.workModes,
+    locations: cleanStringList(payload.locations, "locations"),
+    workModes: cleanWorkModes(payload.workModes),
   };
 }
 
@@ -38,11 +38,41 @@ export class SearchExperienceValidationError extends Error {
   }
 }
 
-function cleanList(values: readonly string[] | undefined): string[] | undefined {
+function cleanStringList(values: unknown, fieldName: string): string[] | undefined {
   if (!values) {
     return undefined;
   }
 
-  const cleaned = values.map((value) => value.trim()).filter(Boolean);
+  if (!Array.isArray(values)) {
+    throw new SearchExperienceValidationError(`${fieldName} must be an array.`);
+  }
+
+  if (values.some((value) => typeof value !== "string")) {
+    throw new SearchExperienceValidationError(`${fieldName} must contain only strings.`);
+  }
+
+  const strings = values as string[];
+  const cleaned = strings.map((value) => value.trim()).filter(Boolean);
   return cleaned.length > 0 ? cleaned : undefined;
+}
+
+function cleanWorkModes(values: unknown): WorkMode[] | undefined {
+  if (!values) {
+    return undefined;
+  }
+
+  if (!Array.isArray(values)) {
+    throw new SearchExperienceValidationError("workModes must be an array.");
+  }
+
+  const allowedModes = new Set(Object.values(WorkMode));
+  const cleanedModes = values.filter((value): value is WorkMode => {
+    return typeof value === "string" && allowedModes.has(value as WorkMode);
+  });
+
+  if (cleanedModes.length !== values.length) {
+    throw new SearchExperienceValidationError("workModes contains an unsupported value.");
+  }
+
+  return cleanedModes.length > 0 ? cleanedModes : undefined;
 }

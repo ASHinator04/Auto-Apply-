@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const response = await executeSearchExperience(payload);
     return NextResponse.json(response);
   } catch (caught) {
-    if (caught instanceof SearchExperienceValidationError) {
+    if (caught instanceof SearchExperienceValidationError || caught instanceof SyntaxError) {
       return NextResponse.json({ detail: caught.message }, { status: 400 });
     }
 

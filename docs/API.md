@@ -19,8 +19,10 @@ Executes the certified unified search boundary from the web app. The response is
 }
 ```
 
-`query` is required. `locations` and `workModes` are optional. Phase 4.1 does not expose provider
-raw models, search history, result cards, sorting, pagination, or persistence.
+`query` is required. `locations` and `workModes` are optional. Malformed JSON, non-array filters,
+non-string locations, and unsupported work modes return `400` with a `detail` message. Phase 4.1
+does not expose provider raw models, search history, result cards, sorting, pagination, or
+persistence.
 
 ## Knowledge Base
 

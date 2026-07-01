@@ -1,12 +1,22 @@
 import { RotateCcw } from "lucide-react";
 import React from "react";
 
-export function SearchErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+export function SearchErrorState({
+  message,
+  onRetry,
+  panelRef,
+}: {
+  message: string;
+  onRetry: () => void;
+  panelRef?: React.RefObject<HTMLElement | null>;
+}) {
   return (
     <section
       aria-live="polite"
       className="flex flex-col gap-3 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:flex-row sm:items-center sm:justify-between"
       data-testid="search-error-state"
+      ref={panelRef}
+      tabIndex={-1}
     >
       <span>{message}</span>
       <button

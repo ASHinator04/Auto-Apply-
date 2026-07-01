@@ -33,8 +33,10 @@ export function SearchForm({
             className="border border-slate-300 px-3 py-2 text-sm"
             data-testid="search-keywords"
             maxLength={160}
+            minLength={2}
             onChange={(event) => onChange({ ...form, keywords: event.target.value })}
             placeholder="software engineer"
+            required
             type="search"
             value={form.keywords}
           />

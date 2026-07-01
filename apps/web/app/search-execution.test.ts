@@ -43,6 +43,28 @@ describe("search execution", () => {
     expect(executor.requests).toEqual([]);
   });
 
+  it("rejects unsupported filter payloads before calling the search engine", async () => {
+    const executor = createExecutor();
+
+    await expect(
+      executeSearchExperience(
+        { query: "software", locations: [42] } as unknown as Parameters<
+          typeof executeSearchExperience
+        >[0],
+        executor,
+      ),
+    ).rejects.toThrow("locations must contain only strings.");
+    await expect(
+      executeSearchExperience(
+        { query: "software", workModes: ["elsewhere"] } as unknown as Parameters<
+          typeof executeSearchExperience
+        >[0],
+        executor,
+      ),
+    ).rejects.toThrow("workModes contains an unsupported value.");
+    expect(executor.requests).toEqual([]);
+  });
+
   it("executes through the unified search boundary", async () => {
     const executor = createExecutor();
 

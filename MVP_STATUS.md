@@ -2,7 +2,8 @@
 
 ## Current Milestone
 
-Phase 4.1 Search Experience foundation complete. Phase 4.2 Search Results Dashboard has not started.
+Phase 4.1 Search Experience foundation and review complete. Phase 4.2 Search Results Dashboard has
+not started.
 
 ## Implemented
 
@@ -31,4 +32,4 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Next Required Approval
 
-Phase 4 Search Dashboard requires explicit approval before implementation begins.
+Phase 4.2 Search Results Dashboard requires explicit approval before implementation begins.

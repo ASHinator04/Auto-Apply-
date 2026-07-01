@@ -108,6 +108,10 @@ Phase 4.1 web search surfaces must consume only the unified search response. Kee
 request state, response state, and UI state separate in the frontend. Do not render provider raw
 models or add search result dashboard behavior before the approved phase.
 
+Web routes that adapt UI payloads into search requests should validate malformed JSON, filter
+arrays, and enum values before calling `SearchService.searchUnified`. Keep this validation at the
+web boundary rather than modifying Search Engine contracts for UI concerns.
+
 Provider plugin infrastructure also lives in `@job-agent/domain`. Future providers should implement
 the `ProviderPlugin` interface, expose metadata without executing, pass registry validation, and
 hand ready providers into `SearchProviderRegistry`. Provider plugins must not depend on each other.

@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.1 search experience foundation is complete. Phase 4.2 has not started and
-requires explicit approval.
+Current status: Phase 4.1 search experience foundation and review are complete. Phase 4.2 has not
+started and requires explicit approval.
 
 Implemented so far:
 
@@ -100,5 +100,6 @@ docker compose up --build
 - [MVP Status](MVP_STATUS.md)
 - [Search Engine Release Audit](docs/PHASE_3_7_RELEASE_AUDIT.md)
 - [Phase 4.1 Report](docs/PHASE_4_1_REPORT.md)
+- [Phase 4.1 Review Report](docs/PHASE_4_1_REVIEW_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)
