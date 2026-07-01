@@ -106,7 +106,7 @@ search boundary for future product surfaces.
 
 Phase 4.1 web search surfaces must consume only the unified search response. Keep search form state,
 request state, response state, and UI state separate in the frontend. Do not render provider raw
-models or add search result dashboard behavior before the approved phase.
+models or add Job Browser behavior before the approved phase.
 
 Web routes that adapt UI payloads into search requests should validate malformed JSON, filter
 arrays, and enum values before calling `SearchService.searchUnified`. Keep this validation at the

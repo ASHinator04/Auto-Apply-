@@ -51,12 +51,12 @@ consumes Greenhouse, Lever, Ashby, or other provider-specific raw models.
 
 - The Phase 4.1 route executes the certified search pipeline without configured live provider
   plugins, so local searches can validly return no results.
-- Job cards, details, sorting, pagination, sessions, saved searches, persistence, and dashboard
+- Job cards, details, sorting, pagination, sessions, saved searches, persistence, and Job Browser
   workflows are intentionally out of scope.
 
 ## Readiness Assessment
 
 READY FOR PHASE 4.2
 
-Phase 4.2 can build result dashboard UI on top of the existing Search tab and
-`UnifiedSearchResponse` without changing Search Engine internals.
+Phase 4.2 can build Job Browser UI on top of the existing Search tab and `UnifiedSearchResponse`
+without changing Search Engine internals.

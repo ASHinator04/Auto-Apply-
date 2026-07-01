@@ -10,7 +10,7 @@ Phase 4.1 search experience foundation and review are complete, and the reposito
 explicit approval before Phase 4.2 begins. Future product functionality remains out of scope until
 that approval: do not implement browser automation, authentication, AI providers, semantic
 retrieval, embeddings, answer suggestions, storage, search sessions, job details, dashboard result
-cards, application workflows, or Phase 4.2 search results dashboard work.
+cards, application workflows, or Phase 4.2 Job Browser work.
 
 ## Engineering Philosophy
 

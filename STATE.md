@@ -144,7 +144,7 @@ Recommended but not yet implemented as product capability: future Playwright aut
 
 ## Next Phase
 
-Phase 4.2: Search Results Dashboard, after explicit user approval.
+Phase 4.2: Job Browser, after explicit user approval.
 
 ## Blocked By
 

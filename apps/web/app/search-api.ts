@@ -2,6 +2,8 @@ import { recordActivity } from "./activity-log-store";
 import type { SearchExecutionRequest, SearchExperienceResponse } from "./search-types";
 import { toSearchApiPayload } from "./search-utils";
 
+const UNEXPECTED_SEARCH_RESPONSE = "Search returned an unexpected response.";
+
 export async function executeSearch(
   request: SearchExecutionRequest,
 ): Promise<SearchExperienceResponse> {
@@ -17,7 +19,16 @@ export async function executeSearch(
     headers: { "Content-Type": "application/json" },
     method: "POST",
   });
-  const payload = (await parseResponse(response)) as SearchExperienceResponse;
+  const payload = await parseResponse(response);
+  if (!isSearchExperienceResponse(payload)) {
+    recordActivity({
+      area: "search",
+      level: "error",
+      message: "Search request failed.",
+      detail: UNEXPECTED_SEARCH_RESPONSE,
+    });
+    throw new Error(UNEXPECTED_SEARCH_RESPONSE);
+  }
 
   recordActivity({
     area: "search",
@@ -66,4 +77,30 @@ function errorDetail(payload: unknown): string {
 
 function isDetailPayload(payload: unknown): payload is { detail: unknown } {
   return typeof payload === "object" && payload !== null && "detail" in payload;
+}
+
+function isSearchExperienceResponse(payload: unknown): payload is SearchExperienceResponse {
+  if (!isRecord(payload)) {
+    return false;
+  }
+
+  const validation = payload.validation;
+  const deduplication = payload.deduplication;
+
+  return (
+    isRecord(payload.request) &&
+    Array.isArray(payload.jobs) &&
+    Array.isArray(payload.rankedJobs) &&
+    Array.isArray(payload.providerStatistics) &&
+    isRecord(payload.processing) &&
+    isRecord(validation) &&
+    Array.isArray(validation.errors) &&
+    isRecord(deduplication) &&
+    Array.isArray(deduplication.removed) &&
+    typeof payload.createdAt === "string"
+  );
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }

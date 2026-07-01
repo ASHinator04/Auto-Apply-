@@ -22,8 +22,8 @@ Implemented so far:
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management, knowledge base CRUD, and
-the first search execution workflow. Search result dashboard controls, persistence, automation, AI,
-and application workflows remain out of scope.
+the first search execution workflow. Job Browser controls, persistence, automation, AI, and
+application workflows remain out of scope.
 
 ## Quick Start
 
