@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.2 Job Browser is complete. Phase 4.3 Job Details has not started and
-requires explicit approval.
+Current status: Phase 4.2 Job Browser and review are complete. Phase 4.3 Job Details has not started
+and requires explicit approval.
 
 Implemented so far:
 
@@ -102,5 +102,6 @@ docker compose up --build
 - [Phase 4.1 Report](docs/PHASE_4_1_REPORT.md)
 - [Phase 4.1 Review Report](docs/PHASE_4_1_REVIEW_REPORT.md)
 - [Phase 4.2 Report](docs/PHASE_4_2_REPORT.md)
+- [Phase 4.2 Review Report](docs/PHASE_4_2_REVIEW_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

@@ -50,6 +50,35 @@ describe("job browser utilities", () => {
     ]);
   });
 
+  it("uses stable job id tie-breakers for identical sort fields", () => {
+    const jobs = createJobs(2);
+    const first = jobs[0];
+    const second = jobs[1];
+    if (!first || !second) {
+      throw new Error("Expected at least two job fixtures.");
+    }
+    const tiedJobs: CanonicalJob[] = [
+      {
+        ...second,
+        id: "job-b",
+        title: "Engineer",
+        companyName: "Same Company",
+        postedAt: "2026-06-01T00:00:00.000Z",
+      },
+      {
+        ...first,
+        id: "job-a",
+        title: "Engineer",
+        companyName: "Same Company",
+        postedAt: "2026-06-01T00:00:00.000Z",
+      },
+    ];
+
+    expect(sortJobs(tiedJobs, "newest").map((job) => job.id)).toEqual(["job-a", "job-b"]);
+    expect(sortJobs(tiedJobs, "company").map((job) => job.id)).toEqual(["job-a", "job-b"]);
+    expect(sortJobs(tiedJobs, "title").map((job) => job.id)).toEqual(["job-a", "job-b"]);
+  });
+
   it("paginates and clamps browser pages", () => {
     const response = createResponse(12);
     const view = createJobBrowserView(response, {
@@ -68,6 +97,14 @@ describe("job browser utilities", () => {
       pageSize: 10,
     });
     expect(clampedView.page).toBe(2);
+
+    const safePageSizeView = createJobBrowserView(response, {
+      ...defaultJobBrowserState(),
+      page: 1,
+      pageSize: 0,
+    });
+    expect(safePageSizeView.pageCount).toBe(2);
+    expect(safePageSizeView.pageJobs).toHaveLength(10);
   });
 
   it("selects, deselects, and bulk selects visible jobs predictably", () => {

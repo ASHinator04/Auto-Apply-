@@ -35,15 +35,16 @@ export function createJobBrowserView(
   const relevanceOrder = new Map(
     response.rankedJobs.map(({ job, score }, index) => [job.id, { index, score }]),
   );
+  const pageSize = effectivePageSize(state.pageSize);
   const filteredJobs = filterJobs(sourceJobs, state.filters);
   const sortedJobs = sortJobs(filteredJobs, state.sort, relevanceOrder);
-  const pageCount = Math.max(1, Math.ceil(sortedJobs.length / state.pageSize));
+  const pageCount = Math.max(1, Math.ceil(sortedJobs.length / pageSize));
   const page = clampPage(state.page, pageCount);
-  const start = (page - 1) * state.pageSize;
+  const start = (page - 1) * pageSize;
 
   return {
     jobs: sortedJobs,
-    pageJobs: sortedJobs.slice(start, start + state.pageSize),
+    pageJobs: sortedJobs.slice(start, start + pageSize),
     providerOptions: providerOptions(sourceJobs),
     employmentTypeOptions: employmentTypeOptions(sourceJobs),
     totalCount: sourceJobs.length,
@@ -95,13 +96,17 @@ export function sortJobs(
 
     if (sort === "company") {
       return (
-        compareText(left.companyName, right.companyName) || compareText(left.title, right.title)
+        compareText(left.companyName, right.companyName) ||
+        compareText(left.title, right.title) ||
+        compareById(left, right)
       );
     }
 
     if (sort === "title") {
       return (
-        compareText(left.title, right.title) || compareText(left.companyName, right.companyName)
+        compareText(left.title, right.title) ||
+        compareText(left.companyName, right.companyName) ||
+        compareById(left, right)
       );
     }
 
@@ -180,7 +185,11 @@ function compareRelevance(
   const leftRank = relevanceOrder.get(left.id);
   const rightRank = relevanceOrder.get(right.id);
   if (leftRank && rightRank) {
-    return rightRank.score - leftRank.score || leftRank.index - rightRank.index;
+    return (
+      rightRank.score - leftRank.score ||
+      leftRank.index - rightRank.index ||
+      compareById(left, right)
+    );
   }
   if (leftRank) {
     return -1;
@@ -192,7 +201,12 @@ function compareRelevance(
 }
 
 function compareNewest(left: BrowserJob, right: BrowserJob): number {
-  return timestamp(right) - timestamp(left) || compareText(left.companyName, right.companyName);
+  return (
+    timestamp(right) - timestamp(left) ||
+    compareText(left.companyName, right.companyName) ||
+    compareText(left.title, right.title) ||
+    compareById(left, right)
+  );
 }
 
 function compareText(left: string, right: string): number {
@@ -201,6 +215,10 @@ function compareText(left: string, right: string): number {
 
 function timestamp(job: BrowserJob): number {
   return Date.parse(job.postedAt ?? job.discoveredAt) || 0;
+}
+
+function compareById(left: BrowserJob, right: BrowserJob): number {
+  return compareText(left.id, right.id);
 }
 
 function isRemoteJob(job: BrowserJob): boolean {
@@ -231,4 +249,8 @@ function clampPage(page: number, pageCount: number): number {
     return pageCount;
   }
   return page;
+}
+
+function effectivePageSize(pageSize: number): number {
+  return Number.isFinite(pageSize) && pageSize > 0 ? pageSize : JOB_BROWSER_PAGE_SIZE;
 }

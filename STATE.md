@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4.2 Job Browser complete. Phase 4.3 has not started.
+Phase 4.2 Job Browser and review complete. Phase 4.3 has not started.
 
 ## Completed
 
@@ -73,6 +73,8 @@ Phase 4.2 Job Browser complete. Phase 4.3 has not started.
 - Phase 4.2 Job Browser with canonical job cards, provider badges, client-side filtering, sorting,
   pagination, individual selection, visible-job selection, clear selection, tests, and
   documentation.
+- Phase 4.2 review hardening for deterministic sort tie-breakers, invalid pagination state,
+  response-change selection reset, added regression tests, and review documentation.
 
 ## Current Stack
 
@@ -147,6 +149,8 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - Phase 4.2 Job Browser consumes only canonical jobs from `UnifiedSearchResponse`. Filtering,
   sorting, pagination, and selection are local UI state and do not create sessions, details routes,
   queues, storage, or application records.
+- Phase 4.2 review keeps Search Engine and Search API boundaries unchanged. Sorting uses stable
+  deterministic tie-breakers, and selection resets on new unified responses.
 
 ## Next Phase
 

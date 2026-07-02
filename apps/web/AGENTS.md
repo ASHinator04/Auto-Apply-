@@ -4,8 +4,8 @@
 
 `apps/web/` contains the Next.js frontend. It currently owns the Phase 1 resume management
 dashboard, Phase 2 user knowledge base dashboard, Phase 4.1 search experience foundation, and Phase
-4.2 Job Browser. It will later expand into job details, sessions, approvals, applications, and
-settings.
+4.2 Job Browser with review hardening. It will later expand into job details, sessions, approvals,
+applications, and settings.
 
 ## Responsibilities
 

@@ -2,7 +2,7 @@
 
 import { CheckSquare, X } from "lucide-react";
 import React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { JobBrowserControls, JobBrowserPagination } from "./job-browser-controls";
 import { JobCard } from "./job-card";
@@ -26,6 +26,10 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
   const visibleSelectedCount = selectedVisibleCount(selectedIds, view.pageJobs);
   const allVisibleSelected =
     view.pageJobs.length > 0 && visibleSelectedCount === view.pageJobs.length;
+
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [response]);
 
   return (
     <section className="grid gap-4 border border-slate-200 bg-white p-5" data-testid="job-browser">

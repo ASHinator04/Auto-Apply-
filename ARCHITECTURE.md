@@ -362,3 +362,8 @@ The Job Browser does not change `SearchService`, provider connectors, contracts,
 `/api/search` route. Selection remains local UI state; it does not create job details, search
 sessions, saved searches, application queues, application tracking, persistence, automation, or AI
 behavior.
+
+The Phase 4.2 review kept those boundaries unchanged and hardened only the browser layer. Sorting
+now has stable ID tie-breakers for identical relevance, date, company, or title fields; invalid
+local pagination state falls back to the default page size; and selection is explicitly reset when a
+new unified response is rendered.

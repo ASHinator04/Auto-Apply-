@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 4.2 Job Browser complete. Phase 4.3 Job Details has not started.
+Phase 4.2 Job Browser and review complete. Phase 4.3 Job Details has not started.
 
 ## Implemented
 
@@ -13,7 +13,8 @@ Phase 4.2 Job Browser complete. Phase 4.3 Job Details has not started.
 - Search Experience Foundation: resume selector, search form, loading/error/empty/no-results states,
   and web route integration with the unified search response.
 - Job Browser: client-side job cards, provider badges, filtering, sorting, pagination, individual
-  and visible-job selection, and clear selection controls.
+  and visible-job selection, clear selection controls, deterministic sort tie-breaks, and
+  response-change selection reset.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 
