@@ -22,6 +22,7 @@ export function JobDetails({
   onToggleSelection: () => void;
 }) {
   const sourceFields = sourceFieldEntries(job);
+  const description = job.description?.trim();
 
   return (
     <section className="grid gap-5 border border-slate-200 bg-white p-5" data-testid="job-details">
@@ -87,8 +88,8 @@ export function JobDetails({
 
       <section className="grid gap-2">
         <h3 className="text-sm font-semibold uppercase text-slate-500">Full Description</h3>
-        {job.description ? (
-          <p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">{job.description}</p>
+        {description ? (
+          <p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">{description}</p>
         ) : (
           <p className="text-sm text-slate-500">No description was provided by the source.</p>
         )}
@@ -140,10 +141,29 @@ function DetailItem({ label, value }: { label: string; value: string }) {
 }
 
 function sourceFieldEntries(job: BrowserJob): [string, string | number | boolean][] {
-  return Object.entries(job.metadata.sourceFields)
-    .filter(([, value]) => value !== null && value !== undefined && value !== "")
-    .filter(([, value]) => ["string", "number", "boolean"].includes(typeof value))
-    .slice(0, 12) as [string, string | number | boolean][];
+  const entries: [string, string | number | boolean][] = [];
+
+  for (const [key, value] of Object.entries(job.metadata.sourceFields)) {
+    if (value === null || value === undefined) {
+      continue;
+    }
+
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (trimmed) {
+        entries.push([key, trimmed]);
+      }
+      continue;
+    }
+
+    if (typeof value === "number" || typeof value === "boolean") {
+      entries.push([key, value]);
+    }
+  }
+
+  return entries
+    .sort(([left], [right]) => left.localeCompare(right, undefined, { sensitivity: "base" }))
+    .slice(0, 12);
 }
 
 function formatLabel(value: string): string {

@@ -48,5 +48,15 @@ export function formatCompensation(job: BrowserJob): string {
     const interval = compensation.interval ? ` / ${compensation.interval}` : "";
     return `${currency}${compensation.minAmount} - ${compensation.maxAmount}${interval}`;
   }
+  if (compensation.minAmount !== undefined) {
+    const currency = compensation.currency ? `${compensation.currency} ` : "";
+    const interval = compensation.interval ? ` / ${compensation.interval}` : "";
+    return `${currency}${compensation.minAmount}+${interval}`;
+  }
+  if (compensation.maxAmount !== undefined) {
+    const currency = compensation.currency ? `${compensation.currency} ` : "";
+    const interval = compensation.interval ? ` / ${compensation.interval}` : "";
+    return `Up to ${currency}${compensation.maxAmount}${interval}`;
+  }
   return "Not listed";
 }

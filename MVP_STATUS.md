@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 4.3 Job Details & Evaluation complete. Phase 4.4 Search Sessions has not started.
+Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 Search Sessions has not started.
 
 ## Implemented
 
@@ -17,7 +17,8 @@ Phase 4.3 Job Details & Evaluation complete. Phase 4.4 Search Sessions has not s
   response-change selection reset.
 - Job Details: read-only canonical job inspection, full description display, provider metadata,
   external source URL, missing-field fallbacks, browser return navigation, and synchronized
-  selection toggle.
+  selection toggle, with review hardening for blank descriptions, partial compensation, and stable
+  source-field rendering.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 

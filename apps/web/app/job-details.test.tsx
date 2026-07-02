@@ -49,13 +49,17 @@ describe("job details", () => {
   it("renders selected state and missing optional fields clearly", () => {
     const job = {
       ...createResponse(1).jobs[0]!,
-      description: undefined,
+      description: "   ",
       employmentType: undefined,
       postedAt: undefined,
-      compensation: undefined,
+      compensation: { currency: "USD", minAmount: 120000, interval: "year" },
       metadata: {
         ...createResponse(1).jobs[0]!.metadata,
-        sourceFields: {},
+        sourceFields: {
+          emptyString: "   ",
+          zeta: "Last",
+          alpha: "First",
+        },
       },
     };
 
@@ -70,7 +74,10 @@ describe("job details", () => {
 
     expect(html).toContain("Deselect job");
     expect(html).toContain("No description was provided by the source.");
-    expect(html).toContain("Not listed");
+    expect(html).toContain("USD 120000+ / year");
+    expect(html).toContain("Alpha");
+    expect(html).toContain("First");
+    expect(html).not.toContain("EmptyString");
   });
 
   it("renders a missing-job fallback", () => {

@@ -6,8 +6,8 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.3 Job Details & Evaluation is complete. Phase 4.4 Search Sessions has not
-started and requires explicit approval.
+Current status: Phase 4.3 Job Details & Evaluation and review are complete. Phase 4.4 Search
+Sessions has not started and requires explicit approval.
 
 Implemented so far:
 
@@ -23,8 +23,8 @@ Implemented so far:
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management, knowledge base CRUD, search
-execution, client-side job browsing/selection, and read-only job inspection. Search sessions,
-persistence, automation, AI, and application workflows remain out of scope.
+execution, client-side job browsing/selection, and reviewed read-only job inspection. Search
+sessions, persistence, automation, AI, and application workflows remain out of scope.
 
 ## Quick Start
 
@@ -105,5 +105,6 @@ docker compose up --build
 - [Phase 4.2 Report](docs/PHASE_4_2_REPORT.md)
 - [Phase 4.2 Review Report](docs/PHASE_4_2_REVIEW_REPORT.md)
 - [Phase 4.3 Report](docs/PHASE_4_3_REPORT.md)
+- [Phase 4.3 Review Report](docs/PHASE_4_3_REVIEW_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

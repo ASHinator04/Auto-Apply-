@@ -384,3 +384,8 @@ Phase 4.3 adds a read-only Job Details view inside the existing Search tab in `a
 The Job Details view does not change `SearchService`, provider connectors, contracts, or
 `/api/search`. It does not fetch additional provider data, create search sessions, persist jobs,
 create application queues, perform AI evaluation, or submit applications.
+
+The Phase 4.3 review kept those boundaries unchanged and hardened only details rendering:
+whitespace-only descriptions now use the explicit fallback, partial compensation values are shown
+when available, and primitive source fields are trimmed, sorted, capped, and displayed
+deterministically.

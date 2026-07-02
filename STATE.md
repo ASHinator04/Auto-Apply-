@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4.3 Job Details & Evaluation complete. Phase 4.4 has not started.
+Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 has not started.
 
 ## Completed
 
@@ -78,6 +78,8 @@ Phase 4.3 Job Details & Evaluation complete. Phase 4.4 has not started.
 - Phase 4.3 read-only Job Details view with canonical job metadata, description, compensation,
   provider information, external source URL, selection synchronization, browser return navigation,
   missing-job handling, tests, and documentation.
+- Phase 4.3 review hardening for whitespace-only descriptions, partial compensation display,
+  deterministic source-field rendering, tests, and review documentation.
 
 ## Current Stack
 
@@ -86,10 +88,10 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management, user knowledge base CRUD, initial search
-execution experience, client-side job browsing/selection, and read-only job inspection. Implemented
-search capability: provider-independent orchestration, provider plugin framework, Greenhouse raw
-search connector, Lever raw search connector, Ashby raw search connector, stateless search result
-processing pipeline, and certified end-to-end unified search execution only.
+execution experience, client-side job browsing/selection, and reviewed read-only job inspection.
+Implemented search capability: provider-independent orchestration, provider plugin framework,
+Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, stateless
+search result processing pipeline, and certified end-to-end unified search execution only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -156,6 +158,9 @@ Recommended but not yet implemented as product capability: future Playwright aut
   deterministic tie-breakers, and selection resets on new unified responses.
 - Phase 4.3 Job Details reuses the current `UnifiedSearchResponse` in memory. It does not fetch
   provider data, create routes, create sessions, persist jobs, or create application records.
+- Phase 4.3 review keeps Search Engine and Search API boundaries unchanged. Details rendering trims
+  blank descriptions, displays partial compensation values, and shows deterministic primitive source
+  fields only.
 
 ## Next Phase
 
