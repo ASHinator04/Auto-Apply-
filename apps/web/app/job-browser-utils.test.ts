@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import {
   createJobBrowserView,
   defaultJobBrowserState,
+  findJobById,
   filterJobs,
   selectVisibleJobs,
   sortJobs,
@@ -114,6 +115,14 @@ describe("job browser utilities", () => {
     expect([...selected]).toEqual(["job-1"]);
     expect([...toggleSelection(selected, "job-1")]).toEqual([]);
     expect([...selectVisibleJobs(selected, jobs.slice(0, 2))].sort()).toEqual(["job-1", "job-2"]);
+  });
+
+  it("finds jobs by id and handles invalid ids", () => {
+    const jobs = createJobs();
+
+    expect(findJobById(jobs, "job-2")?.title).toBe("Backend Engineer");
+    expect(findJobById(jobs, "missing")).toBeNull();
+    expect(findJobById(jobs, null)).toBeNull();
   });
 });
 

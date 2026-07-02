@@ -6,12 +6,13 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.2 Job Browser and review are complete. Phase 4.3 Job Details has not started
-and requires explicit approval.
+Current status: Phase 4.3 Job Details & Evaluation is complete. Phase 4.4 Search Sessions has not
+started and requires explicit approval.
 
 Implemented so far:
 
-- Knowledge Base, Resume Management, Search Experience foundation, and Job Browser in `apps/web`.
+- Knowledge Base, Resume Management, Search Experience foundation, Job Browser, and Job Details in
+  `apps/web`.
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
@@ -22,8 +23,8 @@ Implemented so far:
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management, knowledge base CRUD, search
-execution, and client-side job browsing/selection. Job Details, persistence, automation, AI, and
-application workflows remain out of scope.
+execution, client-side job browsing/selection, and read-only job inspection. Search sessions,
+persistence, automation, AI, and application workflows remain out of scope.
 
 ## Quick Start
 
@@ -103,5 +104,6 @@ docker compose up --build
 - [Phase 4.1 Review Report](docs/PHASE_4_1_REVIEW_REPORT.md)
 - [Phase 4.2 Report](docs/PHASE_4_2_REPORT.md)
 - [Phase 4.2 Review Report](docs/PHASE_4_2_REVIEW_REPORT.md)
+- [Phase 4.3 Report](docs/PHASE_4_3_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 4.2 Job Browser and review complete. Phase 4.3 Job Details has not started.
+Phase 4.3 Job Details & Evaluation complete. Phase 4.4 Search Sessions has not started.
 
 ## Implemented
 
@@ -15,6 +15,9 @@ Phase 4.2 Job Browser and review complete. Phase 4.3 Job Details has not started
 - Job Browser: client-side job cards, provider badges, filtering, sorting, pagination, individual
   and visible-job selection, clear selection controls, deterministic sort tie-breaks, and
   response-change selection reset.
+- Job Details: read-only canonical job inspection, full description display, provider metadata,
+  external source URL, missing-field fallbacks, browser return navigation, and synchronized
+  selection toggle.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 
@@ -25,8 +28,8 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Not Yet Implemented
 
-- Job Details.
 - Search persistence and search history.
+- Search sessions.
 - Approval workflow.
 - Application automation.
 - Application tracking.
@@ -34,4 +37,4 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Next Required Approval
 
-Phase 4.3 Job Details requires explicit approval before implementation begins.
+Phase 4.4 Search Sessions requires explicit approval before implementation begins.

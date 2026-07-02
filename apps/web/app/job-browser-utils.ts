@@ -144,6 +144,13 @@ export function selectedVisibleCount(
   return visibleJobs.filter((job) => selectedIds.has(job.id)).length;
 }
 
+export function findJobById(jobs: readonly BrowserJob[], jobId: string | null): BrowserJob | null {
+  if (!jobId) {
+    return null;
+  }
+  return jobs.find((job) => job.id === jobId) ?? null;
+}
+
 function providerOptions(jobs: readonly BrowserJob[]): JobFilterOption[] {
   return uniqueOptions(
     jobs.map((job) => ({

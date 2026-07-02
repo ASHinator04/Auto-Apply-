@@ -367,3 +367,20 @@ The Phase 4.2 review kept those boundaries unchanged and hardened only the brows
 now has stable ID tie-breakers for identical relevance, date, company, or title fields; invalid
 local pagination state falls back to the default page size; and selection is explicitly reset when a
 new unified response is rendered.
+
+## Phase 4.3 Job Details & Evaluation
+
+Phase 4.3 adds a read-only Job Details view inside the existing Search tab in `apps/web`:
+
+- Details open from a Job Browser card and return to the browser without unmounting browser state.
+- The view displays canonical job fields from `UnifiedSearchResponse`: title, company, locations,
+  work mode, employment type, provider, posted/discovered dates, department, team, compensation,
+  description, source board, provider job ID, source fields, and external source URL when available.
+- Selection uses the same job ID set owned by `JobBrowser`, so selecting or deselecting in details
+  stays synchronized with the browser.
+- Missing optional fields render explicit fallback text, and invalid selected job IDs show a
+  missing-job fallback with a browser return control.
+
+The Job Details view does not change `SearchService`, provider connectors, contracts, or
+`/api/search`. It does not fetch additional provider data, create search sessions, persist jobs,
+create application queues, perform AI evaluation, or submit applications.

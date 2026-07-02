@@ -23,6 +23,7 @@ Executes the certified unified search boundary from the web app. The response is
 non-string locations, and unsupported work modes return `400` with a `detail` message. Phase 4.1
 does not expose provider raw models. Phase 4.2 Job Browser filtering, sorting, pagination, and
 selection are client-side operations over the returned unified response; the API shape is unchanged.
+Phase 4.3 Job Details also reuses the returned unified response in memory and adds no API route.
 
 ## Knowledge Base
 

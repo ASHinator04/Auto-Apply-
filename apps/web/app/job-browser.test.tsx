@@ -19,6 +19,7 @@ describe("job browser", () => {
     expect(html).toContain("Greenhouse");
     expect(html).toContain("Select visible");
     expect(html).toContain("Clear selection");
+    expect(html).toContain("View details");
   });
 
   it("renders pagination controls for larger responses", () => {

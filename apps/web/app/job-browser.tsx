@@ -6,11 +6,13 @@ import { useEffect, useMemo, useState } from "react";
 
 import { JobBrowserControls, JobBrowserPagination } from "./job-browser-controls";
 import { JobCard } from "./job-card";
+import { JobDetails, JobDetailsMissing } from "./job-details";
 import type { JobBrowserResponse, JobBrowserState } from "./job-browser-types";
 import {
   clearSelection,
   createJobBrowserView,
   defaultJobBrowserState,
+  findJobById,
   selectVisibleJobs,
   selectedVisibleCount,
   toggleSelection,
@@ -19,9 +21,14 @@ import {
 export function JobBrowser({ response }: { response: JobBrowserResponse }) {
   const [browserState, setBrowserState] = useState<JobBrowserState>(() => defaultJobBrowserState());
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
+  const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
   const view = useMemo(
     () => createJobBrowserView(response, browserState),
     [browserState, response],
+  );
+  const selectedJob = useMemo(
+    () => findJobById(view.jobs, selectedJobId),
+    [selectedJobId, view.jobs],
   );
   const visibleSelectedCount = selectedVisibleCount(selectedIds, view.pageJobs);
   const allVisibleSelected =
@@ -29,7 +36,23 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
 
   useEffect(() => {
     setSelectedIds(new Set());
+    setSelectedJobId(null);
   }, [response]);
+
+  if (selectedJobId) {
+    return selectedJob ? (
+      <JobDetails
+        isSelected={selectedIds.has(selectedJob.id)}
+        job={selectedJob}
+        onBack={() => setSelectedJobId(null)}
+        onToggleSelection={() =>
+          setSelectedIds((current) => toggleSelection(current, selectedJob.id))
+        }
+      />
+    ) : (
+      <JobDetailsMissing onBack={() => setSelectedJobId(null)} />
+    );
+  }
 
   return (
     <section className="grid gap-4 border border-slate-200 bg-white p-5" data-testid="job-browser">
@@ -91,6 +114,7 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
               isSelected={selectedIds.has(job.id)}
               job={job}
               key={job.id}
+              onOpen={() => setSelectedJobId(job.id)}
               onToggle={() => setSelectedIds((current) => toggleSelection(current, job.id))}
             />
           ))}

@@ -1,15 +1,18 @@
 import { BriefcaseBusiness, CheckSquare, Square } from "lucide-react";
 import React from "react";
 
+import { formatDate, formatLocations, formatOptional, formatWorkMode } from "./job-format";
 import type { BrowserJob } from "./job-browser-types";
 
 export function JobCard({
   isSelected,
   job,
+  onOpen,
   onToggle,
 }: {
   isSelected: boolean;
   job: BrowserJob;
+  onOpen: () => void;
   onToggle: () => void;
 }) {
   return (
@@ -41,6 +44,14 @@ export function JobCard({
             <SummaryItem label="Type" value={formatOptional(job.employmentType)} />
             <SummaryItem label="Work Mode" value={formatWorkMode(job)} />
           </dl>
+          <button
+            className="mt-4 inline-flex h-9 items-center border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700"
+            data-testid="job-card-open"
+            onClick={onOpen}
+            type="button"
+          >
+            View details
+          </button>
         </div>
       </div>
     </article>
@@ -63,37 +74,4 @@ function SummaryItem({ label, value }: { label: string; value: string }) {
       <dd className="mt-0.5 break-words text-slate-700">{value}</dd>
     </div>
   );
-}
-
-function formatLocations(job: BrowserJob): string {
-  const locations = job.locations.map((location) => location.label).filter(Boolean);
-  return locations.length > 0 ? locations.join(", ") : "Not listed";
-}
-
-function formatDate(value: string | undefined): string {
-  if (!value) {
-    return "Not listed";
-  }
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return "Not listed";
-  }
-  return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(date);
-}
-
-function formatOptional(value: string | undefined): string {
-  return value ? value : "Not listed";
-}
-
-function formatWorkMode(job: BrowserJob): string {
-  if (job.workMode === "remote" || job.locations.some((location) => location.remote)) {
-    return "Remote";
-  }
-  if (job.workMode === "hybrid") {
-    return "Hybrid";
-  }
-  if (job.workMode === "onsite") {
-    return "On-site";
-  }
-  return "Not listed";
 }
