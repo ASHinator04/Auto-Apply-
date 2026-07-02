@@ -105,9 +105,8 @@ documented boundaries instead of hiding provider, ranking, storage, or UI behavi
 search boundary for future product surfaces.
 
 Phase 4 web search surfaces must consume only the unified search response. Keep search form state,
-request state, response state, browser state, filter state, sort state, selection state, details
-state, and UI state separate in the frontend. Do not render provider raw models or add Search
-Sessions behavior before the approved phase.
+active search session state, browser state, filter state, sort state, details state, and UI state
+separate in the frontend. Do not render provider raw models.
 
 Phase 4.2 Job Browser behavior is client-side only. It may filter, sort, paginate, and select
 canonical jobs from `UnifiedSearchResponse`, but it must not create search sessions, persist
@@ -117,6 +116,12 @@ Phase 4.3 Job Details behavior is read-only and client-side only. It may display
 fields from the current `UnifiedSearchResponse` and toggle existing selection state, but it must not
 fetch provider data, persist jobs, create search sessions, create application queues, analyze jobs
 with AI, or submit applications.
+
+Phase 4.4 Search Sessions are in-memory frontend state. Each successful search creates one active
+session that owns the submitted request, unified response, timestamp, status, metadata, and selected
+job IDs. Browser filtering, sorting, pagination, and details-panel state remain UI state. Do not add
+session persistence, sharing, deletion, saved searches, application queues, tracking, or automation
+before an approved phase.
 
 Web routes that adapt UI payloads into search requests should validate malformed JSON, filter
 arrays, and enum values before calling `SearchService.searchUnified`. Keep this validation at the

@@ -12,11 +12,15 @@ import { SearchEmptyState } from "./search-empty-state";
 import { SearchErrorState } from "./search-error-state";
 import { SearchForm } from "./search-form";
 import { SearchResponseSummary } from "./search-response-summary";
-import type {
-  SearchExperienceResponse,
-  SearchFormState,
-  SearchRequestStatus,
-} from "./search-types";
+import {
+  createAndActivateSearchSession,
+  createEmptySearchSessionState,
+  deactivateActiveSearchSession,
+  getActiveSearchSession,
+  updateSearchSession,
+  type SearchSession,
+} from "./search-session";
+import type { SearchFormState, SearchRequestStatus } from "./search-types";
 import {
   createSearchExecutionRequest,
   emptySearchFormState,
@@ -27,10 +31,11 @@ export function SearchExperienceDashboard() {
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [form, setForm] = useState<SearchFormState>(emptySearchFormState());
   const [status, setStatus] = useState<SearchRequestStatus>("idle");
-  const [response, setResponse] = useState<SearchExperienceResponse | null>(null);
+  const [sessionState, setSessionState] = useState(() => createEmptySearchSessionState());
   const [error, setError] = useState<string | null>(null);
   const [resumeLoadError, setResumeLoadError] = useState<string | null>(null);
   const errorPanelRef = useRef<HTMLElement | null>(null);
+  const activeSession = useMemo(() => getActiveSearchSession(sessionState), [sessionState]);
 
   useEffect(() => {
     void refreshResumes();
@@ -80,17 +85,26 @@ export function SearchExperienceDashboard() {
 
     setStatus("loading");
     setError(null);
-    setResponse(null);
+    setSessionState((current) => deactivateActiveSearchSession(current));
 
     try {
       const request = createSearchExecutionRequest(form);
       const nextResponse = await executeSearch(request);
-      setResponse(nextResponse);
+      setSessionState((current) =>
+        createAndActivateSearchSession(current, {
+          request,
+          response: nextResponse,
+        }),
+      );
       setStatus("success");
     } catch (caught) {
       setError(errorMessage(caught));
       setStatus("error");
     }
+  }
+
+  function handleSessionChange(session: SearchSession) {
+    setSessionState((current) => updateSearchSession(current, session));
   }
 
   const selectedResume = useMemo(
@@ -101,10 +115,11 @@ export function SearchExperienceDashboard() {
   return (
     <section className="flex flex-col gap-6">
       <header className="flex flex-col gap-2 border-b border-slate-200 pb-5">
-        <p className="text-sm font-medium uppercase text-sky-700">Phase 4.2</p>
+        <p className="text-sm font-medium uppercase text-sky-700">Phase 4.4</p>
         <h1 className="text-3xl font-semibold">Search Experience</h1>
         <p className="max-w-3xl text-sm leading-6 text-slate-600">
-          Run a search against the certified unified boundary, then browse and select returned jobs.
+          Run a search against the certified unified boundary, then browse and select jobs from the
+          active search session.
         </p>
       </header>
 
@@ -144,15 +159,19 @@ export function SearchExperienceDashboard() {
       ) : null}
 
       {status === "idle" ? <SearchEmptyState /> : null}
-      <SearchResponseSummary response={response} status={status} />
-      {status === "success" && response && response.jobs.length > 0 ? (
-        <JobBrowser key={response.createdAt} response={response} />
+      <SearchResponseSummary response={activeSession?.response ?? null} status={status} />
+      {status === "success" && activeSession && activeSession.response.jobs.length > 0 ? (
+        <JobBrowser
+          key={activeSession.id}
+          onSessionChange={handleSessionChange}
+          session={activeSession}
+        />
       ) : null}
 
       <footer className="flex items-center gap-2 text-xs text-slate-500">
         <Search aria-hidden="true" className="h-4 w-4" />
-        Phase 4.2 supports browsing and selection only. Job details and applications are not
-        included.
+        Phase 4.4 creates in-memory search sessions. Application queues, tracking, and automation
+        are not included.
       </footer>
     </section>
   );

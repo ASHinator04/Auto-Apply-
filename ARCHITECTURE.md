@@ -389,3 +389,22 @@ The Phase 4.3 review kept those boundaries unchanged and hardened only details r
 whitespace-only descriptions now use the explicit fallback, partial compensation values are shown
 when available, and primitive source fields are trimmed, sorted, capped, and displayed
 deterministically.
+
+## Phase 4.4 Search Sessions
+
+Phase 4.4 introduces lightweight in-memory Search Sessions in `apps/web`:
+
+- Every successful search creates one active `SearchSession`.
+- A session owns the submitted search request, search timestamp, status, unified search response,
+  selected job IDs, and summary metadata.
+- `SearchExperienceDashboard` owns session state and passes the active session into `JobBrowser`.
+- `JobBrowser` and Job Details read results and selection from the active session.
+- Browser filters, sorting, pagination, and details-panel navigation remain local UI state.
+
+The session model is implemented in `apps/web/app/search-session.ts`. Selection updates replace the
+small selected ID list while reusing the same unified response reference, avoiding unnecessary
+copies of large result collections.
+
+Phase 4.4 does not change `SearchService`, provider connectors, contracts, or `/api/search`. It does
+not add persistence, search history UI, saved searches, application queues, tracking, automation,
+analytics, sharing, deletion, or multi-user behavior.

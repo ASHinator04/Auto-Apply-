@@ -323,3 +323,17 @@ to the global search timeout otherwise.
 Rationale: Provider plugins already carry validated timeout settings. Enforcing those settings in
 the search service keeps slow or unavailable providers isolated without requiring provider-specific
 branches in orchestration.
+
+## ADR-0029: In-Memory Search Sessions as Phase 4.4 State Boundary
+
+Status: Accepted
+
+Decision: Phase 4.4 Search Sessions are implemented as in-memory frontend state in `apps/web`. Every
+successful search creates one active session that owns the submitted search request, unified search
+response, timestamp, status, summary metadata, and selected job IDs. Browser filters, sorting,
+pagination, and details-panel navigation remain separate UI state.
+
+Rationale: Future application queue and tracking phases need a stable session ID and a single owner
+for selected jobs, but persistence, saved searches, sharing, deletion, and history UI are outside
+Phase 4.4. Keeping sessions in memory avoids premature storage design while removing duplicated
+selection state from the browser.

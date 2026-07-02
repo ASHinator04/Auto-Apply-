@@ -6,13 +6,13 @@ application answers, and track application status.
 
 ## Current Status
 
-Current status: Phase 4.3 Job Details & Evaluation and review are complete. Phase 4.4 Search
-Sessions has not started and requires explicit approval.
+Current status: Phase 4.4 Search Sessions is complete. Phase 4.5 Search Experience Certification has
+not started and requires explicit approval.
 
 Implemented so far:
 
-- Knowledge Base, Resume Management, Search Experience foundation, Job Browser, and Job Details in
-  `apps/web`.
+- Knowledge Base, Resume Management, Search Experience foundation, Job Browser, Job Details, and
+  in-memory Search Sessions in `apps/web`.
 - FastAPI knowledge base and resume management APIs in `services/api`.
 - Canonical TypeScript contracts in `contracts/domain`.
 - Provider-independent search orchestration and plugin framework in `packages/domain`.
@@ -23,8 +23,9 @@ Implemented so far:
 - Linting, formatting, type checking, tests, build, Docker Compose config, CI, and VS Code support.
 
 Implemented product scope is intentionally limited to resume management, knowledge base CRUD, search
-execution, client-side job browsing/selection, and reviewed read-only job inspection. Search
-sessions, persistence, automation, AI, and application workflows remain out of scope.
+execution, in-memory search sessions, client-side job browsing/selection, and reviewed read-only job
+inspection. Persistence, automation, AI, application queues, tracking, and application workflows
+remain out of scope.
 
 ## Quick Start
 
@@ -77,8 +78,8 @@ docker compose up --build
 
 ## Repository Structure
 
-- `apps/web`: Next.js dashboard for knowledge base, resume management, search execution, and the Job
-  Browser.
+- `apps/web`: Next.js dashboard for knowledge base, resume management, search execution, Search
+  Sessions, Job Browser, and Job Details.
 - `services/api`: FastAPI backend with health, version, resume, and knowledge endpoints.
 - `contracts/domain`: canonical `@job-agent/contracts` package.
 - `packages/domain`: provider-independent search orchestration and plugin framework.
@@ -106,5 +107,6 @@ docker compose up --build
 - [Phase 4.2 Review Report](docs/PHASE_4_2_REVIEW_REPORT.md)
 - [Phase 4.3 Report](docs/PHASE_4_3_REPORT.md)
 - [Phase 4.3 Review Report](docs/PHASE_4_3_REVIEW_REPORT.md)
+- [Phase 4.4 Report](docs/PHASE_4_4_REPORT.md)
 - [Local QA Reset and Seed](playbooks/local-qa-reset-seed.md)
 - [Browser Smoke Test](playbooks/browser-smoke-test.md)

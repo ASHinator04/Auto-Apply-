@@ -2,7 +2,7 @@
 
 ## Current Milestone
 
-Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 Search Sessions has not started.
+Phase 4.4 Search Sessions complete. Phase 4.5 Search Experience Certification has not started.
 
 ## Implemented
 
@@ -19,6 +19,8 @@ Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 Search Session
   external source URL, missing-field fallbacks, browser return navigation, and synchronized
   selection toggle, with review hardening for blank descriptions, partial compensation, and stable
   source-field rendering.
+- Search Sessions: in-memory session model, session lifecycle helpers, active session retrieval,
+  session-owned search request/results/selection, and Job Browser/Job Details integration.
 - Developer Platform: monorepo tooling, linting, type checking, tests, builds, Docker configuration,
   CI configuration, and documentation hierarchy.
 
@@ -30,7 +32,7 @@ Provider raw models are internal to provider connectors and processing.
 ## Not Yet Implemented
 
 - Search persistence and search history.
-- Search sessions.
+- Search session persistence, sharing, deletion, and history UI.
 - Approval workflow.
 - Application automation.
 - Application tracking.
@@ -38,4 +40,4 @@ Provider raw models are internal to provider connectors and processing.
 
 ## Next Required Approval
 
-Phase 4.4 Search Sessions requires explicit approval before implementation begins.
+Phase 4.5 Search Experience Certification requires explicit approval before implementation begins.

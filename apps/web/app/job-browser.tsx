@@ -7,21 +7,32 @@ import { useEffect, useMemo, useState } from "react";
 import { JobBrowserControls, JobBrowserPagination } from "./job-browser-controls";
 import { JobCard } from "./job-card";
 import { JobDetails, JobDetailsMissing } from "./job-details";
-import type { JobBrowserResponse, JobBrowserState } from "./job-browser-types";
+import type { JobBrowserState } from "./job-browser-types";
 import {
-  clearSelection,
   createJobBrowserView,
   defaultJobBrowserState,
   findJobById,
-  selectVisibleJobs,
   selectedVisibleCount,
-  toggleSelection,
 } from "./job-browser-utils";
+import {
+  clearSessionSelection,
+  isJobSelectedInSession,
+  selectJobsInSession,
+  toggleSessionJobSelection,
+  type SearchSession,
+} from "./search-session";
 
-export function JobBrowser({ response }: { response: JobBrowserResponse }) {
+export function JobBrowser({
+  onSessionChange,
+  session,
+}: {
+  onSessionChange: (session: SearchSession) => void;
+  session: SearchSession;
+}) {
   const [browserState, setBrowserState] = useState<JobBrowserState>(() => defaultJobBrowserState());
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
+  const response = session.response;
+  const selectedIds = useMemo(() => new Set(session.selectedJobIds), [session.selectedJobIds]);
   const view = useMemo(
     () => createJobBrowserView(response, browserState),
     [browserState, response],
@@ -35,18 +46,17 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
     view.pageJobs.length > 0 && visibleSelectedCount === view.pageJobs.length;
 
   useEffect(() => {
-    setSelectedIds(new Set());
     setSelectedJobId(null);
-  }, [response]);
+  }, [session.id]);
 
   if (selectedJobId) {
     return selectedJob ? (
       <JobDetails
-        isSelected={selectedIds.has(selectedJob.id)}
+        isSelected={isJobSelectedInSession(session, selectedJob.id)}
         job={selectedJob}
         onBack={() => setSelectedJobId(null)}
         onToggleSelection={() =>
-          setSelectedIds((current) => toggleSelection(current, selectedJob.id))
+          onSessionChange(toggleSessionJobSelection(session, selectedJob.id))
         }
       />
     ) : (
@@ -58,10 +68,13 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
     <section className="grid gap-4 border border-slate-200 bg-white p-5" data-testid="job-browser">
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
         <div>
-          <p className="text-xs font-semibold uppercase text-sky-700">Phase 4.2</p>
+          <p className="text-xs font-semibold uppercase text-sky-700">Phase 4.4</p>
           <h2 className="mt-1 text-2xl font-semibold text-slate-950">Job Browser</h2>
           <p className="mt-1 text-sm leading-6 text-slate-600">
-            Browse, filter, sort, and select jobs from the unified search response.
+            Browse, filter, sort, and select jobs from the active search session.
+          </p>
+          <p className="mt-2 text-xs text-slate-500" data-testid="search-session-summary">
+            Session {session.id} | {session.status} | {session.metadata.selectedCount} selected
           </p>
         </div>
         <div className="flex flex-wrap gap-2 text-sm">
@@ -69,7 +82,14 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
             className="inline-flex h-9 items-center gap-2 border border-slate-300 px-3 font-medium text-slate-700 disabled:cursor-not-allowed disabled:text-slate-400"
             data-testid="job-browser-select-visible"
             disabled={view.pageJobs.length === 0 || allVisibleSelected}
-            onClick={() => setSelectedIds((current) => selectVisibleJobs(current, view.pageJobs))}
+            onClick={() =>
+              onSessionChange(
+                selectJobsInSession(
+                  session,
+                  view.pageJobs.map((job) => job.id),
+                ),
+              )
+            }
             type="button"
           >
             <CheckSquare aria-hidden="true" className="h-4 w-4" />
@@ -79,7 +99,7 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
             className="inline-flex h-9 items-center gap-2 border border-slate-300 px-3 font-medium text-slate-700 disabled:cursor-not-allowed disabled:text-slate-400"
             data-testid="job-browser-clear-selection"
             disabled={selectedIds.size === 0}
-            onClick={() => setSelectedIds(clearSelection())}
+            onClick={() => onSessionChange(clearSessionSelection(session))}
             type="button"
           >
             <X aria-hidden="true" className="h-4 w-4" />
@@ -111,11 +131,11 @@ export function JobBrowser({ response }: { response: JobBrowserResponse }) {
         <div className="grid gap-3">
           {view.pageJobs.map((job) => (
             <JobCard
-              isSelected={selectedIds.has(job.id)}
+              isSelected={isJobSelectedInSession(session, job.id)}
               job={job}
               key={job.id}
               onOpen={() => setSelectedJobId(job.id)}
-              onToggle={() => setSelectedIds((current) => toggleSelection(current, job.id))}
+              onToggle={() => onSessionChange(toggleSessionJobSelection(session, job.id))}
             />
           ))}
         </div>

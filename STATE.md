@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 has not started.
+Phase 4.4 Search Sessions complete. Phase 4.5 has not started.
 
 ## Completed
 
@@ -80,6 +80,9 @@ Phase 4.3 Job Details & Evaluation and review complete. Phase 4.4 has not starte
   missing-job handling, tests, and documentation.
 - Phase 4.3 review hardening for whitespace-only descriptions, partial compensation display,
   deterministic source-field rendering, tests, and review documentation.
+- Phase 4.4 in-memory Search Sessions with session model, lifecycle helpers, active session
+  retrieval, session-owned request/results/selection, Job Browser integration, Job Details
+  integration, tests, and documentation.
 
 ## Current Stack
 
@@ -88,10 +91,11 @@ Ruff, Pyright, Vitest, pytest, ESLint, Prettier, pnpm workspaces, SQLite metadat
 Compose configuration, Markdown documentation, and GitHub Actions.
 
 Implemented product capability: resume metadata management, user knowledge base CRUD, initial search
-execution experience, client-side job browsing/selection, and reviewed read-only job inspection.
-Implemented search capability: provider-independent orchestration, provider plugin framework,
-Greenhouse raw search connector, Lever raw search connector, Ashby raw search connector, stateless
-search result processing pipeline, and certified end-to-end unified search execution only.
+execution experience, in-memory search sessions, client-side job browsing/selection, and reviewed
+read-only job inspection. Implemented search capability: provider-independent orchestration,
+provider plugin framework, Greenhouse raw search connector, Lever raw search connector, Ashby raw
+search connector, stateless search result processing pipeline, and certified end-to-end unified
+search execution only.
 
 Recommended but not yet implemented as product capability: future Playwright automation.
 
@@ -161,11 +165,14 @@ Recommended but not yet implemented as product capability: future Playwright aut
 - Phase 4.3 review keeps Search Engine and Search API boundaries unchanged. Details rendering trims
   blank descriptions, displays partial compensation values, and shows deterministic primitive source
   fields only.
+- Phase 4.4 Search Sessions are in-memory frontend state. Each successful search creates one active
+  session that owns the search request, unified response, timestamp, status, metadata, and selected
+  job IDs. Browser filters, sorting, pagination, and details-panel state remain separate UI state.
 
 ## Next Phase
 
-Phase 4.4: Search Sessions, after explicit user approval.
+Phase 4.5: Search Experience Certification, after explicit user approval.
 
 ## Blocked By
 
-User approval is required before Phase 4.4 begins.
+User approval is required before Phase 4.5 begins.
